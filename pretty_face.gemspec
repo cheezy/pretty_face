@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = PrettyFace::VERSION
   s.authors     = ["Jeffrey S. Morgan"]
   s.email       = ["jeff.morgan@leandog.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://github.com/cheezy/pretty_face"
+  s.summary     = %q{HTML Report for Cucumber and RSpec}
+  s.description = %q{HTML report for cucumber and rspec that allows user to modify erb in order to customize.}
 
   s.rubyforge_project = "pretty_face"
 
