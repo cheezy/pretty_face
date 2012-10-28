@@ -1,6 +1,6 @@
 require 'fileutils'
 
 After do
-  dir = File.join(File.dirname(__FILE__), '../..', 'tmp')
-  FileUtils.rm_rf dir
+  file = File.join(File.dirname(__FILE__), '..', '..', 'fixture.html')
+  FileUtils.rm file
 end
