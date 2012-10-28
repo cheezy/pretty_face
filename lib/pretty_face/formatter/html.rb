@@ -7,15 +7,16 @@ module PrettyFace
       include Cucumber::Formatter::Io
 
       def initialize(step_mother, path_or_io, options)
-        puts "path or io is #{path_or_io}"
         @io = ensure_io(path_or_io, 'html')
-        puts "io is #{@io}"
         @step_mother = step_mother
         @options = options
       end
 
-      def before_features(features)
-        puts "feature is #{features}"
+      def after_features(features)
+        filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
+        text = File.new(filename).read
+        renderer = ERB.new(text, nil, "%")
+        @io.puts renderer.result
       end
     end
   end
