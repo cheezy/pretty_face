@@ -1,2 +1,2 @@
 default: --color --no-source
-fixture: --color --no-source --require fixtures/step_definitions --out pretty_report_spike
+fixture: --color --no-source --require fixtures/step_definitions --format PrettyFace::Formatter::Html --out fixture.html
