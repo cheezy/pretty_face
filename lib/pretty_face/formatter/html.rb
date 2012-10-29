@@ -1,4 +1,5 @@
 require 'erb'
+require 'fileutils'
 require 'cucumber/formatter/io'
 
 module PrettyFace
@@ -7,6 +8,7 @@ module PrettyFace
       include Cucumber::Formatter::Io
 
       def initialize(step_mother, path_or_io, options)
+        @path = path_or_io
         @io = ensure_io(path_or_io, 'html')
         @step_mother = step_mother
         @options = options
