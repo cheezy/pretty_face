@@ -11,5 +11,5 @@ Feature: pretty girl spike
     And the file "fixture.html" should contain "<html"
     And the file "fixture.html" should contain "<head>"
     And the file "fixture.html" should contain "<body>"
-    And the file "fixture.html" should contain "<title>Pretty Face Report</title>"
+    And the file "fixture.html" should contain "<title>Test Results</title>"
 
