@@ -22,3 +22,8 @@ Feature: pretty girl spike
     Then the file "fixture.html" should contain "<img src="
     And the file "fixture.html" should contain "images/face.jpg"
 
+  Scenario: It should copy the logo image to the images directory
+    Then the following files should exist:
+    | images/face.jpg |
+
+

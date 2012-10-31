@@ -15,10 +15,20 @@ module PrettyFace
       end
 
       def after_features(features)
+        images_directory
         filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
         text = File.new(filename).read
         renderer = ERB.new(text, nil, "%")
         @io.puts renderer.result
+      end
+
+      private
+
+      def images_directory
+        dirname = File.dirname(@path)
+        path = "#{dirname}/images"
+        FileUtils.mkdir path unless File.directory? path
+        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
       end
     end
   end
