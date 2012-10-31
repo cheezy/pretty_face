@@ -30,9 +30,46 @@
   </head>
 
   <body>
+
     <div style="float: left;">
       <img src="images/face.jpg" width="200" />
     </div>
-    
+
+	<div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
+        <h2 style="color: white; margin-left: 5px; margin-top: 5px;">Summary</h2>
+
+        <table cellspacing="0" cellpadding="7" class="summary">
+            <tr>
+                <th></th>
+                <th>Executed</th>
+                <th>Average<br /> Duration</th>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
+                <td><%= @scenario_count %></td>
+                <td><%= @scenario_average %></td>
+            </tr>
+            <tr>
+                <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
+                <td><%= @step_count %></td>
+                <td><%= @step_average %></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--
+  	<% @features.each do |feature| %>
+	  	<%= feature.title %>
+	  	<% feature.feature_elements.each do |feature_element| %>
+		  	<%= feature_element.file_colon_line %>
+		  	<%= feature_element.name %>
+		  	<%= feature_element.status %>
+		  	<% feature_element.raw_steps.each do |step| %>
+			  	<%= step.file_colon_line %>
+			  	<%= step.name %>
+		  	<% end %>
+	  	<% end %>
+  	<% end %>
+    -->
   </body>
 </html>
