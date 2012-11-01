@@ -14,6 +14,12 @@ Feature: pretty girl spike
     And the file "fixture.html" should contain "<body>"
     And the file "fixture.html" should contain "<title>Test Results</title>"
 
+  Scenario: Generating some basic stats from the erb
+    Then the file "fixture.html" should contain "<th>Executed<"
+    And the file "fixture.html" should contain "<th>Average<br"
+    And the file "fixture.html" should contain "<td>1<"
+    And the file "fixture.html" should contain "<td>0."
+
   Scenario: Including the styles for the main page
     Then the file "fixture.html" should contain "<style type='text/css'>"
     And the file "fixture.html" should contain "</style>"
