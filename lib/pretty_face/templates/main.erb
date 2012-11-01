@@ -35,9 +35,9 @@
     </div>
     <div style="float: left;">
       <h2 style="color: #282828; margin-top: 12px; margin-bottom: 15px;">Test Results</h2>
-      <span>Tests started: Wed <%= @tests_started %></span>
+      <span>Tests started: <%= start_time %></span>
       <br />
-      <span>Duration: <%= @duration %></span>
+      <span>Duration: <%= total_duration %></span>
     </div>
 
 	<div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
@@ -63,17 +63,19 @@
     </div>
 
     <!--
-  	<% features.each do |feature| %>
-	  	<%= feature.title %>
-	  	<% feature.feature_elements.each do |feature_element| %>
-		  	<%= feature_element.file_colon_line %>
-		  	<%= feature_element.name %>
-		  	<%= feature_element.status %>
-		  	<% feature_element.raw_steps.each do |step| %>
-			  	<%= step.file_colon_line %>
-			  	<%= step.name %>
-		  	<% end %>
-	  	<% end %>
+  	<% if not features.nil? 
+        features.each do |feature| %>
+    	  	<%= feature.title %>
+    	  	<% feature.feature_elements.each do |feature_element| %>
+    		  	<%= feature_element.file_colon_line %>
+    		  	<%= feature_element.name %>
+    		  	<%= feature_element.status %>
+    		  	<% feature_element.raw_steps.each do |step| %>
+    			  	<%= step.file_colon_line %>
+    			  	<%= step.name %>
+    		  	<% end %>
+    	  	<% end %>
+        <% end %>
   	<% end %>
     -->
   </body>

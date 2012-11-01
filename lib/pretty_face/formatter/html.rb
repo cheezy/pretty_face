@@ -42,8 +42,15 @@ module PrettyFace
       def after_features(features)
         @features = features
         @duration = format_duration(Time.now - @tests_started)
-        generate_report
-        copy_images_directory
+        begin  # I need a lesson on mocking in ruby ;o)
+          generate_report
+          copy_images_directory
+        rescue
+        end
+      end
+
+      def start_time
+        @tests_started.strftime("%a %B %-d, %Y at %H:%M:%S")
       end
 
       def features
@@ -56,6 +63,10 @@ module PrettyFace
 
       def scenario_count
         @scenario_times.size
+      end
+
+      def total_duration
+        @duration
       end
 
       def step_average_duration
