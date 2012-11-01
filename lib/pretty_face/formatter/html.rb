@@ -9,8 +9,6 @@ module PrettyFace
       include Cucumber::Formatter::Io
       include Cucumber::Formatter::Duration
 
-      attr_reader :features, :scenario_count, :step_count, :scenario_average, :step_average
-
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
         @io = ensure_io(path_or_io, 'html')
@@ -48,6 +46,26 @@ module PrettyFace
         copy_images_directory
       end
 
+      def features
+        @features
+      end
+
+      def step_count
+        @step_times.size
+      end
+
+      def scenario_count
+        @scenario_times.size
+      end
+
+      def step_average_duration
+        format_duration get_average_from_float_array @step_times
+      end
+
+      def scenario_average_duration
+        format_duration get_average_from_float_array @scenario_times
+      end
+
       private
 
       def generate_report
@@ -64,17 +82,16 @@ module PrettyFace
 
       def process_feature
         @scenario_times.push Time.now - @scenario_timer
-        average = @scenario_times.reduce(:+).to_f / @scenario_times.size
-        @scenario_average = format_duration(average)
-        @scenario_count = @scenario_times.size
       end
 
       def process_step
         @step_times.push Time.now - @step_timer
-        average = @step_times.reduce(:+).to_f / @step_times.size
-        @step_average = format_duration(average)
-        @step_count = @step_times.size
       end
+
+      def get_average_from_float_array (arr)
+        arr.reduce(:+).to_f / arr.size
+      end
+
     end
   end
 end

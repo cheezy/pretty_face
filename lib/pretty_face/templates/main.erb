@@ -51,19 +51,19 @@
             </tr>
             <tr>
                 <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
-                <td><%= @scenario_count %></td>
-                <td><%= @scenario_average %></td>
+                <td><%= scenario_count %></td>
+                <td><%= scenario_average_duration %></td>
             </tr>
             <tr>
                 <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
-                <td><%= @step_count %></td>
-                <td><%= @step_average %></td>
+                <td><%= step_count %></td>
+                <td><%= step_average_duration %></td>
             </tr>
         </table>
     </div>
 
     <!--
-  	<% @features.each do |feature| %>
+  	<% features.each do |feature| %>
 	  	<%= feature.title %>
 	  	<% feature.feature_elements.each do |feature_element| %>
 		  	<%= feature_element.file_colon_line %>
