@@ -1,11 +1,13 @@
 require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
+require 'cucumber/formatter/duration'
 
 module PrettyFace
   module Formatter
     class Html
       include Cucumber::Formatter::Io
+      include Cucumber::Formatter::Duration
 
       attr_reader :features, :scenario_count, :step_count, :scenario_average, :step_average
 
@@ -17,6 +19,10 @@ module PrettyFace
         @scenario_count = 0
         @step_times = []
         @scenario_times = []
+      end
+
+      def before_features(features)
+        @tests_started = Time.now
       end
 
       def before_feature_element(feature_element)
@@ -37,6 +43,8 @@ module PrettyFace
 
       def after_features(features)
         @features = features
+        total_time = Time.now - @tests_started
+        @duration = format_duration(total_time)
         copy_images_directory
         generate_report
       end
@@ -59,13 +67,15 @@ module PrettyFace
 
       def process_feature
         @scenario_times.push Time.now - @scenario_timer
-        @scenario_average = @scenario_times.reduce(:+).to_f / @scenario_times.size
+        average = @scenario_times.reduce(:+).to_f / @scenario_times.size
+        @scenario_average = format_duration(average)
         @scenario_count = @scenario_times.size
       end
 
       def process_step
         @step_times.push Time.now - @step_timer
-        @step_average = @step_times.reduce(:+).to_f / @step_times.size 
+        average = @step_times.reduce(:+).to_f / @step_times.size
+        @step_average = format_duration(average)
 
         # This will show hours, minutes, seconds, but when the avg is under a second, it just shows 00:00:00
         # @step_average = Time.at(@step_times.inject{ |sum, el| sum + el }.to_f / @step_times .size ).gmtime.strftime('%R:%S')

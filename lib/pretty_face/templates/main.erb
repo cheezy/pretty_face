@@ -29,10 +29,15 @@
     <title>Test Results</title>
   </head>
 
-  <body>
-
+  <body style="font-family: GeosansLightRegular,Arial,Helvetica,sans-serif; font-size: .8em">
     <div style="float: left;">
       <img src="images/face.jpg" width="200" />
+    </div>
+    <div style="float: left;">
+      <h2 style="color: #282828; margin-top: 12px; margin-bottom: 15px;">Test Results</h2>
+      <span>Tests started: Wed <%= @tests_started %></span>
+      <br />
+      <span>Duration: <%= @duration %></span>
     </div>
 
 	<div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
