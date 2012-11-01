@@ -24,9 +24,7 @@ module PrettyFace
       end
 
       def after_feature_element(feature_element)
-        @scenario_times.push Time.now - @scenario_timer
-        @scenario_average = @scenario_times.inject{ |sum, el| sum + el }.to_f / @scenario_times .size 
-        @scenario_count = @scenario_times.size
+        process_feature
       end 
 
       def before_step(step)
@@ -34,31 +32,45 @@ module PrettyFace
       end
 
       def after_step(step)
-        @step_times.push Time.now - @step_timer
-        @step_average = @step_times.inject{ |sum, el| sum + el }.to_f / @step_times .size 
-
-        # This will show hours, minutes, seconds, but when the avg is under a second, it just shows 00:00:00
-        # @step_average = Time.at(@step_times.inject{ |sum, el| sum + el }.to_f / @step_times .size ).gmtime.strftime('%R:%S')
-
-        @step_count = @step_times.size
+        process_step
       end
 
       def after_features(features)
         @features = features
-        images_directory
+        copy_images_directory
+        generate_report
+      end
+
+      private
+
+      def generate_report
         filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
         text = File.new(filename).read
         renderer = ERB.new(text, nil, "%")
         @io.puts renderer.result(binding)
       end
 
-      private
-
-      def images_directory
+      def copy_images_directory
         dirname = File.dirname(@path)
         path = "#{dirname}/images"
         FileUtils.mkdir path unless File.directory? path
         FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
+      end
+
+      def process_feature
+        @scenario_times.push Time.now - @scenario_timer
+        @scenario_average = @scenario_times.reduce(:+).to_f / @scenario_times.size
+        @scenario_count = @scenario_times.size
+      end
+
+      def process_step
+        @step_times.push Time.now - @step_timer
+        @step_average = @step_times.reduce(:+).to_f / @step_times.size 
+
+        # This will show hours, minutes, seconds, but when the avg is under a second, it just shows 00:00:00
+        # @step_average = Time.at(@step_times.inject{ |sum, el| sum + el }.to_f / @step_times .size ).gmtime.strftime('%R:%S')
+
+        @step_count = @step_times.size
       end
     end
   end
