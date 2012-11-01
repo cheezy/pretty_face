@@ -43,10 +43,9 @@ module PrettyFace
 
       def after_features(features)
         @features = features
-        total_time = Time.now - @tests_started
-        @duration = format_duration(total_time)
-        copy_images_directory
+        @duration = format_duration(Time.now - @tests_started)
         generate_report
+        copy_images_directory
       end
 
       private
@@ -54,13 +53,11 @@ module PrettyFace
       def generate_report
         filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
         text = File.new(filename).read
-        renderer = ERB.new(text, nil, "%")
-        @io.puts renderer.result(binding)
+        @io.puts ERB.new(text, nil, "%").result(binding)
       end
 
       def copy_images_directory
-        dirname = File.dirname(@path)
-        path = "#{dirname}/images"
+        path = "#{File.dirname(@path)}/images"
         FileUtils.mkdir path unless File.directory? path
         FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
       end
@@ -76,10 +73,6 @@ module PrettyFace
         @step_times.push Time.now - @step_timer
         average = @step_times.reduce(:+).to_f / @step_times.size
         @step_average = format_duration(average)
-
-        # This will show hours, minutes, seconds, but when the avg is under a second, it just shows 00:00:00
-        # @step_average = Time.at(@step_times.inject{ |sum, el| sum + el }.to_f / @step_times .size ).gmtime.strftime('%R:%S')
-
         @step_count = @step_times.size
       end
     end
