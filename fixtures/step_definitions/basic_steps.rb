@@ -13,3 +13,7 @@ end
 Then /^the second step should not execute$/ do
   puts "Should not execute"
 end
+
+When /^the first step is pending$/ do
+  pending
+end
