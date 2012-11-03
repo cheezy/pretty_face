@@ -36,3 +36,9 @@ Feature: pretty girl spike
     Then the file "fixture.html" should contain "Tests started:"
     And the file "fixture.html" should contain "Duration:"
 
+  Scenario: It should capture scenario and step statuses
+    Then the file "fixture.html" should contain "Passed"
+    And the file "fixture.html" should contain "Failed"
+    And the file "fixture.html" should contain "Pending"
+    And the file "fixture.html" should contain "Undefined"
+    And the file "fixture.html" should contain "Skipped"
