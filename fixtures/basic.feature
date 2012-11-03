@@ -11,3 +11,7 @@ Feature: basic scenarios
   Scenario: A pending scenario
     When the first step is pending
     Then the second step is undefined
+
+  Scenario: A undefined scenario
+    When all steps are undefined
+    Then the scenario is undefined
