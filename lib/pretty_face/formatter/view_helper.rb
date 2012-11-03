@@ -38,6 +38,14 @@ module PrettyFace
         summary_percent(@pending_scenarios, scenario_count)
       end
 
+      def undefined_scenarios
+        summary_percent(@undefined_scenarios, scenario_count)
+      end
+
+      def skipped_scenarios
+        summary_percent(@skipped_scenarios, scenario_count)
+      end
+
       def passing_steps
         summary_percent(@passing_steps, step_count)
       end

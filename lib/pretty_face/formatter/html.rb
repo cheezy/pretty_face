@@ -17,7 +17,7 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passing_scenarios = @failing_scenarios = @pending_scenarios = 0
+        @passing_scenarios = @failing_scenarios = @skipped_scenarios = @pending_scenarios = @undefined_scenarios = 0
         @passing_steps = @failing_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
@@ -71,7 +71,9 @@ module PrettyFace
       def process_feature(feature_element)
         @passing_scenarios += 1 if feature_element.status == :passed
         @failing_scenarios += 1 if feature_element.status == :failed
+        @skipped_scenarios += 1 if feature_element.status == :skipped
         @pending_scenarios += 1 if feature_element.status == :pending
+        @undefined_scenarios += 1 if feature_element.status == :undefined
         @scenario_times.push Time.now - @scenario_timer
       end
 
