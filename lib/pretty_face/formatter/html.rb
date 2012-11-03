@@ -42,11 +42,8 @@ module PrettyFace
       def after_features(features)
         @features = features
         @duration = format_duration(Time.now - @tests_started)
-        begin  # I need a lesson on mocking in ruby ;o)
-          generate_report
-          copy_images_directory
-        rescue
-        end
+        generate_report
+        copy_images_directory
       end
 
       def start_time
