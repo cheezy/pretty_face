@@ -15,6 +15,11 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
+        @passing_scenarios = 0
+        @failing_scenarios = 0
+        @passing_steps = 0
+        @failing_steps = 0
+        @skipped_steps = 0
         @step_times = []
         @scenario_times = []
       end
@@ -28,7 +33,7 @@ module PrettyFace
       end
 
       def after_feature_element(feature_element)
-        process_feature
+        process_feature(feature_element)
       end 
 
       def before_step(step)
@@ -36,7 +41,7 @@ module PrettyFace
       end
 
       def after_step(step)
-        process_step
+        process_step(step)
       end
 
       def after_features(features)
@@ -74,6 +79,22 @@ module PrettyFace
         format_duration get_average_from_float_array @scenario_times
       end
 
+      def passing_scenarios
+        "#{@passing_scenarios} (#{(@passing_scenarios.to_f / scenario_count) * 100}%)"
+      end
+
+      def failing_scenarios
+        "#{@failing_scenarios} (#{(@failing_scenarios.to_f / scenario_count) * 100}%)"
+      end
+
+      def passing_steps
+        "#{@passing_steps} (#{(@passing_steps.to_f / step_count) * 100}%)"
+      end
+
+      def failing_steps
+        "#{@failing_steps} (#{(@failing_steps.to_f / step_count) * 100}%)"
+      end
+
       private
 
       def generate_report
@@ -88,11 +109,16 @@ module PrettyFace
         FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
       end
 
-      def process_feature
+      def process_feature(feature_element)
+        @passing_scenarios += 1 if feature_element.status == :passed
+        @failing_scenarios += 1 if feature_element.status == :failed
         @scenario_times.push Time.now - @scenario_timer
       end
 
-      def process_step
+      def process_step(step)
+        @passing_steps += 1 if step.status == :passed
+        @failing_steps += 1 if step.status == :failed
+        @skipped_steps += 1 if step.status == :skipped
         @step_times.push Time.now - @step_timer
       end
 

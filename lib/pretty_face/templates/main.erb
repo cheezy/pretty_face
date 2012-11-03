@@ -39,27 +39,42 @@
       <br />
       <span>Duration: <%= total_duration %></span>
     </div>
+    
+	  <div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
+      <h2 style="color: white; margin-left: 5px; margin-top: 5px;">Summary</h2>
 
-	<div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
-        <h2 style="color: white; margin-left: 5px; margin-top: 5px;">Summary</h2>
-
-        <table cellspacing="0" cellpadding="7" class="summary">
-            <tr>
-                <th></th>
-                <th>Executed</th>
-                <th>Average<br/>Duration</th>
-            </tr>
-            <tr>
-                <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
-                <td><%= scenario_count %></td>
-                <td><%= scenario_average_duration %></td>
-            </tr>
-            <tr>
-                <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
-                <td><%= step_count %></td>
-                <td><%= step_average_duration %></td>
-            </tr>
-        </table>
+      <table cellspacing="0" cellpadding="7" class="summary">
+        <tr>
+          <th></th>
+          <th>Executed</th>
+          <th><a href="">Passed</a></th>
+          <th><a href="">Failed</a></th>
+          <th><a href="">Skipped</a></th>
+          <th><a href="">Undefined</a></th>
+          <th><a href="">Pending</a></th>
+          <th>Average<br/>Duration</th>
+        </tr>
+        <tr>
+          <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
+          <td><%= scenario_count %></td>
+          <td><%= passing_scenarios %></td>
+          <td><%= failing_scenarios %></td>
+          <td>0 (0%)</td>
+          <td>0 (0%)</td>
+          <td>0 (0%)</td>
+          <td><%= scenario_average_duration %></td>
+        </tr>
+        <tr>
+          <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
+          <td><%= step_count %></td>
+          <td><%= passing_steps %></td>
+          <td><%= failing_steps %></td>
+          <td>0 (0%)</td>
+          <td>0 (0%)</td>
+          <td>0 (0%)</td>
+          <td><%= step_average_duration %></td>
+        </tr>
+      </table>
     </div>
 
     <!--
