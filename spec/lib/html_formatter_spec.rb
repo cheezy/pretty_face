@@ -42,7 +42,7 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of passing scenarios" do
-      parameter.should_receive(:status).exactly(4).times.and_return(:passed)
+      parameter.should_receive(:status).exactly(6).times.and_return(:passed)
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.after_feature_element(parameter)
@@ -50,11 +50,19 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of failing scenarios" do
-      parameter.should_receive(:status).exactly(4).times.and_return(:failed)
+      parameter.should_receive(:status).exactly(6).times.and_return(:failed)
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.after_feature_element(parameter)
       formatter.instance_variable_get(:@failing_scenarios).should == 2
+    end
+
+    it "should keep track of pending scenarios" do
+      parameter.should_receive(:status).exactly(6).times.and_return(:pending)
+      formatter.before_feature_element(nil)
+      formatter.after_feature_element(parameter)
+      formatter.after_feature_element(parameter)
+      formatter.instance_variable_get(:@pending_scenarios).should == 2
     end
   end
 
