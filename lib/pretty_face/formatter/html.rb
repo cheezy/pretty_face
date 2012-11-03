@@ -17,11 +17,8 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passing_scenarios = 0
-        @failing_scenarios = 0
-        @passing_steps = 0
-        @failing_steps = 0
-        @skipped_steps = 0
+        @passing_scenarios = @failing_scenarios = 0
+        @passing_steps = @failing_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
       end
@@ -81,6 +78,8 @@ module PrettyFace
         @passing_steps += 1 if step.status == :passed
         @failing_steps += 1 if step.status == :failed
         @skipped_steps += 1 if step.status == :skipped
+        @pending_steps += 1 if step.status == :pending
+        @undefined_steps += 1 if step.status == :undefined
         @step_times.push Time.now - @step_timer
       end
 

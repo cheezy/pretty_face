@@ -77,7 +77,7 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of passing steps" do
-      parameter.should_receive(:status).exactly(6).times.and_return(:passed)
+      parameter.should_receive(:status).exactly(10).times.and_return(:passed)
       formatter.before_step(nil)
       formatter.after_step(parameter)
       formatter.after_step(parameter)
@@ -85,7 +85,7 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of failing steps" do
-      parameter.should_receive(:status).exactly(6).times.and_return(:failed)
+      parameter.should_receive(:status).exactly(10).times.and_return(:failed)
       formatter.before_step(nil)
       formatter.after_step(parameter)
       formatter.after_step(parameter)
@@ -93,11 +93,27 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of skipped steps" do
-      parameter.should_receive(:status).exactly(6).times.and_return(:skipped)
+      parameter.should_receive(:status).exactly(10).times.and_return(:skipped)
       formatter.before_step(nil)
       formatter.after_step(parameter)
       formatter.after_step(parameter)
       formatter.instance_variable_get(:@skipped_steps).should == 2
     end
-  end
+
+    it "should keep track of pending steps" do
+      parameter.should_receive(:status).exactly(10).times.and_return(:pending)
+      formatter.before_step(nil)
+      formatter.after_step(parameter)
+      formatter.after_step(parameter)
+      formatter.instance_variable_get(:@pending_steps).should == 2 
+    end
+
+    it "should keep track of undefined steps" do
+      parameter.should_receive(:status).exactly(10).times.and_return(:undefined)
+      formatter.before_step(nil)
+      formatter.after_step(parameter)
+      formatter.after_step(parameter)
+      formatter.instance_variable_get(:@undefined_steps).should == 2 
+    end
+end
 end

@@ -46,6 +46,14 @@ module PrettyFace
         summary_percent(@skipped_steps, step_count)
       end
 
+      def pending_steps
+        summary_percent(@pending_steps, step_count)
+      end
+
+      def undefined_steps
+        summary_percent(@undefined_steps, step_count)
+      end
+
       private
 
       def get_average_from_float_array (arr)
@@ -53,7 +61,8 @@ module PrettyFace
       end
 
       def summary_percent(number, total)
-        "#{number} (#{(number.to_f / total) * 100}%)"
+        percent = (number.to_f / total) * 100
+        "#{number} (#{'%.1f' % percent}%)"
       end
     end
   end
