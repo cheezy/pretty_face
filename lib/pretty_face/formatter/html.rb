@@ -2,12 +2,14 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
+require_relative 'view_helper'
 
 module PrettyFace
   module Formatter
     class Html
       include Cucumber::Formatter::Io
       include Cucumber::Formatter::Duration
+      include ViewHelper
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
@@ -51,48 +53,8 @@ module PrettyFace
         copy_images_directory
       end
 
-      def start_time
-        @tests_started.strftime("%a %B %-d, %Y at %H:%M:%S")
-      end
-
       def features
         @features
-      end
-
-      def step_count
-        @step_times.size
-      end
-
-      def scenario_count
-        @scenario_times.size
-      end
-
-      def total_duration
-        @duration
-      end
-
-      def step_average_duration
-        format_duration get_average_from_float_array @step_times
-      end
-
-      def scenario_average_duration
-        format_duration get_average_from_float_array @scenario_times
-      end
-
-      def passing_scenarios
-        "#{@passing_scenarios} (#{(@passing_scenarios.to_f / scenario_count) * 100}%)"
-      end
-
-      def failing_scenarios
-        "#{@failing_scenarios} (#{(@failing_scenarios.to_f / scenario_count) * 100}%)"
-      end
-
-      def passing_steps
-        "#{@passing_steps} (#{(@passing_steps.to_f / step_count) * 100}%)"
-      end
-
-      def failing_steps
-        "#{@failing_steps} (#{(@failing_steps.to_f / step_count) * 100}%)"
       end
 
       private
@@ -120,10 +82,6 @@ module PrettyFace
         @failing_steps += 1 if step.status == :failed
         @skipped_steps += 1 if step.status == :skipped
         @step_times.push Time.now - @step_timer
-      end
-
-      def get_average_from_float_array (arr)
-        arr.reduce(:+).to_f / arr.size
       end
 
     end
