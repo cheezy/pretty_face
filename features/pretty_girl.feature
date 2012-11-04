@@ -42,3 +42,6 @@ Feature: pretty girl spike
     And the file "fixture.html" should contain "Pending"
     And the file "fixture.html" should contain "Undefined"
     And the file "fixture.html" should contain "Skipped"
+
+  Scenario: It should display all of the tests with failures
+    Then the file "fixture.html" should contain "Tests With Failures:"
