@@ -67,6 +67,7 @@ module PrettyFace
         FileUtils.mkdir path unless File.directory? path
         FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
         FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'red_x.jpg'), path
+        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'green_check.jpg'), path
       end
 
       def process_feature(feature_element)

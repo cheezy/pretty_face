@@ -45,3 +45,12 @@ Feature: pretty face report
 
   Scenario: It should display all of the tests with failures
     Then the file "fixture.html" should contain "Tests With Failures:"
+
+  Scenario: It should display a list of all features / scenarios
+    Then the file "fixture.html" should contain "Scenario Overview:"
+
+  Scenario: It should display useful information about each scenario
+    Then the file "fixture.html" should contain "Result"
+    And the file "fixture.html" should contain "Name"
+    And the file "fixture.html" should contain "# Steps"
+    And the file "fixture.html" should contain "Duration"
