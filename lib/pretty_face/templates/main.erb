@@ -111,8 +111,8 @@
           <th></th>
           <th style="text-align: left;">Result</th>
           <th style="text-align: left;">Name</th>
+          <th style="text-align: left;">File</th>
           <th style="text-align: left;"># Steps</th>
-          <th style="text-align: left;">Duration</th>
         </tr>
         <% features.each do |feature| %>
           <% feature.feature_elements.each do |scenario| %>
@@ -121,6 +121,7 @@
           <td><%= feature.title %> </td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
+          <td><%= scenario.raw_steps.length %></td>
         </tr>
           <% end %>
         <% end %>
