@@ -92,7 +92,7 @@
           <% feature.feature_elements.each do |scenario| %>
             <% if scenario.status == :failed %>
         <tr>
-          <td><img src="images/red_x.jpg" width="30"/></td>
+          <td><img src="images/failed.jpg" width="30"/></td>
           <td><%= feature.title %> </td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
@@ -117,11 +117,7 @@
         <% features.each do |feature| %>
           <% feature.feature_elements.each do |scenario| %>
         <tr>
-            <% if scenario.status == :failed %>
-          <td><img src="images/red_x.jpg" width="30"/></td>
-            <% elsif scenario.status == :passed %>
-          <td><img src="images/green_check.jpg" width="30"/></td>
-            <% end %>
+          <td><img src="<%= "images/#{scenario.status.to_s}.jpg" %>" width="30"/></td>
           <td><%= feature.title %> </td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
