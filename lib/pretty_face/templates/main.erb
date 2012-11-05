@@ -82,7 +82,7 @@
       <h2 style="color: #A00000; margin-top: 15px; margin-left: 5px;">Tests With Failures:</h2>
       <br />
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
-        <tr>
+        <tr style="background-color: #E0E0E0;">
           <th></th>
           <th style="text-align: left;">Feature</th>
           <th style="text-align: left;">Scenario</th>
@@ -107,18 +107,19 @@
       <br />
 
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
-        <tr>
-          <th></th>
+        <tr style="background-color: #E0E0E0;">
           <th style="text-align: left;">Result</th>
           <th style="text-align: left;">Name</th>
           <th style="text-align: left;">File</th>
           <th style="text-align: left;"># Steps</th>
         </tr>
         <% features.each do |feature| %>
+        <tr>
+          <td style="background-color: #E0E0E0; font-size: 0.9em;" colspan="4">Feature: <%= feature.title %></td>
+        </tr>
           <% feature.feature_elements.each do |scenario| %>
         <tr>
           <td><img src="<%="images/#{scenario.status.to_s}.jpg"%>" alt="<%=scenario.status.to_s%>" title="<%=scenario.status.to_s%>" width="30"/></td>
-          <td><%= feature.title %> </td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
           <td><%= scenario.raw_steps.length %></td>
