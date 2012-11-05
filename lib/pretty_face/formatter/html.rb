@@ -2,7 +2,7 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
-require_relative 'view_helper'
+require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace
   module Formatter
