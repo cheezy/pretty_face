@@ -1,4 +1,4 @@
-Feature: pretty girl spike
+Feature: pretty face report
   
   Background:
     When I run `cucumber fixtures --profile fixture`
