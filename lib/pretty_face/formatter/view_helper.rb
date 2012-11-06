@@ -29,11 +29,11 @@ module PrettyFace
       end
 
       def passing_scenarios
-        summary_percent(@passing_scenarios, scenario_count)
+        summary_percent(@passed_scenarios, scenario_count)
       end
 
       def failing_scenarios
-        summary_percent(@failing_scenarios, scenario_count)
+        summary_percent(@failed_scenarios, scenario_count)
       end
 
       def pending_scenarios

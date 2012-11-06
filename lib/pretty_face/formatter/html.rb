@@ -3,6 +3,7 @@ require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
 require 'cucumber/ast/scenario_outline'
+require File.join(File.dirname(__FILE__), 'counters')
 require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace
@@ -11,6 +12,7 @@ module PrettyFace
       include Cucumber::Formatter::Io
       include Cucumber::Formatter::Duration
       include ViewHelper
+      include Counters
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
@@ -18,7 +20,6 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passing_scenarios = @failing_scenarios = @skipped_scenarios = @pending_scenarios = @undefined_scenarios = 0
         @passing_steps = @failing_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
@@ -73,11 +74,8 @@ module PrettyFace
 
       def process_feature(feature_element)
         unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
-          @passing_scenarios += 1 if feature_element.status == :passed
-          @failing_scenarios += 1 if feature_element.status == :failed
-          @skipped_scenarios += 1 if feature_element.status == :skipped
-          @pending_scenarios += 1 if feature_element.status == :pending
-          @undefined_scenarios += 1 if feature_element.status == :undefined
+          value = self.send "#{feature_element.status}_scenarios"
+          instance_variable_set "@#{feature_element.status}_scenarios", value+1
         end
         @scenario_times.push Time.now - @scenario_timer
       end

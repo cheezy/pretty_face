@@ -22,7 +22,7 @@ describe PrettyFace::Formatter::Html do
 
   context "when building the report for scenarios" do
     it "should track number of scenarios" do
-      parameter.stub(:status)
+      parameter.stub(:status).and_return(:passed)
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.after_feature_element(parameter)
@@ -32,7 +32,7 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should track average scenario durations" do
-      parameter.stub(:status)
+      parameter.stub(:status).and_return(:passed)
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.before_feature_element(nil)
@@ -46,7 +46,7 @@ describe PrettyFace::Formatter::Html do
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@passing_scenarios).should == 2
+      formatter.instance_variable_get(:@passed_scenarios).should == 2
     end
 
     it "should keep track of failing scenarios" do
@@ -54,7 +54,7 @@ describe PrettyFace::Formatter::Html do
       formatter.before_feature_element(nil)
       formatter.after_feature_element(parameter)
       formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@failing_scenarios).should == 2
+      formatter.instance_variable_get(:@failed_scenarios).should == 2
     end
 
     it "should keep track of pending scenarios" do
