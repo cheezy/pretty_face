@@ -1,4 +1,4 @@
-Feature: basic scenarios
+Feature: Basic scenarios
 
   Scenario: A passing scenario
     When Cucumber puts "hello"
@@ -15,3 +15,4 @@ Feature: basic scenarios
   Scenario: A undefined scenario
     When all steps are undefined
     Then the scenario is undefined
+
