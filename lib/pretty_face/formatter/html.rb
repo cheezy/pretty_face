@@ -20,7 +20,6 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passed_steps = @failed_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
       end
