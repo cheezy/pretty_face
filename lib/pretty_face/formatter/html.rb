@@ -72,7 +72,6 @@ module PrettyFace
       end
 
       def process_feature(feature_element)
-        @io.puts feature_element.class
         unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
           @passing_scenarios += 1 if feature_element.status == :passed
           @failing_scenarios += 1 if feature_element.status == :failed
