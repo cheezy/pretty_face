@@ -1,2 +1,2 @@
-default: --color --no-source
+default: --color --no-source --format pretty 
 fixture: --color --no-source --require fixtures/step_definitions --format PrettyFace::Formatter::Html --out fixture.html
