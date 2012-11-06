@@ -2,6 +2,7 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
+require 'cucumber/ast/scenario_outline'
 require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace
@@ -65,20 +66,20 @@ module PrettyFace
       def copy_images_directory
         path = "#{File.dirname(@path)}/images"
         FileUtils.mkdir path unless File.directory? path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'face.jpg'), path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'failed.jpg'), path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'passed.jpg'), path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'pending.jpg'), path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'undefined.jpg'), path
-        FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', 'skipped.jpg'), path
+        %w(face failed passed pending undefined skipped).each do |file|
+          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.jpg"), path
+        end
       end
 
       def process_feature(feature_element)
-        @passing_scenarios += 1 if feature_element.status == :passed
-        @failing_scenarios += 1 if feature_element.status == :failed
-        @skipped_scenarios += 1 if feature_element.status == :skipped
-        @pending_scenarios += 1 if feature_element.status == :pending
-        @undefined_scenarios += 1 if feature_element.status == :undefined
+        @io.puts feature_element.class
+        unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+          @passing_scenarios += 1 if feature_element.status == :passed
+          @failing_scenarios += 1 if feature_element.status == :failed
+          @skipped_scenarios += 1 if feature_element.status == :skipped
+          @pending_scenarios += 1 if feature_element.status == :pending
+          @undefined_scenarios += 1 if feature_element.status == :undefined
+        end
         @scenario_times.push Time.now - @scenario_timer
       end
 

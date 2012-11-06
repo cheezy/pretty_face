@@ -1,3 +1,5 @@
+require 'cucumber/ast/scenario'
+
 module PrettyFace
   module Formatter
     module ViewHelper
@@ -64,6 +66,16 @@ module PrettyFace
 
       def undefined_steps
         summary_percent(@undefined_steps, step_count)
+      end
+
+      def is_failed_scenario(scenario)
+        scenario.instance_of? Cucumber::Ast::Scenario and scenario.status == :failed
+      end
+
+      def image_tag_for(scenario)
+        return 'SO' unless scenario.instance_of? Cucumber::Ast::Scenario
+        status = scenario.status.to_s
+        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
       end
 
       private
