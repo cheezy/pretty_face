@@ -20,7 +20,7 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passing_steps = @failing_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
+        @passed_steps = @failed_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
       end
@@ -81,11 +81,8 @@ module PrettyFace
       end
 
       def process_step(step)
-        @passing_steps += 1 if step.status == :passed
-        @failing_steps += 1 if step.status == :failed
-        @skipped_steps += 1 if step.status == :skipped
-        @pending_steps += 1 if step.status == :pending
-        @undefined_steps += 1 if step.status == :undefined
+        value = self.send "#{step.status}_steps"
+        instance_variable_set "@#{step.status}_steps", value+1
         @step_times.push Time.now - @step_timer
       end
 
