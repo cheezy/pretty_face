@@ -15,4 +15,3 @@ Feature: Basic scenarios
   Scenario: A undefined scenario
     When all steps are undefined
     Then the scenario is undefined
-

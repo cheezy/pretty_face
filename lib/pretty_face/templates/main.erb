@@ -89,7 +89,7 @@
           <th style="text-align: left;">File</th>
         </tr>
         <% features.each do |feature| %>
-          <% feature.feature_elements.each do |scenario| %>
+          <% feature.scenarios.each do |scenario| %>
             <% if is_failed_scenario scenario %>
         <tr>
           <td><img src="images/failed.jpg" width="30"/></td>
@@ -117,12 +117,12 @@
         <tr>
           <td style="background-color: #E0E0E0; font-size: 0.9em;" colspan="4">Feature: <%= feature.title %></td>
         </tr>
-          <% feature.feature_elements.each do |scenario| %>
+          <% feature.scenarios.each do |scenario| %>
         <tr>
           <td><%= image_tag_for scenario %></td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
-          <td><%= scenario.raw_steps.length %></td>
+          <td><%= scenario.steps.length %></td>
         </tr>
           <% end %>
         <% end %>

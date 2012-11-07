@@ -69,11 +69,11 @@ module PrettyFace
       end
 
       def is_failed_scenario(scenario)
-        scenario.instance_of? Cucumber::Ast::Scenario and scenario.status == :failed
+        scenario.status == :failed
       end
 
       def image_tag_for(scenario)
-        return 'SO' unless scenario.instance_of? Cucumber::Ast::Scenario
+        #return 'SO' unless scenario.instance_of? Cucumber::Ast::Scenario
         status = scenario.status.to_s
         "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
       end
