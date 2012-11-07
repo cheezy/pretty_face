@@ -48,24 +48,24 @@ module PrettyFace
         summary_percent(skipped_scenarios, scenario_count)
       end
 
-      def passing_steps
-        summary_percent(@passed_steps, step_count)
+      def passed_steps_summary
+        summary_percent(passed_steps, step_count)
       end
 
-      def failing_steps
-        summary_percent(@failed_steps, step_count)
+      def failed_steps_summary
+        summary_percent(failed_steps, step_count)
       end
 
-      def skipped_steps
-        summary_percent(@skipped_steps, step_count)
+      def skipped_steps_summary
+        summary_percent(skipped_steps, step_count)
       end
 
-      def pending_steps
-        summary_percent(@pending_steps, step_count)
+      def pending_steps_summary
+        summary_percent(pending_steps, step_count)
       end
 
-      def undefined_steps
-        summary_percent(@undefined_steps, step_count)
+      def undefined_steps_summary
+        summary_percent(undefined_steps, step_count)
       end
 
       def is_failed_scenario(scenario)

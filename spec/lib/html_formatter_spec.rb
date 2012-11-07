@@ -24,9 +24,8 @@ describe PrettyFace::Formatter::Html do
     it "should track number of scenarios" do
       parameter.stub(:status).and_return(:passed)
       formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
+      formatter.before_feature_element(nil)
+      formatter.before_feature_element(nil)
       
       formatter.scenario_count.should eq 3
     end
