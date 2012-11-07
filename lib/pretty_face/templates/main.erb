@@ -57,21 +57,21 @@
         <tr>
           <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
           <td><%= scenario_count %></td>
-          <td><%= passing_scenarios %></td>
-          <td><%= failing_scenarios %></td>
-          <td><%= skipped_scenarios %></td>
-          <td><%= undefined_scenarios %></td>
-          <td><%= pending_scenarios %></td>
+          <td><%= passed_scenarios_summary %></td>
+          <td><%= failed_scenarios_summary %></td>
+          <td><%= skipped_scenarios_summary %></td>
+          <td><%= undefined_scenarios_summary %></td>
+          <td><%= pending_scenarios_summary %></td>
           <td><%= scenario_average_duration %></td>
         </tr>
         <tr>
           <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
           <td><%= step_count %></td>
-          <td><%= passing_steps %></td>
-          <td><%= failing_steps %></td>
-          <td><%= skipped_steps %></td>
-          <td><%= undefined_steps %></td>
-          <td><%= pending_steps %></td>
+          <td><%= passed_steps_summary %></td>
+          <td><%= failed_steps_summary %></td>
+          <td><%= skipped_steps_summary %></td>
+          <td><%= undefined_steps_summary %></td>
+          <td><%= pending_steps_summary %></td>
           <td><%= step_average_duration %></td>
         </tr>
       </table>
@@ -115,7 +115,7 @@
         </tr>
         <% features.each do |feature| %>
         <tr>
-          <td style="background-color: #E0E0E0; font-size: 0.9em;" colspan="4">Feature: <%= feature.title %></td>
+          <td style="background-color: #F0F0F0; font-size: 0.9em;" colspan="4">Feature: <%= feature.title %></td>
         </tr>
           <% feature.scenarios.each do |scenario| %>
         <tr>
@@ -124,6 +124,18 @@
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
           <td><%= scenario.steps.length %></td>
         </tr>
+            <% if scenario.instance_of? Cucumber::Ast::ScenarioOutline %>
+              <% scenario.each_example_row do |row| %>
+        <tr>
+          <td><%= image_tag_for row %></td>
+          <td colspan="3">|&nbsp
+                <% row.to_hash.each do |key, value| %>
+            <%= "#{key}: #{value} |" %>
+                <% end %>
+          </td>
+        </tr>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
 

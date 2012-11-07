@@ -1,4 +1,4 @@
-require 'cucumber/ast/scenario'
+require 'cucumber/ast/scenario_outline'
 
 module PrettyFace
   module Formatter
@@ -13,7 +13,7 @@ module PrettyFace
       end
 
       def scenario_count
-        @scenario_times.size
+        @scenario_count
       end
 
       def total_duration
@@ -28,44 +28,44 @@ module PrettyFace
         format_duration get_average_from_float_array @scenario_times
       end
 
-      def passing_scenarios
-        summary_percent(@passed_scenarios, scenario_count)
+      def passed_scenarios_summary
+        summary_percent(passed_scenarios, scenario_count)
       end
 
-      def failing_scenarios
-        summary_percent(@failed_scenarios, scenario_count)
+      def failed_scenarios_summary
+        summary_percent(failed_scenarios, scenario_count)
       end
 
-      def pending_scenarios
-        summary_percent(@pending_scenarios, scenario_count)
+      def pending_scenarios_summary
+        summary_percent(pending_scenarios, scenario_count)
       end
 
-      def undefined_scenarios
-        summary_percent(@undefined_scenarios, scenario_count)
+      def undefined_scenarios_summary
+        summary_percent(undefined_scenarios, scenario_count)
       end
 
-      def skipped_scenarios
-        summary_percent(@skipped_scenarios, scenario_count)
+      def skipped_scenarios_summary
+        summary_percent(skipped_scenarios, scenario_count)
       end
 
-      def passing_steps
-        summary_percent(@passing_steps, step_count)
+      def passed_steps_summary
+        summary_percent(passed_steps, step_count)
       end
 
-      def failing_steps
-        summary_percent(@failing_steps, step_count)
+      def failed_steps_summary
+        summary_percent(failed_steps, step_count)
       end
 
-      def skipped_steps
-        summary_percent(@skipped_steps, step_count)
+      def skipped_steps_summary
+        summary_percent(skipped_steps, step_count)
       end
 
-      def pending_steps
-        summary_percent(@pending_steps, step_count)
+      def pending_steps_summary
+        summary_percent(pending_steps, step_count)
       end
 
-      def undefined_steps
-        summary_percent(@undefined_steps, step_count)
+      def undefined_steps_summary
+        summary_percent(undefined_steps, step_count)
       end
 
       def is_failed_scenario(scenario)
@@ -73,7 +73,6 @@ module PrettyFace
       end
 
       def image_tag_for(scenario)
-        #return 'SO' unless scenario.instance_of? Cucumber::Ast::Scenario
         status = scenario.status.to_s
         "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
       end

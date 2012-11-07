@@ -22,7 +22,8 @@ module PrettyFace
           self.file_colon_line = scenario.file_colon_line
           self.status = scenario.status
         elsif scenario.instance_of? Cucumber::Ast::OutlineTable::ExampleRow
-          self.name = scenario.name
+          STDOUT.puts scenario.methods
+          self.name = scenario.scenario_outline.name
           self.file_colon_line = scenario.backtrace_line
           self.status = scenario.status
         end
@@ -51,7 +52,6 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @scenario_count = 0
-        @passed_steps = @failed_steps = @skipped_steps = @pending_steps = @undefined_steps = 0
         @step_times = []
         @scenario_times = []
         @report_features = []
@@ -76,6 +76,12 @@ module PrettyFace
       def before_feature_element(feature_element)
         @is_scenario_outline = feature_element.is_a? Cucumber::Ast::ScenarioOutline
         @scenario_timer = Time.now
+        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+          feature_element.each_example_row {|row| @scenario_count += 1}
+        else
+          @scenario_count += 1
+        end
+        
       end
 
       def after_feature_element(feature_element)
@@ -128,6 +134,12 @@ module PrettyFace
         unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
           value = self.send "#{feature_element.status}_scenarios"
           instance_variable_set "@#{feature_element.status}_scenarios", value+1
+        end
+        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+          feature_element.each_example_row do |row|
+            value = self.send "#{row.status}_scenarios"
+            instance_variable_set "@#{row.status}_scenarios", value+1
+          end
         end
         @scenario_times.push Time.now - @scenario_timer
       end

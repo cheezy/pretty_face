@@ -54,3 +54,10 @@ Feature: pretty face report
     And the file "fixture.html" should contain "Name"
     And the file "fixture.html" should contain "# Steps"
     And the file "fixture.html" should contain "Duration"
+
+  Scenario: It should display the data from scenario outlines
+    Then the file "fixture.html" should contain "| aaa | bbb |"
+    And the file "fixture.html" should contain "| ccc | ddd |"
+  
+  Scenario: It should display the scenario name for scenario outlines
+    Then the file "fixture.html" should contain "A scenario outline"
