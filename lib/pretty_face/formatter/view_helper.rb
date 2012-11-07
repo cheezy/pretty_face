@@ -28,24 +28,24 @@ module PrettyFace
         format_duration get_average_from_float_array @scenario_times
       end
 
-      def passing_scenarios
-        summary_percent(@passed_scenarios, scenario_count)
+      def passed_scenarios_summary
+        summary_percent(passed_scenarios, scenario_count)
       end
 
-      def failing_scenarios
-        summary_percent(@failed_scenarios, scenario_count)
+      def failed_scenarios_summary
+        summary_percent(failed_scenarios, scenario_count)
       end
 
-      def pending_scenarios
-        summary_percent(@pending_scenarios, scenario_count)
+      def pending_scenarios_summary
+        summary_percent(pending_scenarios, scenario_count)
       end
 
-      def undefined_scenarios
-        summary_percent(@undefined_scenarios, scenario_count)
+      def undefined_scenarios_summary
+        summary_percent(undefined_scenarios, scenario_count)
       end
 
-      def skipped_scenarios
-        summary_percent(@skipped_scenarios, scenario_count)
+      def skipped_scenarios_summary
+        summary_percent(skipped_scenarios, scenario_count)
       end
 
       def passing_steps
