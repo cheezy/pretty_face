@@ -124,6 +124,18 @@
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
           <td><%= scenario.raw_steps.length %></td>
         </tr>
+            <% if scenario.instance_of? Cucumber::Ast::ScenarioOutline %>
+              <% scenario.each_example_row do |row| %>
+        <tr>
+          <td><%= image_tag_for row %></td>
+          <td colspan="3">|&nbsp
+                <% row.to_hash.each do |key, value| %>
+            <%= "#{key}: #{value} |" %>
+                <% end %>
+          </td>
+        </tr>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
 

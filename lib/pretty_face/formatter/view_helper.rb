@@ -1,4 +1,4 @@
-require 'cucumber/ast/scenario'
+require 'cucumber/ast/scenario_outline'
 
 module PrettyFace
   module Formatter
@@ -13,7 +13,7 @@ module PrettyFace
       end
 
       def scenario_count
-        @scenario_times.size
+        @scenario_count
       end
 
       def total_duration
@@ -49,11 +49,11 @@ module PrettyFace
       end
 
       def passing_steps
-        summary_percent(@passing_steps, step_count)
+        summary_percent(@passed_steps, step_count)
       end
 
       def failing_steps
-        summary_percent(@failing_steps, step_count)
+        summary_percent(@failed_steps, step_count)
       end
 
       def skipped_steps
@@ -73,7 +73,7 @@ module PrettyFace
       end
 
       def image_tag_for(scenario)
-        return 'SO' unless scenario.instance_of? Cucumber::Ast::Scenario
+        return if scenario.instance_of? Cucumber::Ast::ScenarioOutline
         status = scenario.status.to_s
         "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
       end

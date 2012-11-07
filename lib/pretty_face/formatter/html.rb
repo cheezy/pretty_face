@@ -22,6 +22,7 @@ module PrettyFace
         @scenario_count = 0
         @step_times = []
         @scenario_times = []
+        @scenario_count = 0
       end
 
       def before_features(features)
@@ -30,6 +31,12 @@ module PrettyFace
 
       def before_feature_element(feature_element)
         @scenario_timer = Time.now
+        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+          feature_element.each_example_row {|row| @scenario_count += 1}
+        else
+          @scenario_count += 1
+        end
+        
       end
 
       def after_feature_element(feature_element)
@@ -75,6 +82,12 @@ module PrettyFace
         unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
           value = self.send "#{feature_element.status}_scenarios"
           instance_variable_set "@#{feature_element.status}_scenarios", value+1
+        end
+        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+          feature_element.each_example_row do |row|
+            value = self.send "#{row.status}_scenarios"
+            instance_variable_set "@#{row.status}_scenarios", value+1
+          end
         end
         @scenario_times.push Time.now - @scenario_timer
       end
