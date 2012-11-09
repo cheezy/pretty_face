@@ -22,7 +22,6 @@ module PrettyFace
           self.file_colon_line = scenario.file_colon_line
           self.status = scenario.status
         elsif scenario.instance_of? Cucumber::Ast::OutlineTable::ExampleRow
-          STDOUT.puts scenario.methods
           self.name = scenario.scenario_outline.name
           self.file_colon_line = scenario.backtrace_line
           self.status = scenario.status
@@ -81,7 +80,6 @@ module PrettyFace
         else
           @scenario_count += 1
         end
-        
       end
 
       def after_feature_element(feature_element)
@@ -92,6 +90,11 @@ module PrettyFace
 
       def after_outline_table(outline_table)
         process_scenario_outline(outline_table)
+      end
+
+      def after_table_row(example_row)
+        #process_example_row(example_row)
+        @scenario_times.push Time.now - @scenario_timer
       end
 
       def before_step(step)
@@ -110,7 +113,6 @@ module PrettyFace
       end
 
       def features
-        #@features
         @report_features
       end
 
@@ -156,20 +158,21 @@ module PrettyFace
         @current_steps = []
 
       end
+      def process_example_row(example_row)
+        value = self.send "#{example_row.status}_scenarios"
+        instance_variable_set "@#{example_row.status}_scenarios", value+1
+
+        @current_scenario = ReportScenario.new(example_row)
+        @current_scenario.steps = @current_steps
+        @current_scenarios.push @current_scenario
+
+      end
 
       def process_scenario_outline(scenario_outline)
         scenario_outline.example_rows.each do |example_row| 
-          value = self.send "#{example_row.status}_scenarios"
-          instance_variable_set "@#{example_row.status}_scenarios", value+1
-
-          @current_scenario = ReportScenario.new(example_row)
-          @current_scenario.steps = @current_steps
-          @current_scenarios.push @current_scenario
-          @current_steps = []
-
-          # probably want to do this after each row
-          @scenario_times.push Time.now - @scenario_timer
+          process_example_row(example_row)
         end
+        @current_steps = []
       end
 
       def process_step(step)
