@@ -85,43 +85,33 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of passing steps" do
-      step.stub(:status).and_return(:passed)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.instance_variable_get(:@passed_steps).should == 2
+      step_mother.should_receive(:steps).with(:passed).and_return([1,2])
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.steps_summary_for(:passed).should == "2 (100.0%)"
     end
 
     it "should keep track of failing steps" do
-      step.stub(:status).and_return(:failed)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.instance_variable_get(:@failed_steps).should == 2
+      step_mother.should_receive(:steps).with(:failed).and_return([1,2])
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.steps_summary_for(:failed).should == "2 (100.0%)"
     end
 
     it "should keep track of skipped steps" do
-      step.stub(:status).and_return(:skipped)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.instance_variable_get(:@skipped_steps).should == 2
+      step_mother.should_receive(:steps).with(:skipped).and_return([1,2])
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.steps_summary_for(:skipped).should == "2 (100.0%)"
     end
 
-    it "should keep track of pending steps" do
-      step.stub(:status).and_return(:pending)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.instance_variable_get(:@pending_steps).should == 2 
+    it "should keep track of pending steps" do 
+      step_mother.should_receive(:steps).with(:pending).and_return([1,2])
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.steps_summary_for(:pending).should == "2 (100.0%)"
     end
 
     it "should keep track of undefined steps" do
-      step.stub(:status).and_return(:undefined)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.instance_variable_get(:@undefined_steps).should == 2 
+      step_mother.should_receive(:steps).with(:undefined).and_return([1,2])
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.steps_summary_for(:undefined).should == "2 (100.0%)"
     end
 end
 end

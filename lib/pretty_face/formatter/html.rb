@@ -2,7 +2,6 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
-require File.join(File.dirname(__FILE__), 'counters')
 require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace
@@ -44,7 +43,6 @@ module PrettyFace
       include Cucumber::Formatter::Io
       include Cucumber::Formatter::Duration
       include ViewHelper
-      include Counters
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
@@ -154,10 +152,7 @@ module PrettyFace
       end
 
       def process_step(step)
-        value = self.send "#{step.status}_steps"
-        instance_variable_set "@#{step.status}_steps", value+1
         @step_times.push Time.now - @step_timer
-
         @current_steps.push ReportStep.new(step)
       end
 

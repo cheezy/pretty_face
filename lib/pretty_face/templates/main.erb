@@ -69,11 +69,11 @@
         <tr>
           <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
           <td><%= step_count %></td>
-          <td><%= passed_steps_summary %></td>
-          <td><%= failed_steps_summary %></td>
-          <td><%= skipped_steps_summary %></td>
-          <td><%= undefined_steps_summary %></td>
-          <td><%= pending_steps_summary %></td>
+          <td><%= steps_summary_for :passed %></td>
+          <td><%= steps_summary_for :failed %></td>
+          <td><%= steps_summary_for :skipped %></td>
+          <td><%= steps_summary_for :undefined %></td>
+          <td><%= steps_summary_for :pending %></td>
           <td><%= step_average_duration %></td>
         </tr>
       </table>
