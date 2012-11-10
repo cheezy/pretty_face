@@ -90,7 +90,7 @@
         </tr>
         <% features.each do |feature| %>
           <% feature.scenarios.each do |scenario| %>
-            <% if is_failed_scenario scenario %>
+            <% if failed_scenario? scenario %>
         <tr>
           <td><img src="images/failed.jpg" width="30"/></td>
           <td><%= feature.title %> </td>
@@ -124,21 +124,8 @@
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
           <td><%= scenario.steps.length %></td>
         </tr>
-            <% if scenario.instance_of? Cucumber::Ast::ScenarioOutline %>
-              <% scenario.each_example_row do |row| %>
-        <tr>
-          <td><%= image_tag_for row %></td>
-          <td colspan="3">|&nbsp
-                <% row.to_hash.each do |key, value| %>
-            <%= "#{key}: #{value} |" %>
-                <% end %>
-          </td>
-        </tr>
-              <% end %>
-            <% end %>
           <% end %>
         <% end %>
-
       </table>
     </div>
     

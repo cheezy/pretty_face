@@ -2,43 +2,44 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
-require 'cucumber/ast/scenario_outline'
 require File.join(File.dirname(__FILE__), 'counters')
 require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace
   module Formatter
+
     class ReportFeature
       attr_accessor :title, :scenarios
       def initialize(feature)
         self.title = feature.title
+        self.scenarios = []
       end
     end
+
     class ReportScenario
       attr_accessor :name, :file_colon_line, :status, :steps
       def initialize(scenario)
         if scenario.instance_of? Cucumber::Ast::Scenario
           self.name = scenario.name
           self.file_colon_line = scenario.file_colon_line
-          self.status = scenario.status
         elsif scenario.instance_of? Cucumber::Ast::OutlineTable::ExampleRow
           self.name = scenario.scenario_outline.name
           self.file_colon_line = scenario.backtrace_line
-          self.status = scenario.status
         end
+        self.status = scenario.status
         self.steps = []
       end
     end
+
     class ReportStep
       attr_accessor :name, :file_colon_line, :status
       def initialize(step)
-        unless step.nil?
           self.name = step.name
           self.file_colon_line = step.file_colon_line
           self.status = step.status
-        end
       end
     end
+
     class Html
       include Cucumber::Formatter::Io
       include Cucumber::Formatter::Duration
@@ -61,7 +62,7 @@ module PrettyFace
       def before_features(features)
         @tests_started = Time.now
       end
-      
+
       def before_feature(feature)
         @current_feature = ReportFeature.new(feature)
       end
@@ -73,9 +74,8 @@ module PrettyFace
       end
 
       def before_feature_element(feature_element)
-        @is_scenario_outline = feature_element.is_a? Cucumber::Ast::ScenarioOutline
         @scenario_timer = Time.now
-        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
+        if scenario_outline?(feature_element)
           feature_element.each_example_row {|row| @scenario_count += 1}
         else
           @scenario_count += 1
@@ -83,10 +83,10 @@ module PrettyFace
       end
 
       def after_feature_element(feature_element)
-        if not @is_scenario_outline
+        unless scenario_outline?(feature_element)
           process_scenario(feature_element)
         end
-      end 
+      end
 
       def after_outline_table(outline_table)
         process_scenario_outline(outline_table)
@@ -165,11 +165,10 @@ module PrettyFace
         @current_scenario = ReportScenario.new(example_row)
         @current_scenario.steps = @current_steps
         @current_scenarios.push @current_scenario
-
       end
 
       def process_scenario_outline(scenario_outline)
-        scenario_outline.example_rows.each do |example_row| 
+        scenario_outline.example_rows.each do |example_row|
           process_example_row(example_row)
         end
         @current_steps = []
@@ -184,6 +183,9 @@ module PrettyFace
         @current_steps.push @current_step
       end
 
+      def scenario_outline?(feature_element)
+        feature_element.is_a? Cucumber::Ast::ScenarioOutline
+      end
     end
   end
 end

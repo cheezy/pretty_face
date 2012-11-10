@@ -68,7 +68,7 @@ module PrettyFace
         summary_percent(undefined_steps, step_count)
       end
 
-      def is_failed_scenario(scenario)
+      def failed_scenario?(scenario)
         scenario.status == :failed
       end
 
