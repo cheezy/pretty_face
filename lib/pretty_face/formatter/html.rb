@@ -134,37 +134,33 @@ module PrettyFace
 
       def process_feature(feature_element)
         unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
-          value = self.send "#{feature_element.status}_scenarios"
-          instance_variable_set "@#{feature_element.status}_scenarios", value+1
+          add_scenario_for feature_element.status
         end
         if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
           feature_element.each_example_row do |row|
-            value = self.send "#{row.status}_scenarios"
-            instance_variable_set "@#{row.status}_scenarios", value+1
+            add_scenario_for row.status
           end
         end
         @scenario_times.push Time.now - @scenario_timer
       end
 
       def process_scenario(scenario)
-        value = self.send "#{scenario.status}_scenarios"
-        instance_variable_set "@#{scenario.status}_scenarios", value+1
-
+        add_scenario_for scenario.status
         @scenario_times.push Time.now - @scenario_timer
 
-        @current_scenario = ReportScenario.new(scenario)
-        @current_scenario.steps = @current_steps
-        @current_scenarios.push @current_scenario
+        current_scenario = ReportScenario.new(scenario)
+        current_scenario.steps = @current_steps
+        @current_scenarios.push current_scenario
         @current_steps = []
 
       end
-      def process_example_row(example_row)
-        value = self.send "#{example_row.status}_scenarios"
-        instance_variable_set "@#{example_row.status}_scenarios", value+1
 
-        @current_scenario = ReportScenario.new(example_row)
-        @current_scenario.steps = @current_steps
-        @current_scenarios.push @current_scenario
+      def process_example_row(example_row)
+        add_scenario_for example_row.status
+
+        current_scenario = ReportScenario.new(example_row)
+        current_scenario.steps = @current_steps
+        @current_scenarios.push current_scenario
       end
 
       def process_scenario_outline(scenario_outline)
@@ -179,12 +175,16 @@ module PrettyFace
         instance_variable_set "@#{step.status}_steps", value+1
         @step_times.push Time.now - @step_timer
 
-        @current_step = ReportStep.new(step)
-        @current_steps.push @current_step
+        @current_steps.push ReportStep.new(step)
       end
 
       def scenario_outline?(feature_element)
         feature_element.is_a? Cucumber::Ast::ScenarioOutline
+      end
+
+      def add_scenario_for(status)
+        value = self.send "#{status}_scenarios"
+        instance_variable_set "@#{status}_scenarios", value+1
       end
     end
   end
