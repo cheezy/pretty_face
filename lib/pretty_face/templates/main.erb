@@ -30,6 +30,8 @@
   </head>
 
   <body style="font-family: GeosansLightRegular,Arial,Helvetica,sans-serif; font-size: 1em">
+    <%= @step_mother.methods %>
+    
     <div style="float: left;">
       <img src="images/face.jpg" width="200" />
     </div>
@@ -57,11 +59,11 @@
         <tr>
           <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
           <td><%= scenario_count %></td>
-          <td><%= passed_scenarios_summary %></td>
-          <td><%= failed_scenarios_summary %></td>
-          <td><%= skipped_scenarios_summary %></td>
-          <td><%= undefined_scenarios_summary %></td>
-          <td><%= pending_scenarios_summary %></td>
+          <td><%= scenarios_summary_for :passed %></td>
+          <td><%= scenarios_summary_for :failed %></td>
+          <td><%= scenarios_summary_for :skipped %></td>
+          <td><%= scenarios_summary_for :undefined %></td>
+          <td><%= scenarios_summary_for :pending %></td>
           <td><%= scenario_average_duration %></td>
         </tr>
         <tr>

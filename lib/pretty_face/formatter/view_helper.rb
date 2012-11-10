@@ -9,7 +9,7 @@ module PrettyFace
       end
 
       def step_count
-        @step_times.size
+        @step_mother.steps.length
       end
 
       def scenario_count
@@ -28,24 +28,8 @@ module PrettyFace
         format_duration get_average_from_float_array @scenario_times
       end
 
-      def passed_scenarios_summary
-        summary_percent(passed_scenarios, scenario_count)
-      end
-
-      def failed_scenarios_summary
-        summary_percent(failed_scenarios, scenario_count)
-      end
-
-      def pending_scenarios_summary
-        summary_percent(pending_scenarios, scenario_count)
-      end
-
-      def undefined_scenarios_summary
-        summary_percent(undefined_scenarios, scenario_count)
-      end
-
-      def skipped_scenarios_summary
-        summary_percent(skipped_scenarios, scenario_count)
+      def scenarios_summary_for(status)
+        summary_percent(@step_mother.scenarios(status).length, scenario_count)
       end
 
       def passed_steps_summary

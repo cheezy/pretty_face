@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe PrettyFace::Formatter::Html do
-  let(:formatter) { Html.new(nil, nil, nil) }
+  let(:step_mother) { double('step_mother') }
+  let(:formatter) { Html.new(step_mother, nil, nil) }
   let(:parameter) { double('parameter') }
   let(:step) { Cucumber::Ast::Step.new(1, 'Given', 'A cucumber Step') }
 
@@ -23,11 +24,7 @@ describe PrettyFace::Formatter::Html do
 
   context "when building the report for scenarios" do
     it "should track number of scenarios" do
-      parameter.stub(:status).and_return(:passed)
-      formatter.before_feature_element(nil)
-      formatter.before_feature_element(nil)
-      formatter.before_feature_element(nil)
-      
+      step_mother.should_receive(:scenarios).and_return([1,2,3])
       formatter.scenario_count.should eq 3
     end
 
@@ -42,53 +39,40 @@ describe PrettyFace::Formatter::Html do
     end
 
     it "should keep track of passing scenarios" do
-      parameter.stub(:status).and_return(:passed)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@passed_scenarios).should == 2
+      step_mother.should_receive(:scenarios).with(:passed).and_return([1,2])
+      step_mother.should_receive(:scenarios).and_return([1,2])
+      formatter.scenarios_summary_for(:passed).should == "2 (100.0%)"
     end
 
     it "should keep track of failing scenarios" do
-      parameter.stub(:status).and_return(:failed)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@failed_scenarios).should == 2
+      step_mother.should_receive(:scenarios).with(:failed).and_return([1,2])
+      step_mother.should_receive(:scenarios).and_return([1,2])
+      formatter.scenarios_summary_for(:failed).should == "2 (100.0%)"
     end
 
     it "should keep track of pending scenarios" do
-      parameter.stub(:status).and_return(:pending)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@pending_scenarios).should == 2
+      step_mother.should_receive(:scenarios).with(:pending).and_return([1,2])
+      step_mother.should_receive(:scenarios).and_return([1,2])
+      formatter.scenarios_summary_for(:pending).should == "2 (100.0%)"
     end
 
     it "should keep track of undefined scenarios" do
-      parameter.stub(:status).and_return(:undefined)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@undefined_scenarios).should == 2
+      step_mother.should_receive(:scenarios).with(:undefined).and_return([1,2])
+      step_mother.should_receive(:scenarios).and_return([1,2])
+      formatter.scenarios_summary_for(:undefined).should == "2 (100.0%)"
     end
 
     it "should keep track of skipped scenarios" do
-      parameter.stub(:status).and_return(:skipped)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.after_feature_element(parameter)
-      formatter.instance_variable_get(:@skipped_scenarios).should == 2
+      step_mother.should_receive(:scenarios).with(:skipped).and_return([1,2])
+      step_mother.should_receive(:scenarios).and_return([1,2])
+      formatter.scenarios_summary_for(:skipped).should == "2 (100.0%)"
     end
   end
 
   context "when building the report for steps" do
     it "should track number of steps" do
-      step.stub(:status).and_return(:passed)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.after_step(step)
-      formatter.step_count.should eq 2
+      step_mother.should_receive(:steps).and_return([1,2])
+      formatter.step_count.should == 2
     end
     
     it "should track average step durations" do

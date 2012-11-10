@@ -127,19 +127,10 @@ module PrettyFace
       end
 
       def process_feature(feature_element)
-        unless feature_element.instance_of? Cucumber::Ast::ScenarioOutline
-          add_scenario_for feature_element.status
-        end
-        if feature_element.instance_of? Cucumber::Ast::ScenarioOutline
-          feature_element.each_example_row do |row|
-            add_scenario_for row.status
-          end
-        end
         @scenario_times.push Time.now - @scenario_timer
       end
 
       def process_scenario(scenario)
-        add_scenario_for scenario.status
         @scenario_times.push Time.now - @scenario_timer
 
         current_scenario = ReportScenario.new(scenario)
@@ -150,8 +141,6 @@ module PrettyFace
       end
 
       def process_example_row(example_row)
-        add_scenario_for example_row.status
-
         current_scenario = ReportScenario.new(example_row)
         current_scenario.steps = @current_steps
         @current_scenarios.push current_scenario
@@ -174,11 +163,6 @@ module PrettyFace
 
       def scenario_outline?(feature_element)
         feature_element.is_a? Cucumber::Ast::ScenarioOutline
-      end
-
-      def add_scenario_for(status)
-        value = self.send "#{status}_scenarios"
-        instance_variable_set "@#{status}_scenarios", value+1
       end
     end
   end
