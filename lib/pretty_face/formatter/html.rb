@@ -51,7 +51,6 @@ module PrettyFace
         @io = ensure_io(path_or_io, 'html')
         @step_mother = step_mother
         @options = options
-        @scenario_count = 0
         @step_times = []
         @scenario_times = []
         @report_features = []
@@ -75,11 +74,6 @@ module PrettyFace
 
       def before_feature_element(feature_element)
         @scenario_timer = Time.now
-        if scenario_outline?(feature_element)
-          feature_element.each_example_row {|row| @scenario_count += 1}
-        else
-          @scenario_count += 1
-        end
       end
 
       def after_feature_element(feature_element)

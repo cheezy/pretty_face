@@ -13,7 +13,7 @@ module PrettyFace
       end
 
       def scenario_count
-        @scenario_count
+        @step_mother.scenarios.length
       end
 
       def total_duration
