@@ -61,12 +61,11 @@ module PrettyFace
       end
 
       def before_feature(feature)
-        @current_feature = ReportFeature.new(feature)
+        @report_features << ReportFeature.new(feature)
       end
 
       def after_feature(feature)
-        @current_feature.scenarios = @current_scenarios
-        @report_features.push @current_feature
+        @report_features.last.scenarios = @current_scenarios
         @current_scenarios = []
       end
 
@@ -85,7 +84,6 @@ module PrettyFace
       end
 
       def after_table_row(example_row)
-        #process_example_row(example_row)
         @scenario_times.push Time.now - @scenario_timer
       end
 
@@ -130,18 +128,14 @@ module PrettyFace
 
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
-
-        current_scenario = ReportScenario.new(scenario)
-        current_scenario.steps = @current_steps
-        @current_scenarios.push current_scenario
+        @current_scenarios << ReportScenario.new(scenario)
+        @current_scenarios.last.steps = @current_steps
         @current_steps = []
-
       end
 
       def process_example_row(example_row)
-        current_scenario = ReportScenario.new(example_row)
-        current_scenario.steps = @current_steps
-        @current_scenarios.push current_scenario
+        @current_scenarios << ReportScenario.new(example_row)
+        @current_scenarios.last.steps = @current_steps
       end
 
       def process_scenario_outline(scenario_outline)
