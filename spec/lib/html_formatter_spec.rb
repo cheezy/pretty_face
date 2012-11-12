@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cucumber/ast/step'
 
 describe PrettyFace::Formatter::Html do
   let(:step_mother) { double('step_mother') }

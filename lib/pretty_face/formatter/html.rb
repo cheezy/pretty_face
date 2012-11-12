@@ -2,6 +2,9 @@ require 'erb'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
+require 'cucumber/ast/scenario'
+require 'cucumber/ast/table'
+require 'cucumber/ast/outline_table'
 require File.join(File.dirname(__FILE__), 'view_helper')
 
 module PrettyFace

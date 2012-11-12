@@ -13,6 +13,6 @@ end
 task :spec
 
 desc 'Run all specs and features'
-task :test => ['spec', 'features']
+task :test => %w[spec features]
 
 task :default => :test
