@@ -2,11 +2,14 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <style type='text/css'>
-
+        /* TODO: lets move this to an external .css file */
+        body {
+          font-family: GeosansLightRegular,Arial,Helvetica,sans-serif; 
+          font-size: 1em;
+        }
         a, a:visited {
             color: #4B7CAB;
         }
-
         div {
             padding: 5px;
         }
@@ -15,33 +18,87 @@
             margin: 0;
         }
 
+        .summary_body {
+          width: 99%; 
+          margin-top: 15px; 
+          float: left; 
+          -moz-border-radius: 15px; 
+          border-radius: 15px; 
+          background-color: #E0E0E0;
+        }
+        .summary_row_header {
+          text-align: left; 
+          font-size: 1em; 
+          font-weight: bold;
+        }
         .summary td {
             font-size: .8em;
             text-align: center;
             width: 150px;
         }
+        .summary td:first-child {
+            font-size: inherit;
+            text-align: inherit;
+            width: inherit;
+        }        
 
         .failed td {
             font-size: .8em;
+        }
+
+        .footer {
+          width: 100%; 
+          background-color: #4B7CAB; 
+          float: left; 
+          margin-left: -7px; 
+          margin-top: 25px; 
+          font-family: Verdana; 
+          font-size: 0.8em; 
+          color: white
+        }
+        h2.failures {
+          color: #A00000; 
+          margin-top: 15px; 
+          margin-left: 5px;
+        }
+        h2.scenarios {
+          color: #4B7CAB; 
+          margin-top: 15px; 
+          margin-left: 5px;
+        }
+        h2.results {
+          color: #282828; 
+          margin-top: 12px; 
+          margin-bottom: 15px;
+        }
+        h2.summary {
+          color: white; 
+          margin-left: 5px; 
+          margin-top: 5px;
+        }
+
+        .feature_title {
+          background-color: #F0F0F0; 
+          font-size: 0.9em;
         }
     </style>
     
     <title>Test Results</title>
   </head>
 
-  <body style="font-family: GeosansLightRegular,Arial,Helvetica,sans-serif; font-size: 1em">
+  <body>
     <div style="float: left;">
       <img src="images/face.jpg" width="200" />
     </div>
     <div style="float: left;">
-      <h2 style="color: #282828; margin-top: 12px; margin-bottom: 15px;">Test Results</h2>
+      <h2 class="results">Test Results</h2>
       <span>Tests started: <%= start_time %></span>
       <br />
       <span>Duration: <%= total_duration %></span>
     </div>
     
-	  <div style="width: 99%; margin-top: 15px; float: left; -moz-border-radius: 15px; border-radius: 15px; background-color: #E0E0E0">
-      <h2 style="color: white; margin-left: 5px; margin-top: 5px;">Summary</h2>
+	  <div class="summary_body">
+      <h2 class="summary">Summary</h2>
 
       <table cellspacing="0" cellpadding="7" class="summary">
         <tr>
@@ -55,7 +112,7 @@
           <th>Average<br/>Duration</th>
         </tr>
         <tr>
-          <td style="text-align: left; font-size: 1em; font-weight: bold">Scenarios</td>
+          <td class="summary_row_header">Scenarios</td>
           <td><%= scenario_count %></td>
           <td><%= scenarios_summary_for :passed %></td>
           <td><%= scenarios_summary_for :failed %></td>
@@ -65,7 +122,7 @@
           <td><%= scenario_average_duration %></td>
         </tr>
         <tr>
-          <td style="text-align: left; font-size: 1em; font-weight: bold">Steps</td>
+          <td class="summary_row_header">Steps</td>
           <td><%= step_count %></td>
           <td><%= steps_summary_for :passed %></td>
           <td><%= steps_summary_for :failed %></td>
@@ -79,7 +136,7 @@
 
     <div style="width: 100%; float: left;">
       <br />
-      <h2 style="color: #A00000; margin-top: 15px; margin-left: 5px;">Tests With Failures:</h2>
+      <h2 class="failures">Tests With Failures:</h2>
       <br />
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
         <tr style="background-color: #E0E0E0;">
@@ -103,7 +160,7 @@
       </table>
         
       <br />
-      <h2 style="color: #4B7CAB; margin-top: 15px; margin-left: 5px;">Scenario Overview:</h2>
+      <h2 class="scenarios">Scenario Overview:</h2>
       <br />
 
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
@@ -115,7 +172,7 @@
         </tr>
         <% features.each do |feature| %>
         <tr>
-          <td style="background-color: #F0F0F0; font-size: 0.9em;" colspan="4">Feature: <%= feature.title %></td>
+          <td class="feature_title" colspan="4">Feature: <%= feature.title %></td>
         </tr>
           <% feature.scenarios.each do |scenario| %>
         <tr>
@@ -129,7 +186,7 @@
       </table>
     </div>
     
-    <div style="width: 100%; background-color: #4B7CAB; float: left; margin-left: -7px; margin-top: 25px; font-family: Verdana; font-size: 0.8em; color: white">
+    <div class="footer">
       Generated by PrettyFace
     </div>
     
