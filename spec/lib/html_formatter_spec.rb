@@ -31,7 +31,6 @@ describe PrettyFace::Formatter::Html do
 
     it "should track average scenario durations" do
       feature = stub('feature')
-      feature.should_receive(:title)
       parameter.stub(:status).and_return(:passed)
       formatter.before_feature(feature)
       formatter.before_feature_element(nil)

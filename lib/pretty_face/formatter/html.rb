@@ -29,7 +29,6 @@ module PrettyFace
     class ReportFeature
       attr_accessor :title, :scenarios
       def initialize(feature)
-        self.title = feature.title
         self.scenarios = []
       end
 
@@ -89,6 +88,10 @@ module PrettyFace
       def before_feature(feature)
         feature = ReportFeature.new(feature)
         @report.add feature
+      end
+
+      def after_feature(feature)
+        @report.current_feature.title = feature.title
       end
 
       def before_feature_element(feature_element)
