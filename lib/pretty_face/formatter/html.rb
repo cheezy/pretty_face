@@ -10,11 +10,35 @@ require File.join(File.dirname(__FILE__), 'view_helper')
 module PrettyFace
   module Formatter
 
+    class Report
+      attr_reader :features
+
+      def initialize
+        @features = []
+      end
+
+      def add(feature)
+        @features << feature
+      end
+
+      def current_feature
+        @features.last
+      end
+    end
+
     class ReportFeature
       attr_accessor :title, :scenarios
       def initialize(feature)
         self.title = feature.title
         self.scenarios = []
+      end
+
+      def add_scenario(scenario)
+        @scenarios << scenario
+      end
+
+      def current_scenario
+        @scenarios.last
       end
     end
 
@@ -52,10 +76,9 @@ module PrettyFace
         @io = ensure_io(path_or_io, 'html')
         @step_mother = step_mother
         @options = options
+        @report = Report.new
         @step_times = []
         @scenario_times = []
-        @report_features = []
-        @current_scenarios = []
         @current_steps = []
       end
 
@@ -64,12 +87,8 @@ module PrettyFace
       end
 
       def before_feature(feature)
-        @report_features << ReportFeature.new(feature)
-      end
-
-      def after_feature(feature)
-        @report_features.last.scenarios = @current_scenarios
-        @current_scenarios = []
+        feature = ReportFeature.new(feature)
+        @report.add feature
       end
 
       def before_feature_element(feature_element)
@@ -106,7 +125,7 @@ module PrettyFace
       end
 
       def features
-        @report_features
+        @report.features
       end
 
       private
@@ -131,14 +150,16 @@ module PrettyFace
 
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
-        @current_scenarios << ReportScenario.new(scenario)
-        @current_scenarios.last.steps = @current_steps
+        the_scenario = ReportScenario.new(scenario)
+        the_scenario.steps = @current_steps
+        @report.current_feature.add_scenario the_scenario
         @current_steps = []
       end
 
       def process_example_row(example_row)
-        @current_scenarios << ReportScenario.new(example_row)
-        @current_scenarios.last.steps = @current_steps
+        the_scenario = ReportScenario.new(example_row)
+        the_scenario.steps = @current_steps
+        @report.current_feature.add_scenario the_scenario
       end
 
       def process_scenario_outline(scenario_outline)
