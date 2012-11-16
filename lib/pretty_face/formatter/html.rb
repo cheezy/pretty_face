@@ -44,6 +44,10 @@ module PrettyFace
     class ReportScenario
       attr_accessor :name, :file_colon_line, :status, :steps
       def initialize(scenario)
+        self.steps = []
+      end
+
+      def populate(scenario)
         if scenario.instance_of? Cucumber::Ast::Scenario
           self.name = scenario.name
           self.file_colon_line = scenario.file_colon_line
@@ -52,7 +56,6 @@ module PrettyFace
           self.file_colon_line = scenario.backtrace_line
         end
         self.status = scenario.status
-        self.steps = []
       end
     end
 
@@ -96,6 +99,9 @@ module PrettyFace
 
       def before_feature_element(feature_element)
         @scenario_timer = Time.now
+        unless scenario_outline? feature_element
+          @report.current_feature.add_scenario  ReportScenario.new(feature_element)
+        end
       end
 
       def after_feature_element(feature_element)
@@ -153,15 +159,16 @@ module PrettyFace
 
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
-        the_scenario = ReportScenario.new(scenario)
+        the_scenario = @report.current_feature.current_scenario
+        the_scenario.populate(scenario)
         the_scenario.steps = @current_steps
-        @report.current_feature.add_scenario the_scenario
         @current_steps = []
       end
 
       def process_example_row(example_row)
         the_scenario = ReportScenario.new(example_row)
         the_scenario.steps = @current_steps
+        the_scenario.populate example_row
         @report.current_feature.add_scenario the_scenario
       end
 
