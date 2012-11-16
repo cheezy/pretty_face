@@ -24,16 +24,17 @@ module PrettyFace
       def current_feature
         @features.last
       end
+
+      def add_scenario(scenario)
+        current_feature.scenarios << scenario
+      end
     end
 
     class ReportFeature
       attr_accessor :title, :scenarios
+
       def initialize(feature)
         self.scenarios = []
-      end
-
-      def add_scenario(scenario)
-        @scenarios << scenario
       end
 
       def current_scenario
@@ -43,6 +44,7 @@ module PrettyFace
 
     class ReportScenario
       attr_accessor :name, :file_colon_line, :status, :steps
+
       def initialize(scenario)
         self.steps = []
       end
@@ -100,7 +102,7 @@ module PrettyFace
       def before_feature_element(feature_element)
         @scenario_timer = Time.now
         unless scenario_outline? feature_element
-          @report.current_feature.add_scenario  ReportScenario.new(feature_element)
+          @report.add_scenario  ReportScenario.new(feature_element)
         end
       end
 
@@ -169,7 +171,7 @@ module PrettyFace
         the_scenario = ReportScenario.new(example_row)
         the_scenario.steps = @current_steps
         the_scenario.populate example_row
-        @report.current_feature.add_scenario the_scenario
+        @report.add_scenario the_scenario
       end
 
       def process_scenario_outline(scenario_outline)
