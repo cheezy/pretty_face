@@ -25,6 +25,10 @@ module PrettyFace
         @features.last
       end
 
+      def current_scenario
+        current_feature.scenarios.last
+      end
+
       def add_scenario(scenario)
         current_feature.scenarios << scenario
       end
@@ -35,10 +39,6 @@ module PrettyFace
 
       def initialize(feature)
         self.scenarios = []
-      end
-
-      def current_scenario
-        @scenarios.last
       end
     end
 
@@ -161,9 +161,8 @@ module PrettyFace
 
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
-        the_scenario = @report.current_feature.current_scenario
-        the_scenario.populate(scenario)
-        the_scenario.steps = @current_steps
+        @report.current_scenario.populate(scenario)
+        @report.current_scenario.steps = @current_steps
         @current_steps = []
       end
 
