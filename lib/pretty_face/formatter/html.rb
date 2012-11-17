@@ -95,10 +95,6 @@ module PrettyFace
         end
       end
 
-      def process_feature(feature_element)
-        @scenario_times.push Time.now - @scenario_timer
-      end
-
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
         @report.current_scenario.populate(scenario)
