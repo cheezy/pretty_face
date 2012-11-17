@@ -2,6 +2,12 @@
 
 HTML report for cucumber and rspec.  You can customzie the report by editing an erb file.
 
+The current release is very basic but you can expect a lot more over the next month or so.  If you wish to use this formatter you can simply add the following to your command-line or cucumber.yml profile:
+
+    --format PrettyFace::Formatter::Html --out index.html
+    
+
+
 ## Known Issues
 
 See [http://github.com/cheezy/pretty_face/issues](http://github.com/cheezy/pretty_face/issues)
