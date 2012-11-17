@@ -24,7 +24,7 @@ module PrettyFace
         @report = Report.new
         @step_times = []
         @scenario_times = []
-        @current_steps = []
+        @outline_steps = []
       end
 
       def before_features(features)
@@ -32,8 +32,7 @@ module PrettyFace
       end
 
       def before_feature(feature)
-        feature = ReportFeature.new(feature)
-        @report.add feature
+        @report.add_feature ReportFeature.new(feature)
       end
 
       def after_feature(feature)
@@ -103,32 +102,42 @@ module PrettyFace
       def process_scenario(scenario)
         @scenario_times.push Time.now - @scenario_timer
         @report.current_scenario.populate(scenario)
-        @report.current_scenario.steps = @current_steps
-        @current_steps = []
       end
 
       def process_example_row(example_row)
-        the_scenario = ReportScenario.new(example_row)
-        the_scenario.steps = @current_steps
-        the_scenario.populate example_row
-        @report.add_scenario the_scenario
+        @report.add_scenario build_scenario_outline_with example_row
       end
 
       def process_scenario_outline(scenario_outline)
         scenario_outline.example_rows.each do |example_row|
           process_example_row(example_row)
         end
-        @current_steps = []
+        @outline_steps = []
       end
 
       def process_step(step)
         @step_times.push Time.now - @step_timer
-        the_step = ReportStep.new(step)
-        @current_steps.push the_step
+        if step_belongs_to_outline? step
+          @outline_steps << ReportStep.new(step)
+        else
+          @report.add_step ReportStep.new(step)
+        end
       end
 
       def scenario_outline?(feature_element)
         feature_element.is_a? Cucumber::Ast::ScenarioOutline
+      end
+
+      def step_belongs_to_outline?(step)
+        scenario = step.instance_variable_get "@feature_element"
+        not scenario.nil?
+      end
+
+      def build_scenario_outline_with(example_row)
+        scenario = ReportScenario.new(example_row)
+        scenario.steps = @outline_steps
+        scenario.populate example_row
+        scenario
       end
     end
   end

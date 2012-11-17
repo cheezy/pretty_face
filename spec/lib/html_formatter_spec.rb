@@ -78,15 +78,6 @@ describe PrettyFace::Formatter::Html do
       formatter.step_count.should == 2
     end
     
-    it "should track average step durations" do
-      step.stub(:status).and_return(:passed)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.before_step(nil)
-      formatter.after_step(step)
-      formatter.step_average_duration.should include '0.0'
-    end
-
     it "should keep track of passing steps" do
       step_mother.should_receive(:steps).with(:passed).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])

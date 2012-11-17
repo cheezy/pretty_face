@@ -8,10 +8,6 @@ module PrettyFace
         @features = []
       end
 
-      def add(feature)
-        @features << feature
-      end
-
       def current_feature
         @features.last
       end
@@ -20,8 +16,16 @@ module PrettyFace
         current_feature.scenarios.last
       end
 
+      def add_feature(feature)
+        @features << feature
+      end
+
       def add_scenario(scenario)
         current_feature.scenarios << scenario
+      end
+
+      def add_step(step)
+        current_scenario.steps << step
       end
     end
 
