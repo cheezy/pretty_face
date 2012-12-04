@@ -30,10 +30,23 @@ module PrettyFace
     end
 
     class ReportFeature
-      attr_accessor :title, :scenarios
+      attr_accessor :scenarios
+      attr_reader :title, :file, :start_time, :duration
 
       def initialize(feature)
         self.scenarios = []
+        @start_time = Time.now
+      end
+
+      def close(feature)
+        @title = feature.title
+        @duration = Time.now - start_time
+        a_file = feature.file.sub(/\.feature/, '.html')
+        @file = a_file.split('/').last
+      end
+
+      def get_binding
+        binding
       end
     end
 

@@ -36,7 +36,7 @@ module PrettyFace
       end
 
       def after_feature(feature)
-        @report.current_feature.title = feature.title
+        @report.current_feature.close(feature)
       end
 
       def before_feature_element(feature_element)
@@ -85,6 +85,18 @@ module PrettyFace
         filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
         text = File.new(filename).read
         @io.puts ERB.new(text, nil, "%").result(binding)
+        erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
+        text = File.new(erbfile).read
+        features.each do |feature|
+          write_feature_file(feature, text)
+        end
+      end
+
+      def write_feature_file(feature, text)
+          file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+          file.puts ERB.new(text, nil, "%").result(feature.get_binding)
+          file.flush
+          file.close
       end
 
       def copy_images_directory
