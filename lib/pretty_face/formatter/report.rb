@@ -48,6 +48,11 @@ module PrettyFace
       def get_binding
         binding
       end
+
+      def formatted_duration
+        m, s = duration.divmod(60)
+        "#{m}m#{'%.3f' % s}s" 
+      end
     end
 
     class ReportScenario
