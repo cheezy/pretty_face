@@ -45,6 +45,12 @@ module PrettyFace
         @file = a_file.split('/').last
       end
 
+      def steps
+        steps = []
+        scenarios.each { |scenario| steps += scenario.steps }
+        steps
+      end
+
       def get_binding
         binding
       end
