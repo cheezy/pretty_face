@@ -1,6 +1,19 @@
 module PrettyFace
   module Formatter
 
+    module Formatting
+      def summary_percent(number, total)
+        percent = (number.to_f / total) * 100
+        "#{number} (#{'%.1f' % percent}%)"
+      end
+
+      def formatted_duration
+        m, s = duration.divmod(60)
+        "#{m}m#{'%.3f' % s}s" 
+      end
+    end
+    
+
     class Report
       attr_reader :features
 
@@ -30,6 +43,8 @@ module PrettyFace
     end
 
     class ReportFeature
+      include Formatting
+
       attr_accessor :scenarios
       attr_reader :title, :file, :start_time, :duration
 
@@ -46,18 +61,11 @@ module PrettyFace
       end
 
       def steps
-        steps = []
-        scenarios.each { |scenario| steps += scenario.steps }
-        steps
+        scenarios.inject(0) { |num, scenario| num += scenario.steps.length }
       end
 
       def get_binding
         binding
-      end
-
-      def formatted_duration
-        m, s = duration.divmod(60)
-        "#{m}m#{'%.3f' % s}s" 
       end
     end
 
