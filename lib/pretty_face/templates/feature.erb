@@ -115,16 +115,16 @@
         <tr>
           <td class="summary_row_header">Scenarios</td>
           <td><%= scenarios.length %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
+          <td><%= scenario_summary_for :passed %></td>
+          <td><%= scenario_summary_for :failed %></td>
+          <td><%= scenario_summary_for :skipped %></td>
+          <td><%= scenario_summary_for :undefined %></td>
+          <td><%= scenario_summary_for :pending %></td>
           <td><%=  %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
-          <td><%= steps.length %></td>
+          <td><%= num_steps %></td>
           <td><%=  %></td>
           <td><%=  %></td>
           <td><%=  %></td>
