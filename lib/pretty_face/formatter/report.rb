@@ -60,13 +60,20 @@ module PrettyFace
         @file = a_file.split('/').last
       end
 
-      def num_steps
-        scenarios.inject(0) { |num, scenario| num += scenario.steps.length }
+      def steps
+        steps = []
+        scenarios.each { |scenario| steps += scenario.steps }
+        steps
       end
 
       def scenario_summary_for(status)
         scenarios_with_status = scenarios.find_all { |scenario| scenario.status == status }
         summary_percent(scenarios_with_status.length, scenarios.length)
+      end
+
+      def step_summary_for(status)
+        steps_with_status = steps.find_all { |step| step.status == status }
+        summary_percent(steps_with_status.length, steps.length)
       end
 
       def get_binding

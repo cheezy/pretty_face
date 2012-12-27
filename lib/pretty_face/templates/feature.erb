@@ -124,12 +124,12 @@
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
-          <td><%= num_steps %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
-          <td><%=  %></td>
+          <td><%= steps.length %></td>
+          <td><%= step_summary_for :passed %></td>
+          <td><%= step_summary_for :failed %></td>
+          <td><%= step_summary_for :skipped %></td>
+          <td><%= step_summary_for :undefined %></td>
+          <td><%= step_summary_for :pending %></td>
           <td><%=  %></td>
         </tr>
       </table>

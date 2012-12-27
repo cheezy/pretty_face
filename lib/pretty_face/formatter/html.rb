@@ -143,6 +143,7 @@ module PrettyFace
 
       def build_scenario_outline_with(example_row)
         scenario = ReportScenario.new(example_row)
+        steps = example_row.create_step_invocations!(example_row.scenario_outline)
         scenario.steps = @outline_steps
         scenario.populate example_row
         scenario

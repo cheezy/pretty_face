@@ -1,4 +1,3 @@
-@focus
 Feature: pages that show details for features
   
   Background:
