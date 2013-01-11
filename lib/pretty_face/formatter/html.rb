@@ -60,12 +60,18 @@ module PrettyFace
         end
       end
 
-      def after_outline_table(outline_table)
-        process_scenario_outline(outline_table)
+      def before_table_row(example_row)
+        @report.add_scenario ReportScenario.new(example_row) unless header_row?(example_row)
       end
 
       def after_table_row(example_row)
         @scenario_times.push Time.now - @scenario_timer
+        unless header_row?(example_row)
+          @report.current_scenario.populate(example_row)
+          example_row.scenario_outline.raw_steps.each do |step|
+            process_step(step, example_row.status)
+          end
+        end
       end
 
       def before_step(step)
@@ -73,7 +79,7 @@ module PrettyFace
       end
 
       def after_step(step)
-        process_step(step)
+        process_step(step) unless step_belongs_to_outline? step
       end
 
       def after_features(features)
@@ -131,17 +137,19 @@ module PrettyFace
         @outline_steps = []
       end
 
-      def process_step(step)
+      def process_step(step, status=nil)
         @step_times.push Time.now - @step_timer
-        if step_belongs_to_outline? step
-          @outline_steps << ReportStep.new(step)
-        elsif !@report.processing_background_steps?
-          @report.add_step ReportStep.new(step)
-        end
+        step = ReportStep.new(step)
+        step.status = status unless status.nil?
+        @report.add_step step unless @report.processing_background_steps?
       end
 
       def scenario_outline?(feature_element)
         feature_element.is_a? Cucumber::Ast::ScenarioOutline
+      end
+
+      def header_row?(example_row)
+        example_row.scenario_outline.nil?
       end
 
       def step_belongs_to_outline?(step)
