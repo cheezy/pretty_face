@@ -36,6 +36,15 @@ module PrettyFace
       def add_scenario(scenario)
         current_feature.scenarios << scenario
       end
+      def begin_background(background)
+        @processing_background = true
+      end
+      def end_background
+        @processing_background = false
+      end
+      def processing_background_steps?
+        @processing_background
+      end
 
       def add_step(step)
         current_scenario.steps << step
@@ -45,7 +54,7 @@ module PrettyFace
     class ReportFeature
       include Formatting
 
-      attr_accessor :scenarios
+      attr_accessor :scenarios, :background
       attr_reader :title, :file, :start_time, :duration
 
       def initialize(feature)

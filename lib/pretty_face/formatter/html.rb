@@ -38,6 +38,14 @@ module PrettyFace
       def after_feature(feature)
         @report.current_feature.close(feature)
       end
+      
+      def before_background(background)
+        @report.begin_background ReportScenario.new(background)
+      end
+
+      def after_background(background)
+        @report.end_background
+      end
 
       def before_feature_element(feature_element)
         @scenario_timer = Time.now
@@ -127,7 +135,7 @@ module PrettyFace
         @step_times.push Time.now - @step_timer
         if step_belongs_to_outline? step
           @outline_steps << ReportStep.new(step)
-        else
+        elsif !@report.processing_background_steps?
           @report.add_step ReportStep.new(step)
         end
       end
