@@ -1,4 +1,3 @@
-before_install: mkdir results
 language: ruby
 rvm:
   - 1.9.3
