@@ -22,7 +22,6 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @report = Report.new
-        @step_times = []
       end
 
       def before_features(features)
@@ -122,8 +121,9 @@ module PrettyFace
       end
 
       def process_step(step, status=nil)
-        @step_times.push Time.now - @step_timer
+        duration =  Time.now - @step_timer
         step = ReportStep.new(step)
+        step.duration = duration
         step.status = status unless status.nil?
         @report.add_step step unless @report.processing_background_steps?
       end

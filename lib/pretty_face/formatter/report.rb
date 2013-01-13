@@ -90,7 +90,12 @@ module PrettyFace
 
       def scenario_average_duration
         durations = scenarios.collect { |scenario| scenario.duration }
-        puts "durations = #{durations}"
+        formatted_duration(durations.reduce(:+).to_f / durations.size)
+      end
+
+      def step_average_duration
+        steps = scenarios.collect { |scenario| scenario.steps }
+        durations = steps.flatten.collect { |step| step.duration }
         formatted_duration(durations.reduce(:+).to_f / durations.size)
       end
 
@@ -121,7 +126,7 @@ module PrettyFace
     end
 
     class ReportStep
-      attr_accessor :name, :file_colon_line, :status
+      attr_accessor :name, :file_colon_line, :status, :duration
       def initialize(step)
           self.name = step.name
           self.file_colon_line = step.file_colon_line

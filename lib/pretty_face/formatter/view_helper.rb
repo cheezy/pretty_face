@@ -20,14 +20,16 @@ module PrettyFace
         @duration
       end
 
-      def step_average_duration
-        format_duration get_average_from_float_array @step_times
+      def step_average_duration(features)
+        scenarios = features.collect { |feature| feature.scenarios }
+        steps = scenarios.flatten.collect { |scenario| scenario.steps }
+        durations = steps.flatten.collect { |step| step.duration }
+        format_duration get_average_from_float_array durations
       end
 
       def scenario_average_duration(features)
-        scenarios = []
-        features.each { |feature| scenarios += feature.scenarios }
-        durations = scenarios.collect { |scenario| scenario.duration }
+        scenarios = features.collect { |feature| feature.scenarios }
+        durations = scenarios.flatten.collect { |scenario| scenario.duration }
         format_duration get_average_from_float_array durations
       end
 
