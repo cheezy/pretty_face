@@ -95,7 +95,7 @@
       <h2 class="results">Feature Results:  <%= "#{title}" %></h2>
       <span>Feature started: <%= start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
       <br />
-      <span>Duration: <%= formatted_duration %></span>
+      <span>Duration: <%= formatted_duration(duration) %></span>
     </div>
 
 	  <div class="summary_body">
@@ -120,7 +120,7 @@
           <td><%= scenario_summary_for :skipped %></td>
           <td><%= scenario_summary_for :undefined %></td>
           <td><%= scenario_summary_for :pending %></td>
-          <td><%=  %></td>
+          <td><%= scenario_average_duration  %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>

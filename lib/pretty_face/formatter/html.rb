@@ -23,8 +23,6 @@ module PrettyFace
         @options = options
         @report = Report.new
         @step_times = []
-        @scenario_times = []
-        @outline_steps = []
       end
 
       def before_features(features)
@@ -40,7 +38,7 @@ module PrettyFace
       end
       
       def before_background(background)
-        @report.begin_background ReportScenario.new(background)
+        @report.begin_background
       end
 
       def after_background(background)
@@ -48,7 +46,6 @@ module PrettyFace
       end
 
       def before_feature_element(feature_element)
-        @scenario_timer = Time.now
         unless scenario_outline? feature_element
           @report.add_scenario  ReportScenario.new(feature_element)
         end
@@ -65,7 +62,6 @@ module PrettyFace
       end
 
       def after_table_row(example_row)
-        @scenario_times.push Time.now - @scenario_timer
         unless header_row?(example_row)
           @report.current_scenario.populate(example_row)
           example_row.scenario_outline.raw_steps.each do |step|
@@ -122,19 +118,7 @@ module PrettyFace
       end
 
       def process_scenario(scenario)
-        @scenario_times.push Time.now - @scenario_timer
         @report.current_scenario.populate(scenario)
-      end
-
-      def process_example_row(example_row)
-        @report.add_scenario build_scenario_outline_with example_row
-      end
-
-      def process_scenario_outline(scenario_outline)
-        scenario_outline.example_rows.each do |example_row|
-          process_example_row(example_row)
-        end
-        @outline_steps = []
       end
 
       def process_step(step, status=nil)
@@ -157,13 +141,6 @@ module PrettyFace
         not scenario.nil?
       end
 
-      def build_scenario_outline_with(example_row)
-        scenario = ReportScenario.new(example_row)
-        steps = example_row.create_step_invocations!(example_row.scenario_outline)
-        scenario.steps = @outline_steps
-        scenario.populate example_row
-        scenario
-      end
     end
   end
 end

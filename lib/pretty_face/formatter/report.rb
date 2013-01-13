@@ -7,12 +7,12 @@ module PrettyFace
         "#{number} (#{'%.1f' % percent}%)"
       end
 
-      def formatted_duration
+      def formatted_duration(duration)
         m, s = duration.divmod(60)
-        "#{m}m#{'%.3f' % s}s" 
+        "#{m}m#{'%.3f' % s}s"
       end
     end
-    
+
 
     class Report
       attr_reader :features
@@ -36,12 +36,15 @@ module PrettyFace
       def add_scenario(scenario)
         current_feature.scenarios << scenario
       end
-      def begin_background(background)
+
+      def begin_background
         @processing_background = true
       end
+
       def end_background
         @processing_background = false
       end
+
       def processing_background_steps?
         @processing_background
       end
@@ -85,19 +88,27 @@ module PrettyFace
         summary_percent(steps_with_status.length, steps.length)
       end
 
+      def scenario_average_duration
+        durations = scenarios.collect { |scenario| scenario.duration }
+        puts "durations = #{durations}"
+        formatted_duration(durations.reduce(:+).to_f / durations.size)
+      end
+
       def get_binding
         binding
       end
     end
 
     class ReportScenario
-      attr_accessor :name, :file_colon_line, :status, :steps
+      attr_accessor :name, :file_colon_line, :status, :steps, :duration
 
       def initialize(scenario)
         self.steps = []
+        @start = Time.now
       end
 
       def populate(scenario)
+        @duration = Time.now - @start
         if scenario.instance_of? Cucumber::Ast::Scenario
           self.name = scenario.name
           self.file_colon_line = scenario.file_colon_line

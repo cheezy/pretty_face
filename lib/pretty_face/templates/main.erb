@@ -119,7 +119,7 @@
           <td><%= scenarios_summary_for :skipped %></td>
           <td><%= scenarios_summary_for :undefined %></td>
           <td><%= scenarios_summary_for :pending %></td>
-          <td><%= scenario_average_duration %></td>
+          <td><%= scenario_average_duration(features) %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>

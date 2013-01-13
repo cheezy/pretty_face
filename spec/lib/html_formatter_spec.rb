@@ -29,18 +29,6 @@ describe PrettyFace::Formatter::Html do
       formatter.scenario_count.should eq 3
     end
 
-    it "should track average scenario durations" do
-      feature = stub('feature')
-      parameter.stub(:status).and_return(:passed)
-      formatter.before_feature(feature)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      formatter.before_feature_element(nil)
-      formatter.after_feature_element(parameter)
-      
-      formatter.scenario_average_duration.should include '0.0'
-    end
-
     it "should keep track of passing scenarios" do
       step_mother.should_receive(:scenarios).with(:passed).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
@@ -107,5 +95,5 @@ describe PrettyFace::Formatter::Html do
       step_mother.should_receive(:steps).and_return([1,2])
       formatter.steps_summary_for(:undefined).should == "2 (100.0%)"
     end
-end
+  end
 end

@@ -24,8 +24,11 @@ module PrettyFace
         format_duration get_average_from_float_array @step_times
       end
 
-      def scenario_average_duration
-        format_duration get_average_from_float_array @scenario_times
+      def scenario_average_duration(features)
+        scenarios = []
+        features.each { |feature| scenarios += feature.scenarios }
+        durations = scenarios.collect { |scenario| scenario.duration }
+        format_duration get_average_from_float_array durations
       end
 
       def scenarios_summary_for(status)
@@ -47,7 +50,7 @@ module PrettyFace
 
       private
 
-      def get_average_from_float_array (arr)
+      def get_average_from_float_array(arr)
         arr.reduce(:+).to_f / arr.size
       end
 

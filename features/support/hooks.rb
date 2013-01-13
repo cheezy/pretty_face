@@ -1,6 +1,7 @@
 require 'fileutils'
 
 Before do
+  @aruba_timeout_seconds = 60
   FileUtils.mkdir('results') unless File.exists? 'results'
 end
 

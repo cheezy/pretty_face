@@ -7,6 +7,6 @@ When /^I use (.*?)$/ do |value|
 end
 
 Then /^the examples should work$/ do
-
+  sleep 1
 end
 
