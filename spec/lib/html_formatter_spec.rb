@@ -16,6 +16,7 @@ describe PrettyFace::Formatter::Html do
     it "should know how long it takes" do
       formatter.should_receive(:generate_report)
       formatter.should_receive(:copy_images_directory)
+      formatter.should_receive(:copy_stylesheets_directory)
       formatter.before_features(nil)
 
       formatter.after_features(nil)
