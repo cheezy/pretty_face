@@ -21,12 +21,16 @@ Feature: pretty face report
     And the file "results/fixture.html" should contain "Steps"
 
   Scenario: Including the styles for the main page
-    Then the file "results/fixture.html" should contain "<style type='text/css'>"
-    And the file "results/fixture.html" should contain "</style>"
+    Then the file "results/fixture.html" should contain "<link href='stylesheets/style.css' type='text/css' />"
+    And the file "results/fixture.html" should not contain "</style>"
     
   Scenario: Including an image / logo
     Then the file "results/fixture.html" should contain "<img src="
     And the file "results/fixture.html" should contain "images/face.jpg"
+
+  Scenario: It should copy the style sheet to the stylesheets directory
+    Then the following files should exist:
+      | results/stylesheets/style.css |
 
   Scenario: It should copy the logo image to the images directory
     Then the following files should exist:

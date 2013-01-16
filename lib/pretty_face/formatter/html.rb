@@ -82,6 +82,7 @@ module PrettyFace
         @duration = format_duration(Time.now - @tests_started)
         generate_report
         copy_images_directory
+        copy_stylesheets_directory
       end
 
       def features
@@ -113,6 +114,14 @@ module PrettyFace
         FileUtils.mkdir path unless File.directory? path
         %w(face failed passed pending undefined skipped).each do |file|
           FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.jpg"), path
+        end
+      end
+
+      def copy_stylesheets_directory
+        path = "#{File.dirname(@path)}/stylesheets"
+        FileUtils.mkdir path unless File.directory? path
+        %w(style).each do |file|
+          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.css"), path
         end
       end
 
