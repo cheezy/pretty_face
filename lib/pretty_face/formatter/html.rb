@@ -109,12 +109,21 @@ module PrettyFace
           file.close
       end
 
-      def copy_images_directory
-        path = "#{File.dirname(@path)}/images"
+      def copy_directory(target_path, file_names, file_extension)
+        path = "#{File.dirname(@path)}/#{target_path}"
         FileUtils.mkdir path unless File.directory? path
-        %w(face failed passed pending undefined skipped).each do |file|
-          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.jpg"), path
+        file_names.each do |file|
+          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}#{file_extension}"), path
         end
+      end
+
+      def copy_images_directory
+        copy_directory "images", %w(face failed passed pending undefined skipped), ".jpg"
+        #path = "#{File.dirname(@path)}/images"
+        #FileUtils.mkdir path unless File.directory? path
+        #%w(face failed passed pending undefined skipped).each do |file|
+          #FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.jpg"), path
+        #end
       end
 
       def copy_stylesheets_directory

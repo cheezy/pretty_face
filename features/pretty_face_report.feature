@@ -21,7 +21,7 @@ Feature: pretty face report
     And the file "results/fixture.html" should contain "Steps"
 
   Scenario: Including the styles for the main page
-    Then the file "results/fixture.html" should contain "<link href='stylesheets/style.css' type='text/css' />"
+    Then the file "results/fixture.html" should contain "<link href='stylesheets/style.css' type='text/css' rel='stylesheet' />"
     And the file "results/fixture.html" should not contain "</style>"
     
   Scenario: Including an image / logo
