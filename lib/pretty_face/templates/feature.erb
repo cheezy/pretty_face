@@ -64,6 +64,11 @@
         <tr style="background-color: #E0E0E0;">
           <th><%= scenario.name %></th>
         </tr>
+        <% scenario.steps.each do |step|%>
+        <tr>
+          <td><%= "#{step.keyword} #{step.name}" %></td>
+        </tr>
+        <% end %>
       </table>
       
       <br /><br />

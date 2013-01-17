@@ -40,4 +40,9 @@ Feature: pages that show details for features
     Then the file "results/basic.html" should contain "A passing scenario"
     And the file "results/advanced.html" should contain "A scenario outline"
     And the file "results/background.html" should contain "Another passing scenario"
-    
+
+  Scenario: It should display scenario steps
+    Then the file "results/basic.html" should contain "it should say hello"
+    And the file "results/background.html" should contain "it should say hello"
+    And the file "results/advanced.html" should contain "I am using a scenario outline"
+

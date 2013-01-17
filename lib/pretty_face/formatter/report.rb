@@ -61,7 +61,7 @@ module PrettyFace
       attr_reader :title, :file, :start_time, :duration
 
       def initialize(feature)
-        self.scenarios = []
+        @scenarios = []
         @start_time = Time.now
       end
 
@@ -108,29 +108,30 @@ module PrettyFace
       attr_accessor :name, :file_colon_line, :status, :steps, :duration
 
       def initialize(scenario)
-        self.steps = []
+        @steps = []
         @start = Time.now
       end
 
       def populate(scenario)
         @duration = Time.now - @start
         if scenario.instance_of? Cucumber::Ast::Scenario
-          self.name = scenario.name
-          self.file_colon_line = scenario.file_colon_line
+          @name = scenario.name
+          @file_colon_line = scenario.file_colon_line
         elsif scenario.instance_of? Cucumber::Ast::OutlineTable::ExampleRow
-          self.name = scenario.scenario_outline.name
-          self.file_colon_line = scenario.backtrace_line
+          @name = scenario.scenario_outline.name
+          @file_colon_line = scenario.backtrace_line
         end
-        self.status = scenario.status
+        @status = scenario.status
       end
     end
 
     class ReportStep
-      attr_accessor :name, :file_colon_line, :status, :duration
+      attr_accessor :name, :keyword, :file_colon_line, :status, :duration
       def initialize(step)
-          self.name = step.name
-          self.file_colon_line = step.file_colon_line
-          self.status = step.status
+        @name = step.name
+        @keyword = step.actual_keyword if step.respond_to? :actual_keyword
+        @file_colon_line = step.file_colon_line
+        @status = step.status
       end
     end
   end
