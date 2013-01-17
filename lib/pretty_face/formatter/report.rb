@@ -129,7 +129,11 @@ module PrettyFace
       attr_accessor :name, :keyword, :file_colon_line, :status, :duration
       def initialize(step)
         @name = step.name
-        @keyword = step.actual_keyword if step.respond_to? :actual_keyword
+        if step.respond_to? :actual_keyword
+          @keyword = step.actual_keyword 
+        else
+          @keyword = step.keyword
+        end
         @file_colon_line = step.file_colon_line
         @status = step.status
       end
