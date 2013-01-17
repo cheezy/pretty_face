@@ -35,3 +35,9 @@ Feature: pages that show details for features
     And the file "results/basic.html" should contain "Pending"
     And the file "results/basic.html" should contain "Undefined"
     And the file "results/basic.html" should contain "Skipped"
+
+  Scenario: It should display scenario names
+    Then the file "results/basic.html" should contain "A passing scenario"
+    And the file "results/advanced.html" should contain "A scenario outline"
+    And the file "results/background.html" should contain "Another passing scenario"
+    
