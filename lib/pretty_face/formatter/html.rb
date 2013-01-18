@@ -57,18 +57,21 @@ module PrettyFace
       end
 
       def before_table_row(example_row)
-        @report.add_scenario ReportScenario.new(example_row) unless header_row?(example_row)
+        @report.add_scenario ReportScenario.new(example_row) unless info_row?(example_row)
       end
 
       def after_table_row(example_row)
-        unless header_row?(example_row)
-          values = example_row.to_hash
+        unless info_row?(example_row)
           @report.current_scenario.populate(example_row)
-          example_row.scenario_outline.raw_steps.each do |step|
+          values = example_row.to_hash
+          steps = example_row.scenario_outline.raw_steps.clone
+          steps.each do |step|
+            name = nil
             values.each do |key, value|
-              step.name.gsub!("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
+              name = step.name.gsub("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
             end
-            process_step(step, example_row.status)
+            current_step = process_step(step, example_row.status)
+            current_step.name = name if name
           end
         end
       end
@@ -148,14 +151,17 @@ module PrettyFace
         step.duration = duration
         step.status = status unless status.nil?
         @report.add_step step unless @report.processing_background_steps?
+        step
       end
 
       def scenario_outline?(feature_element)
         feature_element.is_a? Cucumber::Ast::ScenarioOutline
       end
 
-      def header_row?(example_row)
-        example_row.scenario_outline.nil?
+      def info_row?(example_row)
+        return example_row.scenario_outline.nil? if example_row.respond_to? :scenario_outline
+        return true if example_row.instance_of? Cucumber::Ast::Table::Cells
+        false
       end
 
       def step_belongs_to_outline?(step)
