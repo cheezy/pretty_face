@@ -62,8 +62,12 @@ module PrettyFace
 
       def after_table_row(example_row)
         unless header_row?(example_row)
+          values = example_row.to_hash
           @report.current_scenario.populate(example_row)
           example_row.scenario_outline.raw_steps.each do |step|
+            values.each do |key, value|
+              step.name.gsub!("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
+            end
             process_step(step, example_row.status)
           end
         end
