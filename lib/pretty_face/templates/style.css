@@ -72,12 +72,12 @@ h2.summary {
   font-size: 0.9em;
 }
 
-.comments {
-    border: 1px dotted #CCCCCC;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: 1px 1px 5px #DDDDDD;
-    line-height: 2em;
-    padding: 10px;
-    width: 100%;
-    font-family: inherit
+.description {
+  border: 1px dotted #CCCCCC;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 1px 1px 5px #DDDDDD;
+  line-height: 2em;
+  padding: 10px;
+  width: 100%;
+  font-family: inherit
 }
