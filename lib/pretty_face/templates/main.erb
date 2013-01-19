@@ -92,7 +92,7 @@
         </tr>
         <% features.each do |feature| %>
         <tr>
-          <td class="feature_title" colspan="4">Feature: <%= feature.title %></td>
+          <td class="feature_title" colspan="4">Feature: <a href="<%= feature.file %>"><%= feature.title %></a></td>
         </tr>
           <% feature.scenarios.each do |scenario| %>
         <tr>

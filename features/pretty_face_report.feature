@@ -65,3 +65,6 @@ Feature: pretty face report
   
   Scenario: It should display the scenario name for scenario outlines
     Then the file "results/fixture.html" should contain "A scenario outline"
+
+  Scenario: It should link to feature result pages
+    Then the file "results/fixture.html" should contain "Feature: <a href="
