@@ -71,3 +71,13 @@ h2.summary {
   background-color: #F0F0F0; 
   font-size: 0.9em;
 }
+
+.description {
+  border: 1px dotted #CCCCCC;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 1px 1px 5px #DDDDDD;
+  line-height: 2em;
+  padding: 10px;
+  width: 100%;
+  font-family: inherit
+}

@@ -57,12 +57,13 @@ module PrettyFace
     class ReportFeature
       include Formatting
 
-      attr_accessor :scenarios, :background
+      attr_accessor :scenarios, :background, :description
       attr_reader :title, :file, :start_time, :duration
 
       def initialize(feature)
         @scenarios = []
         @start_time = Time.now
+        @description = feature.description
       end
 
       def close(feature)
@@ -101,6 +102,10 @@ module PrettyFace
 
       def get_binding
         binding
+      end
+      
+      def description?
+        !description.nil?  && !description.empty?
       end
     end
 

@@ -13,6 +13,10 @@
     </div>
     <div style="float: left;">
       <h2 class="results">Feature Results:  <%= "#{title}" %></h2>
+      <% if description? %>
+        <pre class="description"><%= description %></pre>
+      <% end %>
+      <br />
       <span>Feature started: <%= start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
       <br />
       <span>Duration: <%= formatted_duration(duration) %></span>

@@ -49,3 +49,9 @@ Feature: pages that show details for features
   Scenario: It should display the step and data for scenario outline steps
     Then the file "results/advanced.html" should contain "I use 'aaa'"
     And the file "results/advanced.html" should contain "I use 'bbb'"
+
+  @sj
+  Scenario: It should display comments for features
+    Then the file "results/basic.html" should contain "As a stakeholder"
+    Then the file "results/basic.html" should contain "I want to see some details about this feature"
+    Then the file "results/basic.html" should contain "So that I have some idea why this test matters"
