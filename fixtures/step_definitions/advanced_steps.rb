@@ -6,7 +6,12 @@ When /^I use (.*?)$/ do |value|
 
 end
 
-Then /^the examples should work$/ do
+When /^I fail with (.*?)$/ do |value|
+  true.should == false
+end
+
+
+Then /^the examples should(?: not)? work$/ do
   sleep 1
 end
 

@@ -72,7 +72,11 @@
         <tr>
           <td><%= "#{step.keyword} #{step.name}" %></td>
         </tr>
+        <% if step.failed_with_error? %>
+          <tr><td class="error"><%= "#{step.error.message} (#{step.error.class})" %></td></tr>
+          <tr><td><pre class="backtrace"><%= step.error.backtrace.join("\n") %></pre></td></tr>
         <% end %>
+      <% end %>
       </table>
       
       <br /><br />
