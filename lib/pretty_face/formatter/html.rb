@@ -176,7 +176,13 @@ module PrettyFace
           end
           current_step = process_step(step, example_row.status)
           current_step.name = name if name
+          current_step.error = step_error(example_row.exception, step)
         end
+      end
+      
+      def step_error(exception, step)
+        return nil if exception.nil?
+        exception.backtrace[-1] =~ /^#{step.file_colon_line}/ ? exception : nil
       end
 
       def populate_cells(example_row)

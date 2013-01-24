@@ -65,5 +65,5 @@ Feature: pages that show details for features
     
   Scenario: It should display errors for features
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
-    #Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
-    Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError
+    Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
