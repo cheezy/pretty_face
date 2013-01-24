@@ -12,3 +12,9 @@ Feature: Advanced scenarios
   | ccc   | ddd    |
   | eee   | fff    |
 
+  Scenario: Nested table in a step
+    When I have a nested table step like this:
+    | key1   | key2   | key3   |
+    | value1 | value2 | value3 |
+    Then the table should be displayed in the results
+

@@ -50,8 +50,17 @@ Feature: pages that show details for features
     Then the file "results/advanced.html" should contain "I use 'aaa'"
     And the file "results/advanced.html" should contain "I use 'bbb'"
 
-  @sj
   Scenario: It should display comments for features
     Then the file "results/basic.html" should contain "As a stakeholder"
     Then the file "results/basic.html" should contain "I want to see some details about this feature"
     Then the file "results/basic.html" should contain "So that I have some idea why this test matters"
+
+  Scenario: It should display a nested table
+    Then the file "results/advanced.html" should contain "<th>key1</th>"
+    And the file "results/advanced.html" should contain "<th>key2</th>"
+    And the file "results/advanced.html" should contain "<th>key3</th>"
+    And the file "results/advanced.html" should contain "<td>value1</td>"
+    And the file "results/advanced.html" should contain "<td>value2</td>"
+    And the file "results/advanced.html" should contain "<td>value3</td>"
+
+

@@ -131,7 +131,8 @@ module PrettyFace
     end
 
     class ReportStep
-      attr_accessor :name, :keyword, :file_colon_line, :status, :duration
+      attr_accessor :name, :keyword, :file_colon_line, :status, :duration, :table
+
       def initialize(step)
         @name = step.name
         if step.respond_to? :actual_keyword
@@ -141,6 +142,10 @@ module PrettyFace
         end
         @file_colon_line = step.file_colon_line
         @status = step.status
+      end
+
+      def has_table?
+        not table.nil?
       end
     end
   end
