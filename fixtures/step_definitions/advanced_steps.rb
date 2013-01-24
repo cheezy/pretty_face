@@ -15,3 +15,10 @@ Then /^the examples should(?: not)? work$/ do
   sleep 1
 end
 
+When /^I have a nested table step like this:$/ do |table|
+
+end
+
+Then /^the table should be displayed in the results$/ do
+
+end

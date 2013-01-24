@@ -68,9 +68,27 @@
         <tr style="background-color: #E0E0E0;">
           <th><%= scenario.name %></th>
         </tr>
-        <% scenario.steps.each do |step|%>
+        <% scenario.steps.each do |step| %>
         <tr>
           <td><%= "#{step.keyword} #{step.name}" %></td>
+          <% if step.has_table? %>
+            <br />
+            <table border="1">
+              <tr>
+              <% step.table.first.each do |column| %>
+                <th><%= column %></th>
+              <% end %>
+              </tr>
+              <% step.table.delete_at 0 %>
+              <% step.table.each do |row| %>
+              <tr>
+                <% row.each do |column| %>
+                  <td><%= column %></td>
+                <% end %>
+              </tr>
+              <% end %>
+            </table>
+          <% end %>
         </tr>
         <% if step.failed_with_error? %>
           <tr class="error"><td><strong><%= "#{step.error.message} (#{step.error.class})" %></strong></td></tr>

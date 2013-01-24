@@ -63,17 +63,9 @@ module PrettyFace
       def after_table_row(example_row)
         unless info_row?(example_row)
           @report.current_scenario.populate(example_row)
-          values = example_row.to_hash
-          steps = example_row.scenario_outline.raw_steps.clone
-          steps.each do |step|
-            name = nil
-            values.each do |key, value|
-              name = step.name.gsub("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
-            end
-            current_step = process_step(step, example_row.status)
-            current_step.name = name if name
-          end
+          build_scenario_outline_steps(example_row)
         end
+        populate_cells(example_row) if example_row.instance_of? Cucumber::Ast::Table::Cells
       end
 
       def before_step(step)
@@ -81,7 +73,12 @@ module PrettyFace
       end
 
       def after_step(step)
-        process_step(step) unless step_belongs_to_outline? step
+        step = process_step(step) unless step_belongs_to_outline? step
+        if @cells
+          step.table = @cells
+          @io.puts "#{@cells} <br />"
+          @cells = nil
+        end
       end
 
       def after_features(features)
@@ -101,7 +98,7 @@ module PrettyFace
       def generate_report
         filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
         text = File.new(filename).read
-        @io.puts ERB.new(text, nil, "%").result(binding)
+        @io.puts ERB.new(text, nil, "%>").result(binding)
         erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
         text = File.new(erbfile).read
         features.each do |feature|
@@ -169,6 +166,27 @@ module PrettyFace
         not scenario.nil?
       end
 
+      def build_scenario_outline_steps(example_row)
+        values = example_row.to_hash
+        steps = example_row.scenario_outline.raw_steps.clone
+        steps.each do |step|
+          name = nil
+          values.each do |key, value|
+            name = step.name.gsub("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
+          end
+          current_step = process_step(step, example_row.status)
+          current_step.name = name if name
+        end
+      end
+
+      def populate_cells(example_row)
+        @cells ||= []
+        values = []
+        example_row.to_a.each do |cell|
+          values << cell.value
+        end
+        @cells << values
+      end
     end
   end
 end
