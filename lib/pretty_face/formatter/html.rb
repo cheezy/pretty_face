@@ -22,6 +22,19 @@ module PrettyFace
         @step_mother = step_mother
         @options = options
         @report = Report.new
+        @img_id = 0
+      end
+
+      def embed(src, mime_type, label)
+        case(mime_type)
+        when /^image\/(png|gi|jpg|jpeg)/
+          embed_image(src, label)
+        end
+      end
+
+      def embed_image(src, image)
+        id = "img_#{@img_id}"
+        @img_id += 1
       end
 
       def before_features(features)
@@ -117,25 +130,16 @@ module PrettyFace
         path = "#{File.dirname(@path)}/#{target_path}"
         FileUtils.mkdir path unless File.directory? path
         file_names.each do |file|
-          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}#{file_extension}"), path
+          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
       end
 
       def copy_images_directory
-        copy_directory "images", %w(face failed passed pending undefined skipped), ".jpg"
-        #path = "#{File.dirname(@path)}/images"
-        #FileUtils.mkdir path unless File.directory? path
-        #%w(face failed passed pending undefined skipped).each do |file|
-          #FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.jpg"), path
-        #end
+        copy_directory "images", %w(face failed passed pending undefined skipped), "jpg"
       end
 
       def copy_stylesheets_directory
-        path = "#{File.dirname(@path)}/stylesheets"
-        FileUtils.mkdir path unless File.directory? path
-        %w(style).each do |file|
-          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.css"), path
-        end
+        copy_directory "stylesheets", ['style'], 'css'
       end
 
       def process_scenario(scenario)
