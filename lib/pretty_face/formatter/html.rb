@@ -89,7 +89,6 @@ module PrettyFace
         step = process_step(step) unless step_belongs_to_outline? step
         if @cells
           step.table = @cells
-          @io.puts "#{@cells} <br />"
           @cells = nil
         end
       end
