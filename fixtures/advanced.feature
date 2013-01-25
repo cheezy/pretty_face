@@ -18,3 +18,16 @@ Feature: Advanced scenarios
     | value1 | value2 | value3 |
     Then the table should be displayed in the results
 
+  Scenario: A scenario with muti-line arguments
+    When Cucumber puts
+      """
+      Hello with
+      more than one
+      line in a string
+      """
+    Then it should say
+      """
+      Hello with
+      more than one
+      line in a string
+      """

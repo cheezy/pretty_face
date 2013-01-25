@@ -1,5 +1,5 @@
 Feature: pages that show details for features
-  
+
   Background:
     When I run `cucumber fixtures --profile fixture`
 
@@ -18,11 +18,11 @@ Feature: pages that show details for features
   Scenario: Including an image / logo
     Then the file "results/basic.html" should contain "<img src="
     And the file "results/basic.html" should contain "images/face.jpg"
-    
+
   Scenario: It should show start time and duration in the header
     Then the file "results/basic.html" should contain "Feature started:"
     And the file "results/basic.html" should contain "Duration:"
-    
+
   Scenario: Generating some basic stats from the erb
     Then the file "results/basic.html" should contain "<th>Executed<"
     And the file "results/basic.html" should contain "<th>Average<br/>Duration"
@@ -63,4 +63,8 @@ Feature: pages that show details for features
     And the file "results/advanced.html" should contain "<td>value2</td>"
     And the file "results/advanced.html" should contain "<td>value3</td>"
 
+  Scenario: It should display the multi-line argument
+    Then the file "results/advanced.html" should contain "Hello with"
+    And the file "results/advanced.html" should contain "more than one"
+    And the file "results/advanced.html" should contain "line in a string"
 
