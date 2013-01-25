@@ -154,7 +154,7 @@ module PrettyFace
         not table.nil?
       end
       def has_multiline_arg?
-        not multiline_arg.nil?
+        !multiline_arg.nil? && !has_table?
       end
     end
   end
