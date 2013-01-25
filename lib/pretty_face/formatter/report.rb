@@ -131,7 +131,7 @@ module PrettyFace
     end
 
     class ReportStep
-      attr_accessor :name, :keyword, :file_colon_line, :status, :duration, :table, :multiline_arg
+      attr_accessor :name, :keyword, :file_colon_line, :status, :duration, :table, :multiline_arg, :error
 
       def initialize(step)
         @name = step.name
@@ -143,6 +143,11 @@ module PrettyFace
         @file_colon_line = step.file_colon_line
         @status = step.status
         @multiline_arg = step.multiline_arg
+        @error = step.exception
+      end
+
+      def failed_with_error?
+        status == :failed && !error.nil?
       end
 
       def has_table?

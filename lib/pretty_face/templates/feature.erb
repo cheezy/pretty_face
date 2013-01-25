@@ -98,7 +98,11 @@
             </table>
           <% end %>
         </tr>
+        <% if step.failed_with_error? %>
+          <tr class="error"><td><strong><%= "#{step.error.message} (#{step.error.class})" %></strong></td></tr>
+          <tr class="error"><td><pre ><%= step.error.backtrace.join("\n") %></strong></pre></td></tr>
         <% end %>
+      <% end %>
       </table>
 
       <br /><br />

@@ -50,7 +50,7 @@ Feature: pages that show details for features
     Then the file "results/advanced.html" should contain "I use 'aaa'"
     And the file "results/advanced.html" should contain "I use 'bbb'"
 
-  Scenario: It should display comments for features
+  Scenario: It should display descriptions for features
     Then the file "results/basic.html" should contain "As a stakeholder"
     Then the file "results/basic.html" should contain "I want to see some details about this feature"
     Then the file "results/basic.html" should contain "So that I have some idea why this test matters"
@@ -68,3 +68,7 @@ Feature: pages that show details for features
     And the file "results/advanced.html" should contain "more than one"
     And the file "results/advanced.html" should contain "line in a string"
 
+  Scenario: It should display errors for features
+    Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"

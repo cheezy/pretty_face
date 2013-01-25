@@ -11,7 +11,7 @@ Feature: Advanced scenarios
   | aaa   | bbb    |
   | ccc   | ddd    |
   | eee   | fff    |
-
+    
   Scenario: Nested table in a step
     When I have a nested table step like this:
     | key1   | key2   | key3   |
@@ -31,3 +31,27 @@ Feature: Advanced scenarios
       more than one
       line in a string
       """
+
+  Scenario Outline:  Fails during examples
+    Given I am using a scenario outline
+    When I fail with <first>
+    Then I use <second>
+    Then the examples should not work
+  
+  Examples:
+  | first | second |
+  | aaa   | bbb    |
+  | ccc   | ddd    |
+  | eee   | fff    |
+  
+  Scenario Outline:  Fails before examples
+    Given the first step fails
+    When I use <first>
+    And I use <second>
+    Then the examples should not work
+
+  Examples:
+  | first | second |
+  | aaa   | bbb    |
+  | ccc   | ddd    |
+  | eee   | fff    |
