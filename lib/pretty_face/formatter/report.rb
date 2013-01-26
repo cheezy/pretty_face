@@ -110,7 +110,7 @@ module PrettyFace
     end
 
     class ReportScenario
-      attr_accessor :name, :file_colon_line, :status, :steps, :duration
+      attr_accessor :name, :file_colon_line, :status, :steps, :duration, :image, :image_label, :image_id
 
       def initialize(scenario)
         @steps = []
@@ -127,6 +127,10 @@ module PrettyFace
           @file_colon_line = scenario.backtrace_line
         end
         @status = scenario.status
+      end
+
+      def has_image?
+        not image.nil?
       end
     end
 

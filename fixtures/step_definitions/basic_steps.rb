@@ -1,5 +1,6 @@
 When /^Cucumber puts "(.*?)"$/ do |some_string|
   puts some_string
+  embed('autotrader.png', 'image/png', 'AutoTrader')
   sleep 1
 end
 

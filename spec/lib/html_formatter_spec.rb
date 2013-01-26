@@ -97,4 +97,36 @@ describe PrettyFace::Formatter::Html do
       formatter.steps_summary_for(:undefined).should == "2 (100.0%)"
     end
   end
+
+  context "when embedding an image" do
+    before(:each) do
+      cuke_feature = double('cuke_feature')
+      cuke_feature.should_receive(:description)
+      report_feature = ReportFeature.new(cuke_feature)
+      formatter.report.features << report_feature
+      @scenario = ReportScenario.new(nil)
+      formatter.report.current_feature.scenarios << @scenario
+    end
+    
+    it "should generate an id" do
+      formatter.embed('image.png', 'image/png', 'the label')
+      @scenario.image_id.should == 'img_0'
+    end
+    
+    it "should get the filename from the src" do
+      formatter.embed('directory/image.png', 'image/png', 'the label')
+      @scenario.image.should == 'image.png'
+    end
+
+    it "should get the image label" do
+      formatter.embed('directory/image.png', 'image/png', 'the label')
+      @scenario.image_label.should == 'the label'
+    end
+
+    it "scenario should know if it has an image" do
+      formatter.embed('directory/image.png', 'image/png', 'the label')
+      @scenario.should have_image
+    end
+
+  end
 end

@@ -16,6 +16,8 @@ module PrettyFace
       include Cucumber::Formatter::Duration
       include ViewHelper
 
+      attr_reader :report
+
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
         @io = ensure_io(path_or_io, 'html')
@@ -32,8 +34,10 @@ module PrettyFace
         end
       end
 
-      def embed_image(src, image)
-        id = "img_#{@img_id}"
+      def embed_image(src, label)
+        @report.current_scenario.image = src.split('/').last 
+        @report.current_scenario.image_label = label
+        @report.current_scenario.image_id = "img_#{@img_id}"
         @img_id += 1
       end
 
