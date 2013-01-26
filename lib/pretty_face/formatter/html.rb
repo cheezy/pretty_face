@@ -35,13 +35,14 @@ module PrettyFace
       end
 
       def embed_image(src, label)
-        @report.current_scenario.image = src.split('/').last 
+        @report.current_scenario.image = src.split('/').last
         @report.current_scenario.image_label = label
         @report.current_scenario.image_id = "img_#{@img_id}"
         @img_id += 1
       end
 
       def before_features(features)
+        make_output_directories
         @tests_started = Time.now
       end
 
@@ -129,20 +130,29 @@ module PrettyFace
           file.close
       end
 
-      def copy_directory(target_path, file_names, file_extension)
-        path = "#{File.dirname(@path)}/#{target_path}"
+      def make_output_directories
+        make_directory 'images'
+        make_directory 'stylesheets'
+      end
+
+      def make_directory(dir)
+        path = "#{File.dirname(@path)}/#{dir}"
         FileUtils.mkdir path unless File.directory? path
+      end
+
+      def copy_directory(dir, file_names, file_extension)
+        path = "#{File.dirname(@path)}/#{dir}"
         file_names.each do |file|
           FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
       end
 
       def copy_images_directory
-        copy_directory "images", %w(face failed passed pending undefined skipped), "jpg"
+        copy_directory 'images', %w(face failed passed pending undefined skipped), "jpg"
       end
 
       def copy_stylesheets_directory
-        copy_directory "stylesheets", ['style'], 'css'
+        copy_directory 'stylesheets', ['style'], 'css'
       end
 
       def process_scenario(scenario)

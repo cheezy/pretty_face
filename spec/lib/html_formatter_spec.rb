@@ -9,6 +9,7 @@ describe PrettyFace::Formatter::Html do
 
   context "when building the header for the main page" do
     it "should know the start time" do
+      formatter.stub(:make_output_directories)
       formatter.before_features(nil)
       formatter.start_time.should eq Time.now.strftime("%a %B %-d, %Y at %H:%M:%S")
     end
@@ -17,6 +18,7 @@ describe PrettyFace::Formatter::Html do
       formatter.should_receive(:generate_report)
       formatter.should_receive(:copy_images_directory)
       formatter.should_receive(:copy_stylesheets_directory)
+      formatter.stub(:make_output_directories)
       formatter.before_features(nil)
 
       formatter.after_features(nil)
