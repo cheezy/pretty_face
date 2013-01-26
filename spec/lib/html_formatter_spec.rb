@@ -108,6 +108,8 @@ describe PrettyFace::Formatter::Html do
       formatter.report.features << report_feature
       @scenario = ReportScenario.new(nil)
       formatter.report.current_feature.scenarios << @scenario
+      File.stub(:dirname).and_return('')
+      FileUtils.stub(:cp)
     end
     
     it "should generate an id" do
@@ -130,5 +132,9 @@ describe PrettyFace::Formatter::Html do
       @scenario.should have_image
     end
 
+    it "should copy the image to the output directory" do
+      FileUtils.should_receive(:cp).with('directory/image.png', '/images')
+      formatter.embed('directory/image.png', 'image/png', 'the label')
+    end
   end
 end
