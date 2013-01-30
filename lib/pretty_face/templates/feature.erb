@@ -13,13 +13,13 @@
     </div>
     <div style="float: left;">
       <h2 class="results">Feature Results:  <%= "#{title}" %></h2>
-      <% if description? %>
-        <pre class="description"><%= description %></pre>
-      <% end %>
       <br />
       <span>Feature started: <%= start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
       <br />
       <span>Duration: <%= formatted_duration(duration) %></span>
+      <% if description? %>
+        <pre class="description"><%= description %></pre>
+      <% end %>
     </div>
 
 	  <div class="summary_body">
@@ -66,42 +66,56 @@
       <% scenarios.each do |scenario| %>
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
         <tr style="background-color: #E0E0E0;">
+          <th></th>
           <th><%= scenario.name %></th>
         </tr>
         <% scenario.steps.each do |step| %>
         <tr>
-          <td><%= "#{step.keyword} #{step.name}" %></td>
-          <% if step.has_table? %>
-            <br />
-            <table border="1">
-              <tr>
-              <% step.table.first.each do |column| %>
-                <th><%= column %></th>
-              <% end %>
-              </tr>
-              <% step.table.delete_at 0 %>
-              <% step.table.each do |row| %>
-              <tr>
-                <% row.each do |column| %>
-                  <td><%= column %></td>
+          <td> <%= image_tag_for step.status %></td>
+          <td>
+            <%= "#{step.keyword} #{step.name}" %>
+            <% if step.has_table? %>
+              <br />
+              <table border="1">
+                <tr>
+                  <% step.table.first.each do |column| %>
+                    <th><%= column %></th>
+                  <% end %>
+                </tr>
+                <% step.table.delete_at 0 %>
+                <% step.table.each do |row| %>
+                  <tr>
+                    <% row.each do |column| %>
+                      <td><%= column %></td>
+                    <% end %>
+                  </tr>
                 <% end %>
-              </tr>
-              <% end %>
-            </table>
-          <% end %>
-          <% if step.has_multiline_arg? %>
-            <br />
-            <table border="1">
-              <tr>
-                <td><pre><%= step.multiline_arg %></pre></td>
-              </tr>
-            </table>
-          <% end %>
+              </table>
+            <% end %>
+            <% if step.has_multiline_arg? %>
+              <br />
+              <table border="1">
+                <tr>
+                  <td><pre><%= step.multiline_arg %></pre></td>
+                </tr>
+              </table>
+            <% end %>
+            <% if step.failed_with_error? %>
+              <table>
+                <tr class="error">
+                  <td>
+                    <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
+                  </td>
+                </tr>
+                <tr class="error">
+                  <td>
+                    <pre><%= step.error.backtrace.join("\n") %></pre>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </td>
         </tr>
-        <% if step.failed_with_error? %>
-          <tr class="error"><td><strong><%= "#{step.error.message} (#{step.error.class})" %></strong></td></tr>
-          <tr class="error"><td><pre ><%= step.error.backtrace.join("\n") %></strong></pre></td></tr>
-        <% end %>
       <% end %>
       </table>
       <% if scenario.has_image? %>

@@ -11,6 +11,10 @@ module PrettyFace
         m, s = duration.divmod(60)
         "#{m}m#{'%.3f' % s}s"
       end
+
+      def image_tag_for(status)
+        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
+      end
     end
 
 

@@ -53,8 +53,6 @@ Feature: pretty face report
   Scenario: It should display a list of all features / scenarios
     Then the file "results/fixture.html" should contain "Feature Overview:"
 
-@focus
-@announce
   Scenario: It should display useful information about each scenario
     Then the file "results/fixture.html" should contain "Feature"
     And the file "results/fixture.html" should contain "File"

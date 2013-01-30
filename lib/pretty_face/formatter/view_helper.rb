@@ -45,10 +45,6 @@ module PrettyFace
         scenario.status == :failed
       end
 
-      def image_tag_for(scenario)
-        status = scenario.status.to_s
-        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
-      end
 
       private
 
