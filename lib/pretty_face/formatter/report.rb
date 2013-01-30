@@ -79,8 +79,12 @@ module PrettyFace
         steps
       end
 
+      def scenarios_for(status)
+        scenarios.find_all { |scenario| scenario.status == status }
+      end
+
       def scenario_summary_for(status)
-        scenarios_with_status = scenarios.find_all { |scenario| scenario.status == status }
+        scenarios_with_status = scenarios_for(status)
         summary_percent(scenarios_with_status.length, scenarios.length)
       end
 

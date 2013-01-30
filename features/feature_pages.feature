@@ -73,8 +73,6 @@ Feature: pages that show details for features
     Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
 
-@focus
-@announce
   Scenario: Embedding an image into the page
     Then the file "results/basic.html" should contain "<img id='img_0' style='display: none' src='images/autotrader.png'/>"
     And the file "results/basic.html" should contain "<a href='' onclick="

@@ -80,28 +80,47 @@
       </table>
         
       <br />
-      <h2 class="scenarios">Scenario Overview:</h2>
+      <h2 class="scenarios">Feature Overview:</h2>
       <br />
 
-      <table cellspacing="0" cellpadding="7" border="0" class="failed">
+      <table cellspacing="0" cellpadding="7" border="0">
         <tr style="background-color: #E0E0E0;">
-          <th style="text-align: left;">Result</th>
-          <th style="text-align: left;">Name</th>
+          <th style="text-align: left;">Feature</th>
           <th style="text-align: left;">File</th>
-          <th style="text-align: left;"># Steps</th>
+          <th style="text-align: left;">Passed</th>
+          <th style="text-align: left;">Failed</th>
+          <th style="text-align: left;">Pending</th>
+          <th style="text-align: left;">Undefined</th>
+          <th style="text-align: left;">Skipped</th>
+          <th style="text-align: left;">Duration</th>
         </tr>
         <% features.each do |feature| %>
         <tr>
-          <td class="feature_title" colspan="4">Feature: <a href="<%= feature.file %>"><%= feature.title %></a></td>
+          <td class="feature_title">
+            <a href="<%= feature.file %>"><%= feature.title %></a>
+          </td>
+          <td>
+            <%= feature.file %>
+          </td>
+          <td>
+            <%= feature.scenarios_for(:passed).length %>
+          </td>
+          <td>
+            <%= feature.scenarios_for(:failed).length %>
+          </td>
+          <td>
+            <%= feature.scenarios_for(:pending).length %>
+          </td>
+          <td>
+            <%= feature.scenarios_for(:undefined).length %>
+          </td>
+          <td>
+            <%= feature.scenarios_for(:skipped).length %>
+          </td>
+          <td>
+            <%= feature.formatted_duration(feature.duration) %>
+          </td>
         </tr>
-          <% feature.scenarios.each do |scenario| %>
-        <tr>
-          <td><%= image_tag_for scenario %></td>
-          <td><%= scenario.name %></td>
-          <td style="color: gray;"><%= scenario.file_colon_line %></td>
-          <td><%= scenario.steps.length %></td>
-        </tr>
-          <% end %>
         <% end %>
       </table>
     </div>
