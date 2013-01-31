@@ -4,6 +4,10 @@ When /^Cucumber puts "(.*?)"$/ do |some_string|
   sleep 1
 end
 
+When /^Cucumber puts "(.*?)" in a background$/ do |some_string|
+  puts some_string
+end
+
 Then /^it should say hello$/ do
   puts "It said hello"
 end

@@ -61,11 +61,12 @@ module PrettyFace
     class ReportFeature
       include Formatting
 
-      attr_accessor :scenarios, :background, :description
+      attr_accessor :scenarios, :description, :background
       attr_reader :title, :file, :start_time, :duration
 
       def initialize(feature)
         @scenarios = []
+        @background = []
         @start_time = Time.now
         @description = feature.description
       end
@@ -81,6 +82,14 @@ module PrettyFace
         steps = []
         scenarios.each { |scenario| steps += scenario.steps }
         steps
+      end
+
+      def background_title
+        title = @background.find { |step| step.keyword.nil? }
+      end
+
+      def background_steps
+        @background.find_all { |step| step.keyword }
       end
 
       def scenarios_for(status)
@@ -115,6 +124,10 @@ module PrettyFace
       def description?
         !description.nil?  && !description.empty?
       end
+
+      def has_background?
+        background.length > 0
+      end
     end
 
     class ReportScenario
@@ -147,15 +160,17 @@ module PrettyFace
 
       def initialize(step)
         @name = step.name
-        if step.respond_to? :actual_keyword
-          @keyword = step.actual_keyword
-        else
-          @keyword = step.keyword
-        end
         @file_colon_line = step.file_colon_line
-        @status = step.status
-        @multiline_arg = step.multiline_arg
-        @error = step.exception
+        unless step.instance_of? Cucumber::Ast::Background
+          if step.respond_to? :actual_keyword
+            @keyword = step.actual_keyword
+          else
+            @keyword = step.keyword
+          end
+          @status = step.status 
+          @multiline_arg = step.multiline_arg
+          @error = step.exception
+        end
       end
 
       def failed_with_error?

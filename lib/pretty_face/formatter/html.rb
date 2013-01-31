@@ -61,6 +61,7 @@ module PrettyFace
 
       def after_background(background)
         @report.end_background
+        @report.current_feature.background << ReportStep.new(background)
       end
 
       def before_feature_element(feature_element)
@@ -162,11 +163,15 @@ module PrettyFace
 
       def process_step(step, status=nil)
         duration =  Time.now - @step_timer
-        step = ReportStep.new(step)
-        step.duration = duration
-        step.status = status unless status.nil?
-        @report.add_step step unless @report.processing_background_steps?
-        step
+        report_step = ReportStep.new(step)
+        report_step.duration = duration
+        report_step.status = status unless status.nil?
+        if step.background?
+          @report.current_feature.background << report_step if @report.processing_background_steps?
+        else
+          @report.add_step report_step 
+        end
+        report_step
       end
 
       def scenario_outline?(feature_element)

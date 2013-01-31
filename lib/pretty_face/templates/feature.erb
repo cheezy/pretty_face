@@ -60,6 +60,60 @@
     </div>
 
     <div style="width: 100%; float: left;">
+      <% if has_background? %>
+      <br />
+      <h2 class="failures">Background: <%= background_title.name %></h2>
+      <% end %>
+      <table cellspacing="0" cellpadding="7" border="0" class="failed">
+      <% background_steps.each do |step| %>
+        <tr>
+          <td> <%= image_tag_for step.status %></td>
+          <td>
+            <%= "#{step.keyword} #{step.name}" %>
+            <% if step.has_table? %>
+              <br />
+              <table border="1">
+                <tr>
+                  <% step.table.first.each do |column| %>
+                    <th><%= column %></th>
+                  <% end %>
+                </tr>
+                <% step.table.delete_at 0 %>
+                <% step.table.each do |row| %>
+                  <tr>
+                    <% row.each do |column| %>
+                      <td><%= column %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </table>
+            <% end %>
+            <% if step.has_multiline_arg? %>
+              <br />
+              <table border="1">
+                <tr>
+                  <td><pre><%= step.multiline_arg %></pre></td>
+                </tr>
+              </table>
+            <% end %>
+            <% if step.failed_with_error? %>
+              <table>
+                <tr class="error">
+                  <td>
+                    <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
+                  </td>
+                </tr>
+                <tr class="error">
+                  <td>
+                    <pre><%= step.error.backtrace.join("\n") %></pre>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </table>
       <br />
       <h2 class="failures">Scenarios:</h2>
       <br />
