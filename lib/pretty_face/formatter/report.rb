@@ -61,7 +61,7 @@ module PrettyFace
     class ReportFeature
       include Formatting
       attr_accessor :scenarios, :background, :description
-      attr_reader :title, :file, :start_time, :duration
+      attr_reader :title, :file, :start_time, :duration, :parent_filename
 
       def initialize(feature, parent_filename)
         @scenarios = []
