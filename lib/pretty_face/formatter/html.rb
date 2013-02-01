@@ -47,14 +47,19 @@ module PrettyFace
         @tests_started = Time.now
       end
 
+      def features_summary_file
+        parts = @io.to_path.split('/')
+        parts[parts.length - 1]
+      end
+
       def before_feature(feature)
-        @report.add_feature ReportFeature.new(feature)
+        @report.add_feature ReportFeature.new(feature, features_summary_file)
       end
 
       def after_feature(feature)
         @report.current_feature.close(feature)
       end
-      
+
       def before_background(background)
         @report.begin_background
       end
@@ -202,7 +207,7 @@ module PrettyFace
           current_step.error = step_error(example_row.exception, step)
         end
       end
-      
+
       def step_error(exception, step)
         return nil if exception.nil?
         exception.backtrace[-1] =~ /^#{step.file_colon_line}/ ? exception : nil

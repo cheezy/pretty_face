@@ -60,15 +60,15 @@ module PrettyFace
 
     class ReportFeature
       include Formatting
-
-      attr_accessor :scenarios, :description, :background
+      attr_accessor :scenarios, :background, :description
       attr_reader :title, :file, :start_time, :duration
 
-      def initialize(feature)
+      def initialize(feature, parent_filename)
         @scenarios = []
         @background = []
         @start_time = Time.now
         @description = feature.description
+        @parent_filename = parent_filename
       end
 
       def close(feature)
@@ -167,7 +167,7 @@ module PrettyFace
           else
             @keyword = step.keyword
           end
-          @status = step.status 
+          @status = step.status
           @multiline_arg = step.multiline_arg
           @error = step.exception
         end
