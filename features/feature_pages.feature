@@ -83,3 +83,6 @@ Feature: pages that show details for features
     Then the file "results/background.html" should contain "Background: A scenario can have a background"
     And the file "results/background.html" should contain "When  Cucumber puts"
 
+  Scenario: Feature pages should have a link back to the report summary
+    Then the file "results/advanced.html" should contain "<a href="
+

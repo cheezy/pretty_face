@@ -13,7 +13,7 @@ describe PrettyFace::Formatter::Html do
       formatter.before_features(nil)
       formatter.start_time.should eq Time.now.strftime("%a %B %-d, %Y at %H:%M:%S")
     end
-    
+
     it "should know how long it takes" do
       formatter.should_receive(:generate_report)
       formatter.should_receive(:copy_images_directory)
@@ -68,7 +68,7 @@ describe PrettyFace::Formatter::Html do
       step_mother.should_receive(:steps).and_return([1,2])
       formatter.step_count.should == 2
     end
-    
+
     it "should keep track of passing steps" do
       step_mother.should_receive(:steps).with(:passed).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
@@ -87,7 +87,7 @@ describe PrettyFace::Formatter::Html do
       formatter.steps_summary_for(:skipped).should == "2 (100.0%)"
     end
 
-    it "should keep track of pending steps" do 
+    it "should keep track of pending steps" do
       step_mother.should_receive(:steps).with(:pending).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
       formatter.steps_summary_for(:pending).should == "2 (100.0%)"
@@ -104,19 +104,19 @@ describe PrettyFace::Formatter::Html do
     before(:each) do
       cuke_feature = double('cuke_feature')
       cuke_feature.should_receive(:description)
-      report_feature = ReportFeature.new(cuke_feature)
+      report_feature = ReportFeature.new(cuke_feature, 'foo')
       formatter.report.features << report_feature
       @scenario = ReportScenario.new(nil)
       formatter.report.current_feature.scenarios << @scenario
       File.stub(:dirname).and_return('')
       FileUtils.stub(:cp)
     end
-    
+
     it "should generate an id" do
       formatter.embed('image.png', 'image/png', 'the label')
       @scenario.image_id.should == 'img_0'
     end
-    
+
     it "should get the filename from the src" do
       formatter.embed('directory/image.png', 'image/png', 'the label')
       @scenario.image.should == 'image.png'
