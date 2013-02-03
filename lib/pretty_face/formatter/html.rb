@@ -49,7 +49,11 @@ module PrettyFace
       end
 
       def features_summary_file
-        parts = @io.path.split('/')
+        if @io.respond_to? 'to_path'
+          parts = @io.to_path.split('/')
+        else
+          parts = @io.path.split('/')
+        end
         parts[parts.length - 1]
       end
 
@@ -122,6 +126,7 @@ module PrettyFace
 
       def generate_report
 <<<<<<< HEAD
+<<<<<<< HEAD
         renderer = ActionView::Base.new(@path_to_erb)
         filename = File.join(@path_to_erb, 'main')
         @io.puts renderer.render(:file => filename, :locals => {:report => self})
@@ -138,15 +143,19 @@ module PrettyFace
 =======
         path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
         filename = File.join(path_to_erb, 'main.erb')
+=======
+        filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
+>>>>>>> extracted info out into step partial
         text = File.new(filename).read
-        viewer = ActionView::Base.new(path_to_erb)
         @io.puts ERB.new(text, nil, "%>").result(binding)
-        erbfile = File.join(path_to_erb, 'feature')
+        erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
+        text = File.new(erbfile).read
         features.each do |feature|
-          write_feature_file(feature, viewer, erbfile)
+          write_feature_file(feature, text)
         end
       end
 
+<<<<<<< HEAD
       def write_feature_file(feature, viewer, filename)
         html = viewer.render(:file => filename, :locals => {:feature => feature})
         file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
@@ -154,6 +163,13 @@ module PrettyFace
 >>>>>>> merge upstream changes
         file.flush
         file.close
+=======
+      def write_feature_file(feature, text)
+          file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+          file.puts ERB.new(text, nil, "%").result(feature.get_binding)
+          file.flush
+          file.close
+>>>>>>> extracted info out into step partial
       end
 
       def make_output_directories
