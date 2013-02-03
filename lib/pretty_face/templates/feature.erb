@@ -12,13 +12,13 @@
       <img src="images/face.jpg" width="200" />
     </div>
     <div style="float: left;">
-      <h2 class="results">Feature Results:  <%= "#{title}" %></h2>
+      <h2 class="results">Feature Results:  <%= feature.title %></h2>
       <br />
-      <span>Feature started: <%= start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
+      <span>Feature started: <%= feature.start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
       <br />
-      <span>Duration: <%= formatted_duration(duration) %></span>
-      <% if description? %>
-        <pre class="description"><%= description %></pre>
+      <span>Duration: <%= feature.formatted_duration(feature.duration) %></span>
+      <% if feature.description? %>
+        <pre class="description"><%= feature.description %></pre>
       <% end %>
     </div>
 
@@ -38,78 +38,38 @@
         </tr>
         <tr>
           <td class="summary_row_header">Scenarios</td>
-          <td><%= scenarios.length %></td>
-          <td><%= scenario_summary_for :passed %></td>
-          <td><%= scenario_summary_for :failed %></td>
-          <td><%= scenario_summary_for :skipped %></td>
-          <td><%= scenario_summary_for :undefined %></td>
-          <td><%= scenario_summary_for :pending %></td>
-          <td><%= scenario_average_duration %></td>
+          <td><%= feature.scenarios.length %></td>
+          <td><%= feature.scenario_summary_for :passed %></td>
+          <td><%= feature.scenario_summary_for :failed %></td>
+          <td><%= feature.scenario_summary_for :skipped %></td>
+          <td><%= feature.scenario_summary_for :undefined %></td>
+          <td><%= feature.scenario_summary_for :pending %></td>
+          <td><%= feature.scenario_average_duration %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
-          <td><%= steps.length %></td>
-          <td><%= step_summary_for :passed %></td>
-          <td><%= step_summary_for :failed %></td>
-          <td><%= step_summary_for :skipped %></td>
-          <td><%= step_summary_for :undefined %></td>
-          <td><%= step_summary_for :pending %></td>
-          <td><%= step_average_duration %></td>
+          <td><%= feature.steps.length %></td>
+          <td><%= feature.step_summary_for :passed %></td>
+          <td><%= feature.step_summary_for :failed %></td>
+          <td><%= feature.step_summary_for :skipped %></td>
+          <td><%= feature.step_summary_for :undefined %></td>
+          <td><%= feature.step_summary_for :pending %></td>
+          <td><%= feature.step_average_duration %></td>
         </tr>
       </table>
     </div>
 
     <div style="width: 100%; float: left;">
-      <% if has_background? %>
+      <% if feature.has_background? %>
       <br />
-      <h2 class="failures">Background: <%= background_title.name %></h2>
+      <h2 class="failures">Background: <%= feature.background_title.name %></h2>
       <% end %>
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
-      <% background_steps.each do |step| %>
+      <% feature.background_steps.each do |step| %>
         <tr>
-          <td> <%= image_tag_for step.status %></td>
+          <td><%= raw(feature.image_tag_for step.status) %></td>
           <td>
-            <%= "#{step.keyword} #{step.name}" %>
-            <% if step.has_table? %>
-              <br />
-              <table border="1">
-                <tr>
-                  <% step.table.first.each do |column| %>
-                    <th><%= column %></th>
-                  <% end %>
-                </tr>
-                <% step.table.delete_at 0 %>
-                <% step.table.each do |row| %>
-                  <tr>
-                    <% row.each do |column| %>
-                      <td><%= column %></td>
-                    <% end %>
-                  </tr>
-                <% end %>
-              </table>
-            <% end %>
-            <% if step.has_multiline_arg? %>
-              <br />
-              <table border="1">
-                <tr>
-                  <td><pre><%= step.multiline_arg %></pre></td>
-                </tr>
-              </table>
-            <% end %>
-            <% if step.failed_with_error? %>
-              <table>
-                <tr class="error">
-                  <td>
-                    <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
-                  </td>
-                </tr>
-                <tr class="error">
-                  <td>
-                    <pre><%= step.error.backtrace.join("\n") %></pre>
-                  </td>
-                </tr>
-              </table>
-            <% end %>
+            <%= render "step", :step => step %>
           </td>
         </tr>
       <% end %>
@@ -117,7 +77,7 @@
       <br />
       <h2 class="failures">Scenarios:</h2>
       <br />
-      <% scenarios.each do |scenario| %>
+      <% feature.scenarios.each do |scenario| %>
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
         <tr style="background-color: #E0E0E0;">
           <th></th>
@@ -125,7 +85,7 @@
         </tr>
         <% scenario.steps.each do |step| %>
         <tr>
-          <td> <%= image_tag_for step.status %></td>
+          <td> <%= raw(feature.image_tag_for step.status) %></td>
           <td>
             <%= "#{step.keyword} #{step.name}" %>
             <% if step.has_table? %>

@@ -1,4 +1,5 @@
 require 'erb'
+require 'action_view'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
@@ -115,21 +116,23 @@ module PrettyFace
       private
 
       def generate_report
-        filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
+        path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
+        filename = File.join(path_to_erb, 'main.erb')
         text = File.new(filename).read
+        viewer = ActionView::Base.new(path_to_erb)
         @io.puts ERB.new(text, nil, "%>").result(binding)
-        erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
-        text = File.new(erbfile).read
+        erbfile = File.join(path_to_erb, 'feature')
         features.each do |feature|
-          write_feature_file(feature, text)
+          write_feature_file(feature, viewer, erbfile)
         end
       end
 
-      def write_feature_file(feature, text)
-          file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
-          file.puts ERB.new(text, nil, "%").result(feature.get_binding)
-          file.flush
-          file.close
+      def write_feature_file(feature, viewer, filename)
+        html = viewer.render(:file => filename, :locals => {:feature => feature})
+        file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+        file.puts html
+        file.flush
+        file.close
       end
 
       def make_output_directories

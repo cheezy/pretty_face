@@ -13,7 +13,7 @@ module PrettyFace
       end
 
       def image_tag_for(status)
-        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\""
+        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
       end
     end
 
