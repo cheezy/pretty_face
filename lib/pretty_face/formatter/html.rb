@@ -1,4 +1,3 @@
-require 'erb'
 require 'action_view'
 require 'fileutils'
 require 'cucumber/formatter/io'
@@ -22,6 +21,7 @@ module PrettyFace
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
         @io = ensure_io(path_or_io, 'html')
+        @path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
         @step_mother = step_mother
         @options = options
         @report = Report.new
@@ -116,21 +116,19 @@ module PrettyFace
       private
 
       def generate_report
-        path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
-        filename = File.join(path_to_erb, 'main.erb')
-        text = File.new(filename).read
-        viewer = ActionView::Base.new(path_to_erb)
-        @io.puts ERB.new(text, nil, "%>").result(binding)
-        erbfile = File.join(path_to_erb, 'feature')
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'main')
+        @io.puts renderer.render(:file => filename, :locals => {:report => self})
         features.each do |feature|
-          write_feature_file(feature, viewer, erbfile)
+          write_feature_file(feature)
         end
       end
 
-      def write_feature_file(feature, viewer, filename)
-        html = viewer.render(:file => filename, :locals => {:feature => feature})
+      def write_feature_file(feature)
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'feature')
         file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
-        file.puts html
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature})
         file.flush
         file.close
       end

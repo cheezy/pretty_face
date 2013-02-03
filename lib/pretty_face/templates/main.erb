@@ -12,9 +12,9 @@
     </div>
     <div style="float: left;">
       <h2 class="results">Test Results</h2>
-      <span>Tests started: <%= start_time %></span>
+      <span>Tests started: <%= report.start_time %></span>
       <br />
-      <span>Duration: <%= total_duration %></span>
+      <span>Duration: <%= report.total_duration %></span>
     </div>
     
 	  <div class="summary_body">
@@ -33,23 +33,23 @@
         </tr>
         <tr>
           <td class="summary_row_header">Scenarios</td>
-          <td><%= scenario_count %></td>
-          <td><%= scenarios_summary_for :passed %></td>
-          <td><%= scenarios_summary_for :failed %></td>
-          <td><%= scenarios_summary_for :skipped %></td>
-          <td><%= scenarios_summary_for :undefined %></td>
-          <td><%= scenarios_summary_for :pending %></td>
-          <td><%= scenario_average_duration(features) %></td>
+          <td><%= report.scenario_count %></td>
+          <td><%= report.scenarios_summary_for :passed %></td>
+          <td><%= report.scenarios_summary_for :failed %></td>
+          <td><%= report.scenarios_summary_for :skipped %></td>
+          <td><%= report.scenarios_summary_for :undefined %></td>
+          <td><%= report.scenarios_summary_for :pending %></td>
+          <td><%= report.scenario_average_duration(report.features) %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
-          <td><%= step_count %></td>
-          <td><%= steps_summary_for :passed %></td>
-          <td><%= steps_summary_for :failed %></td>
-          <td><%= steps_summary_for :skipped %></td>
-          <td><%= steps_summary_for :undefined %></td>
-          <td><%= steps_summary_for :pending %></td>
-          <td><%= step_average_duration(features) %></td>
+          <td><%= report.step_count %></td>
+          <td><%= report.steps_summary_for :passed %></td>
+          <td><%= report.steps_summary_for :failed %></td>
+          <td><%= report.steps_summary_for :skipped %></td>
+          <td><%= report.steps_summary_for :undefined %></td>
+          <td><%= report.steps_summary_for :pending %></td>
+          <td><%= report.step_average_duration(report.features) %></td>
         </tr>
       </table>
     </div>
@@ -65,9 +65,9 @@
           <th style="text-align: left;">Scenario</th>
           <th style="text-align: left;">File</th>
         </tr>
-        <% features.each do |feature| %>
+        <% report.features.each do |feature| %>
           <% feature.scenarios.each do |scenario| %>
-            <% if failed_scenario? scenario %>
+            <% if report.failed_scenario? scenario %>
         <tr>
           <td><img src="images/failed.jpg" width="30"/></td>
           <td><%= feature.title %> </td>
@@ -94,7 +94,7 @@
           <th style="text-align: left;">Skipped</th>
           <th style="text-align: left;">Duration</th>
         </tr>
-        <% features.each do |feature| %>
+        <% report.features.each do |feature| %>
         <tr>
           <td class="feature_title">
             <a href="<%= feature.file %>"><%= feature.title %></a>
