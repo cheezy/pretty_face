@@ -127,6 +127,7 @@ module PrettyFace
       def generate_report
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         renderer = ActionView::Base.new(@path_to_erb)
         filename = File.join(@path_to_erb, 'main')
         @io.puts renderer.render(:file => filename, :locals => {:report => self})
@@ -150,11 +151,17 @@ module PrettyFace
         @io.puts ERB.new(text, nil, "%>").result(binding)
         erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
         text = File.new(erbfile).read
+=======
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'main')
+        @io.puts renderer.render(:file => filename, :locals => {:report => self})
+>>>>>>> converted all to use ActionView
         features.each do |feature|
-          write_feature_file(feature, text)
+          write_feature_file(feature)
         end
       end
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       def write_feature_file(feature, viewer, filename)
         html = viewer.render(:file => filename, :locals => {:feature => feature})
@@ -170,6 +177,15 @@ module PrettyFace
           file.flush
           file.close
 >>>>>>> extracted info out into step partial
+=======
+      def write_feature_file(feature)
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'feature')
+        file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature})
+        file.flush
+        file.close
+>>>>>>> converted all to use ActionView
       end
 
       def make_output_directories
