@@ -47,8 +47,9 @@ Feature: pages that show details for features
     And the file "results/advanced.html" should contain "I am using a scenario outline"
 
   Scenario: It should display the step and data for scenario outline steps
-    Then the file "results/advanced.html" should contain "I use 'aaa'"
-    And the file "results/advanced.html" should contain "I use 'bbb'"
+  I use &#x27;aaa&#x27;\
+    Then the file "results/advanced.html" should contain "I use &#x27;aaa&#x27;"
+    And the file "results/advanced.html" should contain "I use &#x27;bbb&#x27;"
 
   Scenario: It should display descriptions for features
     Then the file "results/basic.html" should contain "As a stakeholder"
