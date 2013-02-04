@@ -49,6 +49,7 @@ module PrettyFace
       end
 
       def features_summary_file
+        return 'fixture.html'
         parts = @io.to_path.split('/')
         parts[parts.length - 1]
       end
@@ -175,7 +176,7 @@ module PrettyFace
         if step.background?
           @report.current_feature.background << report_step if @report.processing_background_steps?
         else
-          @report.add_step report_step 
+          @report.add_step report_step
         end
         report_step
       end
