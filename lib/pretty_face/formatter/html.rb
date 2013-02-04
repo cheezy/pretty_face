@@ -49,8 +49,11 @@ module PrettyFace
       end
 
       def features_summary_file
-        return 'fixture.html'
-        parts = @io.to_path.split('/')
+        if @io.respond_to? 'to_path'
+          parts = @io.to_path.split('/')
+        else
+          parts = @io.path.split('/')
+        end
         parts[parts.length - 1]
       end
 
