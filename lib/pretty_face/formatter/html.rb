@@ -121,6 +121,7 @@ module PrettyFace
       private
 
       def generate_report
+<<<<<<< HEAD
         renderer = ActionView::Base.new(@path_to_erb)
         filename = File.join(@path_to_erb, 'main')
         @io.puts renderer.render(:file => filename, :locals => {:report => self})
@@ -134,6 +135,23 @@ module PrettyFace
         filename = File.join(@path_to_erb, 'feature')
         file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
         file.puts renderer.render(:file => filename, :locals => {:feature => feature})
+=======
+        path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
+        filename = File.join(path_to_erb, 'main.erb')
+        text = File.new(filename).read
+        viewer = ActionView::Base.new(path_to_erb)
+        @io.puts ERB.new(text, nil, "%>").result(binding)
+        erbfile = File.join(path_to_erb, 'feature')
+        features.each do |feature|
+          write_feature_file(feature, viewer, erbfile)
+        end
+      end
+
+      def write_feature_file(feature, viewer, filename)
+        html = viewer.render(:file => filename, :locals => {:feature => feature})
+        file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+        file.puts html
+>>>>>>> merge upstream changes
         file.flush
         file.close
       end
