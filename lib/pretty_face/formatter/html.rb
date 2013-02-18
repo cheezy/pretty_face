@@ -30,7 +30,7 @@ module PrettyFace
 
       def embed(src, mime_type, label)
         case(mime_type)
-        when /^image\/(png|gi|jpg|jpeg)/
+        when /^image\/(png|gif|jpg|jpeg)/
           embed_image(src, label)
         end
       end
@@ -132,7 +132,11 @@ module PrettyFace
       def write_feature_file(feature)
         renderer = ActionView::Base.new(@path_to_erb)
         filename = File.join(@path_to_erb, 'feature')
-        file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
+        output_file = "#{File.dirname(@path)}/#{feature.file}"
+        to_cut = output_file.split('/').last
+        directory = output_file.sub("/#{to_cut}", '')
+        FileUtils.mkdir directory unless File.directory? directory
+        file = File.new(output_file, Cucumber.file_mode('w'))
         file.puts renderer.render(:file => filename, :locals => {:feature => feature})
         file.flush
         file.close

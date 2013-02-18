@@ -87,3 +87,10 @@ Feature: pages that show details for features
   Scenario: Feature pages should have a link back to the report summary
     Then the file "results/advanced.html" should contain "<a href="
 
+  @focus
+  @announce
+  Scenario: Should create directories when directories exist in features directory
+    Then the following files should exist:
+    | results/more/more.html |
+
+    

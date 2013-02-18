@@ -75,7 +75,8 @@ module PrettyFace
         @title = feature.title
         @duration = Time.now - start_time
         a_file = feature.file.sub(/\.feature/, '.html')
-        @file = a_file.split('/').last
+        to_cut = a_file.split('/').first
+        @file = a_file.sub("#{to_cut}/", '')
       end
 
       def steps
