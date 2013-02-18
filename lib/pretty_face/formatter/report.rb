@@ -12,8 +12,18 @@ module PrettyFace
         "#{m}m#{'%.3f' % s}s"
       end
 
-      def image_tag_for(status)
-        "<img src=\"images/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+      def image_tag_for(status, source=nil)
+        dir = "#{directory_prefix_for(source)}images"
+        "<img src=\"#{dir}/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+      end
+
+      def directory_prefix_for(source=nil)
+        dir = ''
+        back_dir = source.count('/') if source
+        back_dir.times do
+          dir += '../'
+        end
+        dir
       end
     end
 

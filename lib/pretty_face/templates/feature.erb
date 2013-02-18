@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
-    <link href='stylesheets/style.css' type='text/css' rel='stylesheet' />
+    <link href='<%= feature.directory_prefix_for(feature.file) %>stylesheets/style.css' type='text/css' rel='stylesheet' />
 
     <title>Feature Results</title>
   </head>
@@ -9,7 +9,7 @@
   <body>
 
     <div style="float: left;">
-      <img src="images/face.jpg" width="200" />
+      <img src="<%= feature.directory_prefix_for(feature.file) %>images/face.jpg" width="200" />
     </div>
     <div style="float: left;">
       <a href="<%= feature.parent_filename %>">Back</a>
@@ -68,7 +68,7 @@
       <table cellspacing="0" cellpadding="7" border="0" class="failed">
       <% feature.background_steps.each do |step| %>
         <tr>
-          <td><%= raw(feature.image_tag_for step.status) %></td>
+          <td><%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
           <td>
             <%= render "step", :step => step %>
           </td>
@@ -86,7 +86,7 @@
         </tr>
         <% scenario.steps.each do |step| %>
         <tr>
-          <td> <%= raw(feature.image_tag_for step.status) %></td>
+          <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
           <td>
             <%= "#{step.keyword} #{step.name}" %>
             <% if step.has_table? %>
@@ -133,7 +133,7 @@
       </table>
       <% if scenario.has_image? %>
         <a href='' onclick="img=document.getElementById('<%= scenario.image_id %>'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false"><%= "#{scenario.image_label}" %></a><br />
-        <img id='<%= scenario.image_id %>' style='display: none' src='images/<%= scenario.image %>'/>
+        <img id='<%= scenario.image_id %>' style='display: none' src='<%= feature.directory_prefix_for(feature.file) %>images/<%= scenario.image %>'/>
       <% end %>
       <br /><br />
 
