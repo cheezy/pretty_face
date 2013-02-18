@@ -79,50 +79,52 @@
         <% end %>
       </table>
 
-      <br />
-      <h2 class="scenarios">Feature Overview:</h2>
-      <br />
+      <section class="feature-overview">
+        <br />
+        <h2 class="scenarios">Feature Overview:</h2>
+        <br />
 
-      <table cellspacing="0" cellpadding="7" border="0">
-        <tr style="background-color: #E0E0E0;">
-          <th style="text-align: left;">Feature</th>
-          <th style="text-align: left;">File</th>
-          <th style="text-align: left;">Passed</th>
-          <th style="text-align: left;">Failed</th>
-          <th style="text-align: left;">Pending</th>
-          <th style="text-align: left;">Undefined</th>
-          <th style="text-align: left;">Skipped</th>
-          <th style="text-align: left;">Duration</th>
-        </tr>
-        <% report.features.each do |feature| %>
-        <tr>
-          <td class="feature_title">
-            <a href="<%= feature.file %>"><%= feature.title %></a>
-          </td>
-          <td>
-            <%= feature.file %>
-          </td>
-          <td>
-            <%= feature.scenarios_for(:passed).length %>
-          </td>
-          <td>
-            <%= feature.scenarios_for(:failed).length %>
-          </td>
-          <td>
-            <%= feature.scenarios_for(:pending).length %>
-          </td>
-          <td>
-            <%= feature.scenarios_for(:undefined).length %>
-          </td>
-          <td>
-            <%= feature.scenarios_for(:skipped).length %>
-          </td>
-          <td>
-            <%= feature.formatted_duration(feature.duration) %>
-          </td>
-        </tr>
-        <% end %>
-      </table>
+        <table cellspacing="0" cellpadding="7" border="0">
+          <tr>
+            <th>Feature</th>
+            <th>File</th>
+            <th>Passed</th>
+            <th>Failed</th>
+            <th>Pending</th>
+            <th>Undefined</th>
+            <th>Skipped</th>
+            <th>Duration</th>
+          </tr>
+          <% report.features.each do |feature| %>
+          <tr>
+            <td class="feature_title">
+              <a href="<%= feature.file %>"><%= feature.title %></a>
+            </td>
+            <td>
+              <%= feature.file %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:passed).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:failed).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:pending).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:undefined).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:skipped).length %>
+            </td>
+            <td>
+              <%= feature.formatted_duration(feature.duration) %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </section>
     </div>
 
     <div class="footer">

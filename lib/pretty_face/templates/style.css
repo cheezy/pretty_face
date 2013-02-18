@@ -1,3 +1,9 @@
+/* Colors:
+ *   light-gray: #F9F9F9;
+ *   mid-gray: #F2F2F2;
+ *   dark-gray: #E0E0E0;
+ */
+
 body {
   font-family: GeosansLightRegular,Arial,Helvetica,sans-serif;
   font-size: 1em;
@@ -107,4 +113,17 @@ h2.summary {
 }
 .failures tr:last-child td:last-child {
   border-radius: 0px 0px 18px 0px;
+}
+.param_table th,.param_table td {
+  border: 3px solid #eee;
+}
+.multiline_arg {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color:#F2F2F2;
+}
+
+.feature-overview th {
+  background-color: #E0E0E0;
+  text-align: left;
 }
