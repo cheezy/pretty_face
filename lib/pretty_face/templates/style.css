@@ -1,7 +1,11 @@
 /* Colors:
- *   light-gray: #F9F9F9;
- *   mid-gray: #F2F2F2;
- *   dark-gray: #E0E0E0;
+
+  light-gray: #F9F9F9;
+  mid-gray: #F2F2F2;
+  dark-gray: #E0E0E0;
+  extra-dark-gray: #AEAEAE;
+  aqua: #4B7CAB;
+
  */
 
 body {
@@ -57,22 +61,22 @@ h2 {
   width: 100%;
   float: left;
 }
-h2.failures {
+.failures h2 {
   color: #A00000;
   margin-top: 15px;
   margin-left: 5px;
 }
-h2.scenarios {
+.scenarios h2 {
   color: #4B7CAB;
   margin-top: 15px;
   margin-left: 5px;
 }
-h2.results {
+.results h2 {
   color: #282828;
   margin-top: 12px;
   margin-bottom: 15px;
 }
-h2.summary {
+.summary h2 {
   color: white;
   margin-left: 5px;
   margin-top: 5px;
@@ -92,11 +96,6 @@ h2.summary {
   font-family: inherit
 }
 
-.error {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
-}
 
 .failures tr:nth-child(odd) {
   background-color:#F9F9F9;
@@ -106,7 +105,7 @@ h2.summary {
 }
 
 .failures tr td {
-  border-top:1px solid #eee;
+  border-top:1px solid #AEAEAE;
 }
 .failures tr:last-child td:first-child {
   border-radius: 0px 0px 0px 18px;
@@ -115,7 +114,9 @@ h2.summary {
   border-radius: 0px 0px 18px 0px;
 }
 .param_table th,.param_table td {
-  border: 3px solid #eee;
+  border: 3px solid #E0E0E0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .multiline_arg {
   padding-left: 15px;
@@ -127,3 +128,22 @@ h2.summary {
   background-color: #E0E0E0;
   text-align: left;
 }
+
+.error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.message td {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 18px 18px 0px 0px;
+}
+
+.detail td {
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 0px 0px 18px 18px;
+}
+

@@ -79,7 +79,7 @@
       <h2 class="failures">Scenarios:</h2>
       <br />
       <% feature.scenarios.each do |scenario| %>
-      <table cellspacing="0" cellpadding="7" border="0" class="failed">
+      <table cellspacing="0" cellpadding="7" border="0" class="scenario <%= scenario.status %>">
         <tr style="background-color: #E0E0E0;">
           <th></th>
           <th><%= scenario.name %></th>
@@ -115,12 +115,12 @@
             <% end %>
             <% if step.failed_with_error? %>
               <table>
-                <tr class="error">
+                <tr class="error message">
                   <td>
-                    <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
+                    <%= "#{step.error.message} (#{step.error.class})" %>
                   </td>
                 </tr>
-                <tr class="error">
+                <tr class="error detail">
                   <td>
                     <pre><%= step.error.backtrace.join("\n") %></pre>
                   </td>
