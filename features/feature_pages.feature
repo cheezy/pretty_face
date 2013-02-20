@@ -47,8 +47,9 @@ Feature: pages that show details for features
     And the file "results/advanced.html" should contain "I am using a scenario outline"
 
   Scenario: It should display the step and data for scenario outline steps
-    Then the file "results/advanced.html" should contain "I use 'aaa'"
-    And the file "results/advanced.html" should contain "I use 'bbb'"
+  I use &#x27;aaa&#x27;\
+    Then the file "results/advanced.html" should contain "I use &#x27;aaa&#x27;"
+    And the file "results/advanced.html" should contain "I use &#x27;bbb&#x27;"
 
   Scenario: It should display descriptions for features
     Then the file "results/basic.html" should contain "As a stakeholder"
@@ -72,3 +73,22 @@ Feature: pages that show details for features
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+
+  Scenario: Embedding an image into the page
+    Then the file "results/basic.html" should contain "<img id='img_0' style='display: none' src='images/autotrader.png'/>"
+    And the file "results/basic.html" should contain "<a href='' onclick="
+    And the file "results/basic.html" should contain "img=document.getElementById('img_0'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false"
+    And the file "results/basic.html" should contain ">AutoTrader</a>"
+
+  Scenario: Displaying a background
+    Then the file "results/background.html" should contain "Background: A scenario can have a background"
+    And the file "results/background.html" should contain "When  Cucumber puts"
+
+  Scenario: Feature pages should have a link back to the report summary
+    Then the file "results/advanced.html" should contain "<a href="
+
+  Scenario: Should create directories when directories exist in features directory
+    Then the following files should exist:
+    | results/more/more.html |
+
+    

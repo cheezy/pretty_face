@@ -51,20 +51,19 @@ Feature: pretty face report
     Then the file "results/fixture.html" should contain "Tests With Failures:"
 
   Scenario: It should display a list of all features / scenarios
-    Then the file "results/fixture.html" should contain "Scenario Overview:"
+    Then the file "results/fixture.html" should contain "Feature Overview:"
 
   Scenario: It should display useful information about each scenario
-    Then the file "results/fixture.html" should contain "Result"
-    And the file "results/fixture.html" should contain "Name"
-    And the file "results/fixture.html" should contain "# Steps"
-    And the file "results/fixture.html" should contain "Duration"
+    Then the file "results/fixture.html" should contain "Feature"
+    And the file "results/fixture.html" should contain "File"
+    And the file "results/fixture.html" should contain "Passed"
+    And the file "results/fixture.html" should contain "Failed"
+    And the file "results/fixture.html" should contain "Pending"
+    And the file "results/fixture.html" should contain "Undefined"
+    And the file "results/fixture.html" should contain "Skipped"
 
   Scenario: It should display the data from scenario outlines
     Then the file "results/fixture.html" should contain "| aaa | bbb |"
     And the file "results/fixture.html" should contain "| ccc | ddd |"
   
-  Scenario: It should display the scenario name for scenario outlines
-    Then the file "results/fixture.html" should contain "A scenario outline"
 
-  Scenario: It should link to feature result pages
-    Then the file "results/fixture.html" should contain "Feature: <a href="

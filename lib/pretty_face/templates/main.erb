@@ -2,7 +2,7 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <link href='stylesheets/style.css' type='text/css' rel='stylesheet' />
-    
+
     <title>Test Results</title>
   </head>
 
@@ -12,11 +12,11 @@
     </div>
     <div style="float: left;">
       <h2 class="results">Test Results</h2>
-      <span>Tests started: <%= start_time %></span>
+      <span>Tests started: <%= report.start_time %></span>
       <br />
-      <span>Duration: <%= total_duration %></span>
+      <span>Duration: <%= report.total_duration %></span>
     </div>
-    
+
 	  <div class="summary_body">
       <h2 class="summary">Summary</h2>
 
@@ -33,30 +33,30 @@
         </tr>
         <tr>
           <td class="summary_row_header">Scenarios</td>
-          <td><%= scenario_count %></td>
-          <td><%= scenarios_summary_for :passed %></td>
-          <td><%= scenarios_summary_for :failed %></td>
-          <td><%= scenarios_summary_for :skipped %></td>
-          <td><%= scenarios_summary_for :undefined %></td>
-          <td><%= scenarios_summary_for :pending %></td>
-          <td><%= scenario_average_duration(features) %></td>
+          <td><%= report.scenario_count %></td>
+          <td><%= report.scenarios_summary_for :passed %></td>
+          <td><%= report.scenarios_summary_for :failed %></td>
+          <td><%= report.scenarios_summary_for :skipped %></td>
+          <td><%= report.scenarios_summary_for :undefined %></td>
+          <td><%= report.scenarios_summary_for :pending %></td>
+          <td><%= report.scenario_average_duration(report.features) %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
-          <td><%= step_count %></td>
-          <td><%= steps_summary_for :passed %></td>
-          <td><%= steps_summary_for :failed %></td>
-          <td><%= steps_summary_for :skipped %></td>
-          <td><%= steps_summary_for :undefined %></td>
-          <td><%= steps_summary_for :pending %></td>
-          <td><%= step_average_duration(features) %></td>
+          <td><%= report.step_count %></td>
+          <td><%= report.steps_summary_for :passed %></td>
+          <td><%= report.steps_summary_for :failed %></td>
+          <td><%= report.steps_summary_for :skipped %></td>
+          <td><%= report.steps_summary_for :undefined %></td>
+          <td><%= report.steps_summary_for :pending %></td>
+          <td><%= report.step_average_duration(report.features) %></td>
         </tr>
       </table>
     </div>
 
-    <div style="width: 100%; float: left;">
+    <div class="failures">
       <br />
-      <h2 class="failures">Tests With Failures:</h2>
+      <h2>Tests With Failures:</h2>
       <br />
       <table cellspacing="0" cellpadding="7" border="0">
         <tr style="background-color: #E0E0E0;">
@@ -65,11 +65,11 @@
           <th style="text-align: left;">Scenario</th>
           <th style="text-align: left;">File</th>
         </tr>
-        <% features.each do |feature| %>
+        <% report.features.each do |feature| %>
           <% feature.scenarios.each do |scenario| %>
-            <% if failed_scenario? scenario %>
+            <% if report.failed_scenario? scenario %>
         <tr>
-          <td><img src="images/failed.jpg" width="30"/></td>
+          <td><img src="images/failed.png" width="30"/></td>
           <td><%= feature.title %> </td>
           <td><%= scenario.name %></td>
           <td style="color: gray;"><%= scenario.file_colon_line %></td>
@@ -78,37 +78,58 @@
           <% end %>
         <% end %>
       </table>
-        
-      <br />
-      <h2 class="scenarios">Scenario Overview:</h2>
-      <br />
 
-      <table cellspacing="0" cellpadding="7" border="0" class="failed">
-        <tr style="background-color: #E0E0E0;">
-          <th style="text-align: left;">Result</th>
-          <th style="text-align: left;">Name</th>
-          <th style="text-align: left;">File</th>
-          <th style="text-align: left;"># Steps</th>
-        </tr>
-        <% features.each do |feature| %>
-        <tr>
-          <td class="feature_title" colspan="4">Feature: <a href="<%= feature.file %>"><%= feature.title %></a></td>
-        </tr>
-          <% feature.scenarios.each do |scenario| %>
-        <tr>
-          <td><%= image_tag_for scenario %></td>
-          <td><%= scenario.name %></td>
-          <td style="color: gray;"><%= scenario.file_colon_line %></td>
-          <td><%= scenario.steps.length %></td>
-        </tr>
+      <section class="feature-overview">
+        <br />
+        <h2 class="scenarios">Feature Overview:</h2>
+        <br />
+
+        <table cellspacing="0" cellpadding="7" border="0">
+          <tr>
+            <th>Feature</th>
+            <th>File</th>
+            <th>Passed</th>
+            <th>Failed</th>
+            <th>Pending</th>
+            <th>Undefined</th>
+            <th>Skipped</th>
+            <th>Duration</th>
+          </tr>
+          <% report.features.each do |feature| %>
+          <tr>
+            <td class="feature_title">
+              <a href="<%= feature.file %>"><%= feature.title %></a>
+            </td>
+            <td>
+              <%= feature.file %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:passed).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:failed).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:pending).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:undefined).length %>
+            </td>
+            <td>
+              <%= feature.scenarios_for(:skipped).length %>
+            </td>
+            <td>
+              <%= feature.formatted_duration(feature.duration) %>
+            </td>
+          </tr>
           <% end %>
-        <% end %>
-      </table>
+        </table>
+      </section>
     </div>
-    
+
     <div class="footer">
       Generated by PrettyFace
     </div>
-    
+
   </body>
 </html>

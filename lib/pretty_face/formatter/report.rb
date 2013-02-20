@@ -11,6 +11,20 @@ module PrettyFace
         m, s = duration.divmod(60)
         "#{m}m#{'%.3f' % s}s"
       end
+
+      def image_tag_for(status, source=nil)
+        dir = "#{directory_prefix_for(source)}images"
+        "<img src=\"#{dir}/#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+      end
+
+      def directory_prefix_for(source=nil)
+        dir = ''
+        back_dir = source.count('/') if source
+        back_dir.times do
+          dir += '../'
+        end
+        dir
+      end
     end
 
 
@@ -56,21 +70,23 @@ module PrettyFace
 
     class ReportFeature
       include Formatting
-
       attr_accessor :scenarios, :background, :description
-      attr_reader :title, :file, :start_time, :duration
+      attr_reader :title, :file, :start_time, :duration, :parent_filename
 
-      def initialize(feature)
+      def initialize(feature, parent_filename)
         @scenarios = []
+        @background = []
         @start_time = Time.now
         @description = feature.description
+        @parent_filename = parent_filename
       end
 
       def close(feature)
         @title = feature.title
         @duration = Time.now - start_time
         a_file = feature.file.sub(/\.feature/, '.html')
-        @file = a_file.split('/').last
+        to_cut = a_file.split('/').first
+        @file = a_file.sub("#{to_cut}/", '')
       end
 
       def steps
@@ -79,8 +95,20 @@ module PrettyFace
         steps
       end
 
+      def background_title
+        title = @background.find { |step| step.keyword.nil? }
+      end
+
+      def background_steps
+        @background.find_all { |step| step.keyword }
+      end
+
+      def scenarios_for(status)
+        scenarios.find_all { |scenario| scenario.status == status }
+      end
+
       def scenario_summary_for(status)
-        scenarios_with_status = scenarios.find_all { |scenario| scenario.status == status }
+        scenarios_with_status = scenarios_for(status)
         summary_percent(scenarios_with_status.length, scenarios.length)
       end
 
@@ -107,10 +135,14 @@ module PrettyFace
       def description?
         !description.nil?  && !description.empty?
       end
+
+      def has_background?
+        background.length > 0
+      end
     end
 
     class ReportScenario
-      attr_accessor :name, :file_colon_line, :status, :steps, :duration
+      attr_accessor :name, :file_colon_line, :status, :steps, :duration, :image, :image_label, :image_id
 
       def initialize(scenario)
         @steps = []
@@ -128,6 +160,10 @@ module PrettyFace
         end
         @status = scenario.status
       end
+
+      def has_image?
+        not image.nil?
+      end
     end
 
     class ReportStep
@@ -135,15 +171,17 @@ module PrettyFace
 
       def initialize(step)
         @name = step.name
-        if step.respond_to? :actual_keyword
-          @keyword = step.actual_keyword
-        else
-          @keyword = step.keyword
-        end
         @file_colon_line = step.file_colon_line
-        @status = step.status
-        @multiline_arg = step.multiline_arg
-        @error = step.exception
+        unless step.instance_of? Cucumber::Ast::Background
+          if step.respond_to? :actual_keyword
+            @keyword = step.actual_keyword
+          else
+            @keyword = step.keyword
+          end
+          @status = step.status
+          @multiline_arg = step.multiline_arg
+          @error = step.exception
+        end
       end
 
       def failed_with_error?

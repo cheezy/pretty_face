@@ -1,4 +1,4 @@
-require 'erb'
+require 'action_view'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
@@ -16,9 +16,12 @@ module PrettyFace
       include Cucumber::Formatter::Duration
       include ViewHelper
 
+      attr_reader :report
+
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
         @io = ensure_io(path_or_io, 'html')
+        @path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
         @step_mother = step_mother
         @options = options
         @report = Report.new
@@ -27,34 +30,44 @@ module PrettyFace
 
       def embed(src, mime_type, label)
         case(mime_type)
-        when /^image\/(png|gi|jpg|jpeg)/
+        when /^image\/(png|gif|jpg|jpeg)/
           embed_image(src, label)
         end
       end
 
-      def embed_image(src, image)
-        id = "img_#{@img_id}"
+      def embed_image(src, label)
+        @report.current_scenario.image = src.split('/').last
+        @report.current_scenario.image_label = label
+        @report.current_scenario.image_id = "img_#{@img_id}"
         @img_id += 1
+        FileUtils.cp src, "#{File.dirname(@path)}/images"
       end
 
       def before_features(features)
+        make_output_directories
         @tests_started = Time.now
       end
 
+      def features_summary_file
+        parts = @io.path.split('/')
+        parts[parts.length - 1]
+      end
+
       def before_feature(feature)
-        @report.add_feature ReportFeature.new(feature)
+        @report.add_feature ReportFeature.new(feature, features_summary_file)
       end
 
       def after_feature(feature)
         @report.current_feature.close(feature)
       end
-      
+
       def before_background(background)
         @report.begin_background
       end
 
       def after_background(background)
         @report.end_background
+        @report.current_feature.background << ReportStep.new(background)
       end
 
       def before_feature_element(feature_element)
@@ -108,37 +121,51 @@ module PrettyFace
       private
 
       def generate_report
-        filename = File.join(File.dirname(__FILE__), '..', 'templates', 'main.erb')
-        text = File.new(filename).read
-        @io.puts ERB.new(text, nil, "%>").result(binding)
-        erbfile = File.join(File.dirname(__FILE__), '..', 'templates', 'feature.erb')
-        text = File.new(erbfile).read
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'main')
+        @io.puts renderer.render(:file => filename, :locals => {:report => self})
         features.each do |feature|
-          write_feature_file(feature, text)
+          write_feature_file(feature)
         end
       end
 
-      def write_feature_file(feature, text)
-          file = File.open("#{File.dirname(@path)}/#{feature.file}", Cucumber.file_mode('w'))
-          file.puts ERB.new(text, nil, "%").result(feature.get_binding)
-          file.flush
-          file.close
+      def write_feature_file(feature)
+        renderer = ActionView::Base.new(@path_to_erb)
+        filename = File.join(@path_to_erb, 'feature')
+        output_file = "#{File.dirname(@path)}/#{feature.file}"
+        to_cut = output_file.split('/').last
+        directory = output_file.sub("/#{to_cut}", '')
+        FileUtils.mkdir directory unless File.directory? directory
+        file = File.new(output_file, Cucumber.file_mode('w'))
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature})
+        file.flush
+        file.close
       end
 
-      def copy_directory(target_path, file_names, file_extension)
-        path = "#{File.dirname(@path)}/#{target_path}"
+      def make_output_directories
+        make_directory 'images'
+        make_directory 'stylesheets'
+      end
+
+      def make_directory(dir)
+        path = "#{File.dirname(@path)}/#{dir}"
         FileUtils.mkdir path unless File.directory? path
+      end
+
+      def copy_directory(dir, file_names, file_extension)
+        path = "#{File.dirname(@path)}/#{dir}"
         file_names.each do |file|
           FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
       end
 
       def copy_images_directory
-        copy_directory "images", %w(face failed passed pending undefined skipped), "jpg"
+        copy_directory 'images', ['face'], 'jpg'
+        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
       end
 
       def copy_stylesheets_directory
-        copy_directory "stylesheets", ['style'], 'css'
+        copy_directory 'stylesheets', ['style'], 'css'
       end
 
       def process_scenario(scenario)
@@ -147,11 +174,15 @@ module PrettyFace
 
       def process_step(step, status=nil)
         duration =  Time.now - @step_timer
-        step = ReportStep.new(step)
-        step.duration = duration
-        step.status = status unless status.nil?
-        @report.add_step step unless @report.processing_background_steps?
-        step
+        report_step = ReportStep.new(step)
+        report_step.duration = duration
+        report_step.status = status unless status.nil?
+        if step.background?
+          @report.current_feature.background << report_step if @report.processing_background_steps?
+        else
+          @report.add_step report_step
+        end
+        report_step
       end
 
       def scenario_outline?(feature_element)
@@ -182,7 +213,7 @@ module PrettyFace
           current_step.error = step_error(example_row.exception, step)
         end
       end
-      
+
       def step_error(exception, step)
         return nil if exception.nil?
         exception.backtrace[-1] =~ /^#{step.file_colon_line}/ ? exception : nil
