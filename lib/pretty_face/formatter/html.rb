@@ -160,7 +160,8 @@ module PrettyFace
       end
 
       def copy_images_directory
-        copy_directory 'images', %w(face failed passed pending undefined skipped), "jpg"
+        copy_directory 'images', ['face'], 'jpg'
+        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
       end
 
       def copy_stylesheets_directory

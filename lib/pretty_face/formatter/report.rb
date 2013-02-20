@@ -14,7 +14,7 @@ module PrettyFace
 
       def image_tag_for(status, source=nil)
         dir = "#{directory_prefix_for(source)}images"
-        "<img src=\"#{dir}/#{status}.jpg\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+        "<img src=\"#{dir}/#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
       end
 
       def directory_prefix_for(source=nil)
