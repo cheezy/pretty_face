@@ -24,4 +24,4 @@ See [http://github.com/cheezy/pretty_face/issues](http://github.com/cheezy/prett
 
 ## Copyright
 
-Copyright (c) 2012 Jeffrey S. Morgan. See LICENSE for details.
+Copyright (c) 2012-2013 Jeffrey S. Morgan. See LICENSE for details.
