@@ -201,16 +201,9 @@ module PrettyFace
       end
 
       def build_scenario_outline_steps(example_row)
-        values = example_row.to_hash
-        steps = example_row.scenario_outline.raw_steps.clone
-        steps.each do |step|
-          name = nil
-          values.each do |key, value|
-            name = step.name.gsub("<#{key}>", "'#{value}'") if step.name.include? "<#{key}>"
-          end
-          current_step = process_step(step, example_row.status)
-          current_step.name = name if name
-          current_step.error = step_error(example_row.exception, step)
+        si = example_row.instance_variable_get :@step_invocations
+        si.each do |row|
+          process_step(row, row.status)
         end
       end
 

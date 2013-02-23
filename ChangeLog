@@ -1,6 +1,9 @@
 === Release 0.2
 * Creating a page for each feature file
-
+* Displaying Background
+* Displaying Errors on feature pages
+* Displaying multi-line steps
+* Displaying embedded images
 
 === Release 0.1 / 2012-11-17
 Initial release with single page basic report
