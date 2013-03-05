@@ -138,7 +138,7 @@ module PrettyFace
         directory = output_file.sub("/#{to_cut}", '')
         FileUtils.mkdir directory unless File.directory? directory
         file = File.new(output_file, Cucumber.file_mode('w'))
-        file.puts renderer.render(:file => filename, :locals => {:feature => feature})
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo})
         file.flush
         file.close
       end
