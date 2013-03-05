@@ -16,7 +16,7 @@ module PrettyFace
       include Cucumber::Formatter::Duration
       include ViewHelper
 
-      attr_reader :report
+      attr_reader :report, :logo
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
@@ -26,6 +26,7 @@ module PrettyFace
         @options = options
         @report = Report.new
         @img_id = 0
+        @logo = 'face.jpg'
       end
 
       def embed(src, mime_type, label)
@@ -109,9 +110,9 @@ module PrettyFace
       def after_features(features)
         @features = features
         @duration = format_duration(Time.now - @tests_started)
+        copy_images
+        copy_stylesheets
         generate_report
-        copy_images_directory
-        copy_stylesheets_directory
       end
 
       def features
@@ -123,7 +124,7 @@ module PrettyFace
       def generate_report
         renderer = ActionView::Base.new(@path_to_erb)
         filename = File.join(@path_to_erb, 'main')
-        @io.puts renderer.render(:file => filename, :locals => {:report => self})
+        @io.puts renderer.render(:file => filename, :locals => {:report => self, :logo => @logo})
         features.each do |feature|
           write_feature_file(feature)
         end
@@ -155,17 +156,35 @@ module PrettyFace
       def copy_directory(dir, file_names, file_extension)
         path = "#{File.dirname(@path)}/#{dir}"
         file_names.each do |file|
-          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
+          copy_file File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
       end
 
-      def copy_images_directory
-        copy_directory 'images', ['face'], 'jpg'
-        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
+      def copy_file(source, destination)
+        FileUtils.cp source, destination
       end
 
-      def copy_stylesheets_directory
+      def copy_images
+        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
+        logo = logo_file
+        copy_file logo, "#{File.join(File.dirname(@path), 'images')}" if logo
+        copy_directory 'images', ['face'], 'jpg' unless logo
+      end
+
+      def copy_stylesheets
         copy_directory 'stylesheets', ['style'], 'css'
+      end
+
+      def logo_file
+        dir = File.join(File.expand_path('features'), 'support', 'pretty_face')
+        if File.exists? dir
+          Dir.foreach(dir) do |file|
+            if file =~ /^logo\.(png|gif|jpg|jpeg)$/
+              @logo = file
+              return File.join(dir, file)
+            end
+          end
+        end
       end
 
       def process_scenario(scenario)

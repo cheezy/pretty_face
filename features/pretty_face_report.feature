@@ -26,7 +26,6 @@ Feature: pretty face report
     
   Scenario: Including an image / logo
     Then the file "results/fixture.html" should contain "<img src="
-    And the file "results/fixture.html" should contain "images/face.jpg"
 
   Scenario: It should copy the style sheet to the stylesheets directory
     Then the following files should exist:
@@ -66,4 +65,5 @@ Feature: pretty face report
     Then the file "results/fixture.html" should contain "| aaa | bbb |"
     And the file "results/fixture.html" should contain "| ccc | ddd |"
   
-
+  Scenario: It should replace the logo image on the top level page
+    Then the file "results/fixture.html" should contain "img src='images/logo.png'"
