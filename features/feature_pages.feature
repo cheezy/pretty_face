@@ -17,7 +17,6 @@ Feature: pages that show details for features
 
   Scenario: Including an image / logo
     Then the file "results/basic.html" should contain "<img src="
-    And the file "results/basic.html" should contain "images/face.jpg"
 
   Scenario: It should show start time and duration in the header
     Then the file "results/basic.html" should contain "Feature started:"

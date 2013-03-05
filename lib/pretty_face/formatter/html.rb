@@ -176,15 +176,18 @@ module PrettyFace
       end
 
       def logo_file
-        dir = File.join(File.expand_path('features'), 'support', 'pretty_face')
-        if File.exists? dir
-          Dir.foreach(dir) do |file|
-            if file =~ /^logo\.(png|gif|jpg|jpeg)$/
-              @logo = file
-              return File.join(dir, file)
-            end
+        dir = customization_directory
+        Dir.foreach(dir) do |file|
+          if file =~ /^logo\.(png|gif|jpg|jpeg)$/
+            @logo = file
+            return File.join(dir, file)
           end
-        end
+        end if dir
+      end
+
+      def customization_directory
+        dir = File.join(File.expand_path('features'), 'support', 'pretty_face')
+        return dir if File.exists? dir
       end
 
       def process_scenario(scenario)
