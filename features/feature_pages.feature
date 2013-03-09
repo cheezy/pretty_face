@@ -89,4 +89,9 @@ Feature: pages that show details for features
     Then the following files should exist:
     | results/more/more.html |
 
-
+  Scenario: It should replace the header for the feature pages
+    When I have a feature header partial in the correct location
+    And I run `cucumber fixtures --profile fixture`
+    Then the file "results/basic.html" should contain "The Code Monkeys"
+    And the file "results/basic.html" should contain "Test Results"
+    And I should remove the feature header partial file

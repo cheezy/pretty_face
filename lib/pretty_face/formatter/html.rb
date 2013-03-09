@@ -126,6 +126,13 @@ module PrettyFace
         false
       end
 
+      def custom_feature_header?
+        Dir.foreach(customization_directory) do |file|
+          return true if file == '_feature_header.erb'
+        end
+        false
+      end
+
       private
 
       def generate_report
@@ -139,14 +146,15 @@ module PrettyFace
       end
 
       def write_feature_file(feature)
-        renderer = ActionView::Base.new(@path_to_erb)
+        paths = [@path_to_erb, customization_directory.to_s]
+        renderer = ActionView::Base.new(paths)
         filename = File.join(@path_to_erb, 'feature')
         output_file = "#{File.dirname(@path)}/#{feature.file}"
         to_cut = output_file.split('/').last
         directory = output_file.sub("/#{to_cut}", '')
         FileUtils.mkdir directory unless File.directory? directory
         file = File.new(output_file, Cucumber.file_mode('w'))
-        file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo})
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo, :customize => custom_feature_header?})
         file.flush
         file.close
       end

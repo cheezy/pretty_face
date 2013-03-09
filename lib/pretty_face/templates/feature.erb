@@ -13,8 +13,11 @@
     </div>
     <div style="float: left;">
       <a href="<%= feature.parent_filename %>">Back</a>
-      <h2 class="results">Feature Results:  <%= feature.title %></h2>
-      <br />
+      <% if customize %>
+        <%= render "feature_header" %>
+      <% else %>
+        <%= render "page_header", :feature => feature %>
+      <% end %>
       <span>Feature started: <%= feature.start_time.strftime("%a %B %-d, %Y at %H:%M:%S") %></span>
       <br />
       <span>Duration: <%= feature.formatted_duration(feature.duration) %></span>
