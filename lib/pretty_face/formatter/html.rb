@@ -119,10 +119,18 @@ module PrettyFace
         @report.features
       end
 
+      def custom_suite_header?
+        Dir.foreach(customization_directory) do |file|
+          return true if file == '_suite_header.erb'
+        end
+        false
+      end
+
       private
 
       def generate_report
-        renderer = ActionView::Base.new(@path_to_erb)
+        paths = [@path_to_erb, customization_directory.to_s]
+        renderer = ActionView::Base.new(paths)
         filename = File.join(@path_to_erb, 'main')
         @io.puts renderer.render(:file => filename, :locals => {:report => self, :logo => @logo})
         features.each do |feature|
