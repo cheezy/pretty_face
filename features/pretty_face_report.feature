@@ -65,10 +65,17 @@ Feature: pretty face report
     Then the file "results/fixture.html" should contain "| aaa | bbb |"
     And the file "results/fixture.html" should contain "| ccc | ddd |"
   
-@announce
-@focus
   Scenario: It should replace the logo image on the top level page
     When I have a logo file in the correct location
     And I run `cucumber fixtures --profile fixture`
     Then the file "results/fixture.html" should contain "img src='images/logo.png'"
     And I should remove the logo file
+
+@announce
+@focus
+  Scenario: It should replace the logo image on the top level page
+    When I have a suite header partial in the correct location
+    And I run `cucumber fixtures --profile fixture`
+    Then the file "results/fixture.html" should contain "The Code Monkeys"
+    And the file "results/fixture.html" should contain "Test Results"
+    And I should remove the suite header partial file
