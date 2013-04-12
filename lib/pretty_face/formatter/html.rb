@@ -120,6 +120,8 @@ module PrettyFace
       end
 
       def custom_suite_header?
+        return false unless customization_directory
+
         Dir.foreach(customization_directory) do |file|
           return true if file == '_suite_header.erb'
         end
@@ -127,6 +129,8 @@ module PrettyFace
       end
 
       def custom_feature_header?
+        return false unless customization_directory
+
         Dir.foreach(customization_directory) do |file|
           return true if file == '_feature_header.erb'
         end
