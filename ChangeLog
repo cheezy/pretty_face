@@ -1,4 +1,9 @@
-=== Release 0.2
+=== Release 0.3 / 2013-3-9
+* Allow users to provide replacement logo for report
+* Allow users to provide replacement header for top level page
+* Allow users to provide replacement header for feature pages
+
+=== Release 0.2 / 2013-2-23
 * Creating a page for each feature file
 * Displaying Background
 * Displaying Errors on feature pages

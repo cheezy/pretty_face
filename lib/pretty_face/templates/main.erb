@@ -8,10 +8,14 @@
 
   <body>
     <div style="float: left;">
-      <img src="images/face.jpg" width="200" />
+      <img src='images/<%= logo %>' width="200" />
     </div>
     <div style="float: left;">
-      <h2 class="results">Test Results</h2>
+      <% if report.custom_suite_header? %>
+        <%= render "suite_header" %>
+      <% else %>
+        <%= render "main_header" %>
+      <% end %>
       <span>Tests started: <%= report.start_time %></span>
       <br />
       <span>Duration: <%= report.total_duration %></span>

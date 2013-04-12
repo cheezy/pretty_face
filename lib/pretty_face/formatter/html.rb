@@ -16,7 +16,7 @@ module PrettyFace
       include Cucumber::Formatter::Duration
       include ViewHelper
 
-      attr_reader :report
+      attr_reader :report, :logo
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
@@ -26,6 +26,7 @@ module PrettyFace
         @options = options
         @report = Report.new
         @img_id = 0
+        @logo = 'face.jpg'
       end
 
       def embed(src, mime_type, label)
@@ -109,35 +110,51 @@ module PrettyFace
       def after_features(features)
         @features = features
         @duration = format_duration(Time.now - @tests_started)
+        copy_images
+        copy_stylesheets
         generate_report
-        copy_images_directory
-        copy_stylesheets_directory
       end
 
       def features
         @report.features
       end
 
+      def custom_suite_header?
+        Dir.foreach(customization_directory) do |file|
+          return true if file == '_suite_header.erb'
+        end
+        false
+      end
+
+      def custom_feature_header?
+        Dir.foreach(customization_directory) do |file|
+          return true if file == '_feature_header.erb'
+        end
+        false
+      end
+
       private
 
       def generate_report
-        renderer = ActionView::Base.new(@path_to_erb)
+        paths = [@path_to_erb, customization_directory.to_s]
+        renderer = ActionView::Base.new(paths)
         filename = File.join(@path_to_erb, 'main')
-        @io.puts renderer.render(:file => filename, :locals => {:report => self})
+        @io.puts renderer.render(:file => filename, :locals => {:report => self, :logo => @logo})
         features.each do |feature|
           write_feature_file(feature)
         end
       end
 
       def write_feature_file(feature)
-        renderer = ActionView::Base.new(@path_to_erb)
+        paths = [@path_to_erb, customization_directory.to_s]
+        renderer = ActionView::Base.new(paths)
         filename = File.join(@path_to_erb, 'feature')
         output_file = "#{File.dirname(@path)}/#{feature.file}"
         to_cut = output_file.split('/').last
         directory = output_file.sub("/#{to_cut}", '')
         FileUtils.mkdir directory unless File.directory? directory
         file = File.new(output_file, Cucumber.file_mode('w'))
-        file.puts renderer.render(:file => filename, :locals => {:feature => feature})
+        file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo, :customize => custom_feature_header?})
         file.flush
         file.close
       end
@@ -155,17 +172,38 @@ module PrettyFace
       def copy_directory(dir, file_names, file_extension)
         path = "#{File.dirname(@path)}/#{dir}"
         file_names.each do |file|
-          FileUtils.cp File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
+          copy_file File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
       end
 
-      def copy_images_directory
-        copy_directory 'images', ['face'], 'jpg'
-        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
+      def copy_file(source, destination)
+        FileUtils.cp source, destination
       end
 
-      def copy_stylesheets_directory
+      def copy_images
+        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
+        logo = logo_file
+        copy_file logo, "#{File.join(File.dirname(@path), 'images')}" if logo
+        copy_directory 'images', ['face'], 'jpg' unless logo
+      end
+
+      def copy_stylesheets
         copy_directory 'stylesheets', ['style'], 'css'
+      end
+
+      def logo_file
+        dir = customization_directory
+        Dir.foreach(dir) do |file|
+          if file =~ /^logo\.(png|gif|jpg|jpeg)$/
+            @logo = file
+            return File.join(dir, file)
+          end
+        end if dir
+      end
+
+      def customization_directory
+        dir = File.join(File.expand_path('features'), 'support', 'pretty_face')
+        return dir if File.exists? dir
       end
 
       def process_scenario(scenario)
