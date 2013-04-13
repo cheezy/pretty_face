@@ -1,5 +1,6 @@
 === Release 0.4
 * Make replacement items optional
+* Updated actionpack dependency to the latest version 3.2.13
 
 === Release 0.3 / 2013-3-9
 * Allow users to provide replacement logo for report
