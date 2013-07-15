@@ -8,7 +8,9 @@ The current release is very basic but you can expect a lot more over the next mo
 
 ### Download gem
 Add:
+
     gem 'pretty_face'
+
 to your Gemfile and bundle update.
 
 ### Add Formatter
