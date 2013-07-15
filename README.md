@@ -2,10 +2,22 @@
 
 HTML report for cucumber.  You can customize the report by editing an erb file.
 
-The current release is very basic but you can expect a lot more over the next month or so.  If you wish to use this formatter you can simply add the following to your command-line or cucumber.yml profile:
+The current release is very basic but you can expect a lot more over the next month or so.  
+
+## Getting Started
+
+### Download gem
+Add:
+    gem 'pretty_face'
+to your Gemfile and bundle update.
+
+### Add Formatter
+Update your profile in cucumber.yml file with the following arguments 
 
     --format PrettyFace::Formatter::Html --out index.html
-    
+
+You can also run cucumber from the command line with the same arguments.
+
 ## Customizing the report
 
 Starting with version 0.3 of the gem you can customize some elements on the report.  You will do this by first creating a directory named `pretty_face` in the `features/support` directory.  Customization files should be placed in this directory.
