@@ -1,7 +1,7 @@
             <%= "#{step.keyword} #{step.name}" %>
             <% if step.has_table? %>
               <br />
-              <table border="1">
+              <table border="1" class="param_table">
                 <tr>
                   <% step.table.first.each do |column| %>
                     <th><%= column %></th>
@@ -19,7 +19,7 @@
             <% end %>
             <% if step.has_multiline_arg? %>
               <br />
-              <table border="1">
+              <table border="1" class="multiline_arg">
                 <tr>
                   <td><pre><%= step.multiline_arg %></pre></td>
                 </tr>
@@ -27,12 +27,12 @@
             <% end %>
             <% if step.failed_with_error? %>
               <table>
-                <tr class="error">
+                <tr class="error message">
                   <td>
                     <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
                   </td>
                 </tr>
-                <tr class="error">
+                <tr class="error detail">
                   <td>
                     <pre><%= step.error.backtrace.join("\n") %></pre>
                   </td>

@@ -91,45 +91,7 @@
         <tr>
           <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
           <td>
-            <%= "#{step.keyword} #{step.name}" %>
-            <% if step.has_table? %>
-              <br />
-              <table class="param_table">
-                <tr>
-                  <% step.table.first.each do |column| %>
-                    <th><%= column %></th>
-                  <% end %>
-                </tr>
-                <% step.table.delete_at 0 %>
-                <% step.table.each do |row| %>
-                  <tr>
-                    <% row.each do |column| %>
-                      <td><%= column %></td>
-                    <% end %>
-                  </tr>
-                <% end %>
-              </table>
-            <% end %>
-            <% if step.has_multiline_arg? %>
-              <br />
-              <div class="multiline_arg">
-                <pre><code><%= step.multiline_arg %></code></pre>
-              </div>
-            <% end %>
-            <% if step.failed_with_error? %>
-              <table>
-                <tr class="error message">
-                  <td>
-                    <%= "#{step.error.message} (#{step.error.class})" %>
-                  </td>
-                </tr>
-                <tr class="error detail">
-                  <td>
-                    <pre><%= step.error.backtrace.join("\n") %></pre>
-                  </td>
-                </tr>
-              </table>
-            <% end %>
+	    <%= render "step", step: step %>
           </td>
         </tr>
       <% end %>
