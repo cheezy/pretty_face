@@ -249,7 +249,7 @@ module PrettyFace
         end
       end
 
-      def step_error(exception, step)
+      def step_error(exception)
         return nil if exception.nil?
         exception.backtrace[-1] =~ /^#{step.file_colon_line}/ ? exception : nil
       end
