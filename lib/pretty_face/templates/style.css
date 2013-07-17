@@ -130,7 +130,7 @@ h2 {
 }
 
 .error {
-  color: #b94a48;
+  color: #C20000;
   background-color: #FFFBD3;
   border-color: #eed3d7;
 }
@@ -138,12 +138,11 @@ h2 {
 .message td {
   padding: 5px;
   font-weight: bold;
-  border-radius: 18px 18px 0px 0px;
 }
 
 .detail td {
   margin-left: 10px;
   padding: 7px;
-  border-radius: 0px 0px 18px 18px;
+  font-weight: normal;
 }
 

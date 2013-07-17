@@ -21,23 +21,21 @@
 	<br />
 	<table border="1" class="multiline_arg">
 		<tr>
-				  <td><pre><%= step.multiline_arg %></pre></td>
+		 <td><pre><%= step.multiline_arg %></pre></td>
 		</tr>
 	</table>
 <% end %>
 <% if step.failed_with_error? %>
 	<table>
-		<tr class="error message">
-			<td>
+		<tr>
+			<td class="message">
 				<strong><pre><%= "#{step.error.message} (#{step.error.class})" %></pre></strong>
 			</td>
 		</tr>
-		<tr class="error detail">
-			<td>
+		<tr >
+			<td class="detail">
 					<pre><%= step.error.backtrace.join("\n") %></pre>
 			</td>
 		</tr>
 	</table>
 <% end %>
-
-                

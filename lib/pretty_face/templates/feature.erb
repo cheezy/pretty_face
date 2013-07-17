@@ -88,10 +88,10 @@
           <th><%= scenario.name %></th>
         </tr>
         <% scenario.steps.each do |step| %>
-        <tr>
+	  <tr class="<%= "error" if step.failed_with_error? %>">
           <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
-          <td>
-	          <%= render "step", step: step %>
+	  <td>
+	  <%= render "step", step: step %>
           </td>
         </tr>
       <% end %>
