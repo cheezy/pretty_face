@@ -90,9 +90,15 @@
         <% scenario.steps.each do |step| %>
         <tr>
           <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
-          <td>
-	          <%= render "step", step: step %>
+          <% if step.failed_with_error? %>
+            <td class = "error message">
+              <%= render "step", step: step %>  
+            </td>
+          <% else %>  
+          <td >
+	           <%= render "step", step: step %>  
           </td>
+          <% end %>
         </tr>
       <% end %>
       </table>
