@@ -26,10 +26,10 @@
               </table>
             <% end %>
             <% if step.failed_with_error? %>
-              <table>
+              <table border="0">
                 <tr class="error message">
                   <td>
-                    <strong><%= "#{step.error.message} (#{step.error.class})" %></strong>
+		  <strong><pre><%= "#{step.error.message} (#{step.error.class})" %></pre></strong>
                   </td>
                 </tr>
                 <tr class="error detail">
