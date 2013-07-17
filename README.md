@@ -7,11 +7,11 @@ The current release is very basic but you can expect a lot more over the next mo
 ## Getting Started
 
 ### Download gem
-Add:
+Add the gem to your Gemfile
 
-    gem 'pretty_face'
+   `gem 'pretty_face'`
 
-to your Gemfile and bundle update.
+Then do a  `bundle update` to get the latest version
 
 ### Add Formatter
 Update your profile in cucumber.yml file with the following arguments 

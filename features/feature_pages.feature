@@ -69,8 +69,14 @@ Feature: pages that show details for features
 
   Scenario: It should display errors for features
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
-    Then the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
-    Then the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    And the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    And the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    
+@focus
+  Scenario: It should display error message with a yellow background and red text
+    Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
+    And the background of the error message row should be "255, 251, 211"
+    And the text of the of the error message row should be "185, 74, 72"
 
   Scenario: Embedding an image into the page
     Then the file "results/basic.html" should contain "<img id='img_0' style='display: none' src='images/autotrader.png'/>"
