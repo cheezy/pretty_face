@@ -93,9 +93,8 @@
 	  <td>
 	  <%= render "step", step: step %>
           </td>
-          <% end %>
-        </tr>
-      <% end %>
+	  </tr>
+        <% end %>
       </table>
       <% if scenario.has_image? %>
         <a href='' onclick="img=document.getElementById('<%= scenario.image_id %>'); img.style.display = (img.style.display == 'none' ? 'block' : 'none');return false"><%= "#{scenario.image_label}" %></a><br />
