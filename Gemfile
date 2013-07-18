@@ -7,6 +7,7 @@ gem 'growl'
 gem 'guard-rspec'
 gem 'guard-cucumber'
 gem 'page-object'
+gem 'syntax'
 
 # Specify your gem's dependencies in pretty_face.gemspec
 gemspec

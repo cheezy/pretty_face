@@ -37,5 +37,10 @@
 					<pre><%= step.error.backtrace.join("\n") %></pre>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<pre class="ruby"><code><%= raw(step.extra_failure_content(step.error.backtrace)) %></code></pre>
+			</td>
+		</tr>
 	</table>
 <% end %>
