@@ -27,19 +27,19 @@
 <% end %>
 <% if step.failed_with_error? %>
 	<table>
-		<tr>
+		<tr class="error">
 			<td class="message">
 				<strong><pre><%= "#{step.error.message} (#{step.error.class})" %></pre></strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= raw(step.extra_failure_content(step.error.backtrace)) %>
 			</td>
 		</tr>
 		<tr >
 			<td class="detail">
 					<pre><%= step.error.backtrace.join("\n") %></pre>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<pre class="ruby"><code><%= raw(step.extra_failure_content(step.error.backtrace)) %></code></pre>
 			</td>
 		</tr>
 	</table>

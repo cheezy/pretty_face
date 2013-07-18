@@ -33,7 +33,7 @@
         <tr>
           <th></th>
           <th>Executed</th>
-          <th>Passed</th>
+	  <th >Passed</th>
           <th>Failed</th>
           <th>Skipped</th>
           <th>Undefined</th>
@@ -43,7 +43,7 @@
         <tr>
           <td class="summary_row_header">Scenarios</td>
           <td><%= feature.scenarios.length %></td>
-          <td><%= feature.scenario_summary_for :passed %></td>
+          <td class="summary"><%= feature.scenario_summary_for :passed %></td>
           <td><%= feature.scenario_summary_for :failed %></td>
           <td><%= feature.scenario_summary_for :skipped %></td>
           <td><%= feature.scenario_summary_for :undefined %></td>
@@ -88,9 +88,9 @@
           <th><%= scenario.name %></th>
         </tr>
         <% scenario.steps.each do |step| %>
-	  <tr class="<%= "error" if step.failed_with_error? %>">
+	  <tr>
           <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
-	  <td>
+		  <td>
 	  <%= render "step", step: step %>
           </td>
 	  </tr>

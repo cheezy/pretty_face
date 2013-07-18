@@ -191,8 +191,15 @@ module PrettyFace
       def has_table?
         not table.nil?
       end
+
       def has_multiline_arg?
         !multiline_arg.nil? && !has_table?
+      end
+
+      def file_with_error(file_colon_line)
+        @snippet_extractor ||= SnippetExtractor.new
+        file, line = @snippet_extractor.file_name_and_line(file_colon_line)
+        file
       end
 
       #from cucumber ===================
@@ -201,21 +208,29 @@ module PrettyFace
         @snippet_extractor.snippet(file_colon_line)
       end
 
-      class SnippetExtractor #:nodoc:
-        require 'syntax/convertors/html'; 
+      class SnippetExtractor
+        require 'syntax/convertors/html';
         @@converter = Syntax::Convertors::HTML.for_syntax "ruby"
 
-        def snippet(error)
-          raw_code, line = snippet_for(error[0])
-          highlighted = @@converter.convert(raw_code, false)
-          post_process(highlighted, line)
-        end
-
-        def snippet_for(error_line)
+        def file_name_and_line(error_line)
           if error_line =~ /(.*):(\d+)/
             file = $1
             line = $2.to_i
-            [lines_around(file, line), line]
+            [file, line]
+          end
+        end
+
+        def snippet(error)
+          raw_code, line, file = snippet_for(error[0])
+          highlighted = @@converter.convert(raw_code, false)
+
+          "<pre class=\"ruby\"><strong>#{file + "\n"}</strong><code>#{post_process(highlighted, line)}</code></pre>"
+        end
+
+        def snippet_for(error_line)
+            file, line = file_name_and_line(error_line)
+          if file
+            [lines_around(file, line), line, file]
           else
             ["# Couldn't get snippet for #{error_line}", 1]
           end
