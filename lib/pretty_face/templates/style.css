@@ -100,7 +100,21 @@ h2 {
   background-color: #F0F0F0;
   font-size: 1em;
 }
+table.scenario {
+  border-width: 2px;
+  border-color: #cccccc;
+  border-style: solid;
+  border-collapse: collapse;
+}
 
+.borderSeparator {
+  border-top: 1px solid #ccc;
+}
+
+td.image_tag {
+  text-align: center;
+  vertical-align: text-top;
+}
 .description {
   border: 1px dotted #CCCCCC;
   border-radius: 8px 8px 8px 8px;

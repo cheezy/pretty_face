@@ -68,7 +68,7 @@
       <br />
       <h2 class="failures">Background: <%= feature.background_title.name %></h2>
       <% end %>
-      <table cellspacing="0" cellpadding="7" border="0" class="failed">
+      <table cellspacing="0" cellpadding="7" border="0">
       <% feature.background_steps.each do |step| %>
         <tr>
           <td><%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
@@ -82,14 +82,13 @@
       <h2 class="failures">Scenarios:</h2>
       <br />
       <% feature.scenarios.each do |scenario| %>
-      <table cellspacing="0" cellpadding="7" border="0" class="scenario">
-	      <tr >
-          <th></th>
-          <th class="<%= scenario.status.to_s %>"><%= scenario.name %></th>
+      <table cellspacing="0" cellpadding="7" class="scenario">
+      <tr >
+          <th colspan="2" class="<%= scenario.status.to_s %>"><%= scenario.name %></th>
         </tr>
         <% scenario.steps.each do |step| %>
-	  <tr>
-          <td> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
+	  <tr class="borderSeparator">
+          <td class="image_tag"> <%= raw(feature.image_tag_for(step.status, feature.file)) %></td>
 		  <td>
 	  <%= render "step", step: step %>
           </td>
