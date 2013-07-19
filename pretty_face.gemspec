@@ -5,6 +5,7 @@ require "pretty_face/version"
 Gem::Specification.new do |s|
   s.name        = "pretty_face"
   s.version     = PrettyFace::VERSION
+  s.license     = 'MIT'
   s.authors     = ["Jeffrey S. Morgan", "Joel Byler", "Steve Jackson"]
   s.email       = ["jeff.morgan@leandog.com", "joelbyler@gmail.com", "steve.jackson@leandogsoftware.com"]
   s.homepage    = "http://github.com/cheezy/pretty_face"
