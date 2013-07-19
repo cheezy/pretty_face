@@ -1,5 +1,9 @@
 === Release 0.5 / 2013-7-19
 * Updated ReadMe
+* Displaying step definition on step failure
+* Added color to scenario headers indicating status
+* Changed styling of scenario reporting
+
 === Release 0.4 / 2013-4-13
 * Make replacement items optional
 * Updated actionpack dependency to the latest version 3.2.13

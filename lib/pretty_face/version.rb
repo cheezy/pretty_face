@@ -1,3 +1,3 @@
 module PrettyFace
-  VERSION = "0.4"
+  VERSION = "0.5"
 end
