@@ -44,8 +44,23 @@ h2 {
   text-align: inherit;
   width: inherit;
 }
-.failed td {
-  font-size: 1em;
+
+.failed {
+  background-color: #C20000;
+  color: white;
+  border-color: #333333;
+}
+.passed {
+  background-color: #3d7700;
+  color: white;
+}
+.pending {
+  background-color: #faf834;
+
+}
+.undefined {
+  background-color: #e0ffff;
+
 }
 .footer {
   width: 100%;

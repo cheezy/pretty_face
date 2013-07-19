@@ -82,10 +82,10 @@
       <h2 class="failures">Scenarios:</h2>
       <br />
       <% feature.scenarios.each do |scenario| %>
-      <table cellspacing="0" cellpadding="7" border="0" class="scenario <%= scenario.status %>">
-        <tr style="background-color: #E0E0E0;">
+      <table cellspacing="0" cellpadding="7" border="0" class="scenario">
+	      <tr >
           <th></th>
-          <th><%= scenario.name %></th>
+          <th class="<%= scenario.status.to_s %>"><%= scenario.name %></th>
         </tr>
         <% scenario.steps.each do |step| %>
 	  <tr>
