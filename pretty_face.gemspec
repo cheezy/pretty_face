@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name        = "pretty_face"
   s.version     = PrettyFace::VERSION
   s.license     = 'MIT'
-  s.authors     = ["Jeffrey S. Morgan", "Joel Byler", "Steve Jackson"]
-  s.email       = ["jeff.morgan@leandog.com", "joelbyler@gmail.com", "steve.jackson@leandogsoftware.com"]
+  s.authors     = ["Jeffrey S. Morgan", "Joel Byler", "Steve Jackson", "Sahithya Wintrich", "Carl Shotwell"]
+  s.email       = ["jeff.morgan@leandog.com", "joelbyler@gmail.com", "steve.jackson@leandogsoftware.com", "sahithya.wintrich@gmail.com", "carl.shotwell@leandog.com"]
   s.homepage    = "http://github.com/cheezy/pretty_face"
   s.summary     = %q{HTML Report/Formatter  for Cucumber and RSpec}
   s.description = %q{HTML Report/Formatter for cucumber that allows user to modify erb in order to customize.}
