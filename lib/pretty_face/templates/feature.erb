@@ -31,11 +31,11 @@
         <tr>
           <th>Summary</th>
           <th>Executed</th>
-	        <th class="passed">Passed</th>
-          <th class="failed">Failed</th>
-          <th class="skipped">Skipped</th>
-          <th class="undefined">Undefined</th>
-          <th class="pending">Pending</th>
+	        <th class="passed"><%= raw(feature.table_image_for('passed', feature.file)) %> Passed</th>
+          <th class="failed"><%= raw(feature.table_image_for('failed', feature.file)) %>Failed</th>
+          <th class="skipped"><%= raw(feature.table_image_for('skipped', feature.file)) %>Skipped</th>
+          <th class="undefined"><%= raw(feature.table_image_for('undefined', feature.file)) %>Undefined</th>
+          <th class="pending"><%= raw(feature.table_image_for('pending', feature.file)) %>Pending</th>
           <th>Average Duration</th>
         </tr>
         <tr>

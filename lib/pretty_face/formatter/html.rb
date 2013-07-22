@@ -185,7 +185,7 @@ module PrettyFace
       end
 
       def copy_images
-        copy_directory 'images', %w(failed passed pending undefined skipped), "png"
+        copy_directory 'images', %w(failed passed pending undefined skipped table_failed table_passed table_pending table_undefined table_skipped), "png"
         logo = logo_file
         copy_file logo, "#{File.join(File.dirname(@path), 'images')}" if logo
         copy_directory 'images', ['face'], 'jpg' unless logo
