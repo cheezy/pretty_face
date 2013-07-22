@@ -21,6 +21,7 @@ div {
 h2 {
   margin: 0;
 }
+
 .summary_body {
   width: 99%;
   margin-top: 15px;
@@ -29,19 +30,20 @@ h2 {
   border-radius: 15px;
 }
 .summary_row_header {
-  text-align: left;
+  text-align: right;
   font-size: 1em;
   font-weight: bold;
 }
 .summary td {
   font-size: 1em;
   text-align: center;
-  width: 150px;
+
 }
 .summary td:first-child {
   font-size: inherit;
   text-align: inherit;
   width: inherit;
+
 }
 
 .failed {
