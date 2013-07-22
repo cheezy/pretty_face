@@ -118,8 +118,9 @@ table.scenario {
 }
 
 td.image_tag {
-  text-align: center;
+  text-align: left;
   vertical-align: text-top;
+  width: 30px;
 }
 .description {
   border: 1px dotted #CCCCCC;
