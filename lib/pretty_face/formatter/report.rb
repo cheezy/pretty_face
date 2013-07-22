@@ -17,6 +17,12 @@ module PrettyFace
         "<img src=\"#{dir}/#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
       end
 
+      def table_image_for(status, source=nil)
+        dir = "#{directory_prefix_for(source)}images"
+        "<img src=\"#{dir}/table_#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+
+      end
+
       def directory_prefix_for(source=nil)
         dir = ''
         back_dir = source.count('/') if source

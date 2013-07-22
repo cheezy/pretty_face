@@ -73,6 +73,7 @@ Feature: pages that show details for features
     And the file "results/failing_background.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     
 @focus
+@announce
   Scenario: It should display error message with a yellow background and red text
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     And the background of the error message row should be "255, 251, 211"
