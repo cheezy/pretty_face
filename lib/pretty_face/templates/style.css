@@ -9,7 +9,7 @@
  */
 
 body {
-  font-family: GeosansLightRegular,Arial,Helvetica,sans-serif;
+  font-family: Verdana,Helvetica,sans-serif;
   font-size: 1em;
 }
 a, a:visited {
@@ -27,7 +27,6 @@ h2 {
   float: left;
   -moz-border-radius: 15px;
   border-radius: 15px;
-  background-color: #E0E0E0;
 }
 .summary_row_header {
   text-align: left;
