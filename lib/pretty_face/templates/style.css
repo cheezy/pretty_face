@@ -46,22 +46,28 @@ h2 {
 }
 
 .failed {
-  background-color: #C20000;
+  background-color: #FF1D25;
   color: white;
   border-color: #333333;
 }
 .passed {
-  background-color: #3d7700;
+  background-color: #90c447;
   color: white;
 }
 .pending {
-  background-color: #faf834;
+  background-color: #fbb03b;
+  color: white;
 
 }
 .undefined {
-  background-color: #e0ffff;
-
+  background-color: #2e3192;
+  color: white;
 }
+.skipped {
+  background-color: #ed1e79;
+  color: white;
+}
+
 .footer {
   width: 100%;
   background-color: #4B7CAB;
