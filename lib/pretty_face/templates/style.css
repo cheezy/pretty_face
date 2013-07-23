@@ -86,6 +86,7 @@ div.scenario_list {
   background-color: #FF1D25;
   color: white;
   border-color: #333333;
+  vertical-align: center;
 }
 .passed {
   background-color: #90c447;
