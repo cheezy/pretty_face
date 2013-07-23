@@ -24,7 +24,7 @@ Feature: pages that show details for features
 
   Scenario: Generating some basic stats from the erb
     Then the file "results/basic.html" should contain "<th>Executed<"
-    And the file "results/basic.html" should contain "<th>Average<br/>Duration"
+    And the file "results/basic.html" should contain "<th>Average Duration"
     And the file "results/basic.html" should contain "Scenarios"
     And the file "results/basic.html" should contain "Steps"
 
