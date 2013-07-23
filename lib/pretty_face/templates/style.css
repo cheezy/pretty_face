@@ -22,6 +22,16 @@ h2 {
   margin: 0;
 }
 
+div.feature_background {
+  background-color:#f2f0f1;
+  clear:both;
+}
+div.scenario_list {
+	width: 60%;
+	margin:0 auto;
+	float: center;
+	background-color: white;
+}
 .summary_body {
   width: 100%;
   margin-top: 15px;
