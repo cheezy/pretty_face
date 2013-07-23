@@ -75,7 +75,7 @@
 	    <div class="scenario_list">
 	      <% if feature.has_background? %>
 	      <br />
-	      <h2 class="failures">Background: <%= feature.background_title.name %></h2>
+	      <h2 class="scenarios">Background: <%= feature.background_title.name %></h2>
 	      <% end %>
 	      <table cellspacing="0" cellpadding="7" border="0" width="100%">
 	      <% feature.background_steps.each do |step| %>
@@ -88,7 +88,7 @@
 	      <% end %>
 	      </table>
 	      <br />
-	      <h2 class="failures">Scenarios:</h2>
+	      <h2 class="scenarios">Scenarios:</h2>
 	      <br />
 	      <% feature.scenarios.each do |scenario| %>
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
@@ -111,6 +111,7 @@
 	      <br /><br />
 	      <% end %>
 	    </div>
+    </div>
 
     </div>
 
