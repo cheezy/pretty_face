@@ -12,22 +12,32 @@
       <a href="<%= feature.parent_filename %>" style="color=#0071BC;">&lt; Back</a>
     </div>
 
-    <div style="clear:both;">
+    <div style="float:left; clear:both;">
       <div class="header_logo">
         <img src="<%= feature.directory_prefix_for(feature.file) %>images/<%= logo %>" width="200" />
       </div>
-      <div >
+      <div class="header_description" >
         <% if customize %>
           <%= render "feature_header" %>
         <% else %>
           <%= render "page_header", :feature => feature %>
         <% end %>
-        <span>Feature started: <%= feature.start_time.strftime("%a %B %-d
-, %Y at %H:%M:%S") %></span>
-        <br />
-        <span>Duration: <%= feature.formatted_duration(feature.duration) %></span>
-        <% if feature.description? %>
-          <pre class="description"><%= feature.description %></pre>
+
+        <table class="run_stats">
+          <tr>
+            <td> <span>started:</span></td>
+            <td> <span><%= feature.start_time.strftime("%A %B %-d, %Y") %></span></td>
+            <td> duration: </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span><%= feature.start_time.strftime("at %H:%M:%S") %></span></td>
+            <td></td>
+            <td style="text-align: right;"><span><%= feature.formatted_duration(feature.duration) %></span></td>
+          </tr>
+        </table>  
+          <% if feature.description? %>
+          <pre class="description run_stats">Story<br/><%= feature.description %></pre>
         <% end %>
       </div>
     </div>
