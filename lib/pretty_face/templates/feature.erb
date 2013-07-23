@@ -8,11 +8,11 @@
 
   <body>
 
+      <a href="<%= feature.parent_filename %>" style="float: left;">&lt; Back</a>
     <div style="float: left;">
       <img src="<%= feature.directory_prefix_for(feature.file) %>images/<%= logo %>" width="200" />
     </div>
     <div style="float: left;">
-      <a href="<%= feature.parent_filename %>">Back</a>
       <% if customize %>
         <%= render "feature_header" %>
       <% else %>
@@ -61,7 +61,7 @@
       </table>
     </div>
 
-    <div style="width: 60%; float: left;">
+    <div style="width: 60%; margin:0 auto;">
       <% if feature.has_background? %>
       <br />
       <h2 class="failures">Background: <%= feature.background_title.name %></h2>

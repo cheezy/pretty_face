@@ -67,6 +67,8 @@ Feature: pages that show details for features
     And the file "results/advanced.html" should contain "more than one"
     And the file "results/advanced.html" should contain "line in a string"
 
+@focus
+@announce
   Scenario: It should display errors for features
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
     And the file "results/advanced.html" should contain "RSpec::Expectations::ExpectationNotMetError"
