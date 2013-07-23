@@ -12,11 +12,11 @@
       <a href="<%= feature.parent_filename %>" style="color=#0071BC;">&lt; Back</a>
     </div>
 
-    <div style="float:left;clear:both;">
+    <div style="clear:both;">
       <div class="header_logo">
         <img src="<%= feature.directory_prefix_for(feature.file) %>images/<%= logo %>" width="200" />
       </div>
-      <div class="header_description">
+      <div >
         <% if customize %>
           <%= render "feature_header" %>
         <% else %>
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-	  <div style="float:left; clear: both;">
+	  <div style="clear: both;">
       <div>
         <table cellspacing="0" cellpadding="7">
          <tr>
