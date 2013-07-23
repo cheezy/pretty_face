@@ -28,6 +28,7 @@ a:hover {
 
 h2 {
   margin: 0;
+
 }
 
 .header_logo {
@@ -47,8 +48,24 @@ h2 {
     padding: 0 10px 0 10px;
 }
 
+.StatTable{
+cellspacing:10px;
+cellpadding: 0;
+width: 100%;
+}
+
+.StatTable th {
+vertical-align: middle;
+}
+
+.StatTable th img {
+    vertical-align: middle;
+ background-color: #90c447;
+}
+
 div.feature_background {
   background-color:#f2f0f1;
+  border-top: 1px solid #d8d7d5;
   clear:both;
 }
 div.scenario_list {
@@ -56,10 +73,13 @@ div.scenario_list {
 	margin:0 auto;
 	float: center;
 	background-color: white;
+	padding: 20px;
+	border-right: 1px solid #D8D7D5;
+	border-left: 1px solid #D8D7D5;
 }
 
 .summary_body {
-
+  float: left;
   margin-top: 15px;
   border-radius: 15px;
 }
@@ -86,24 +106,33 @@ div.scenario_list {
   background-color: #FF1D25;
   color: white;
   border-color: #333333;
-  vertical-align: center;
+  vertical-align: middle;
+  text-align: left;
 }
 .passed {
   background-color: #90c447;
   color: white;
+  text-align: left;
+  vertical-align: middle;
 }
 .pending {
   background-color: #fbb03b;
   color: white;
+  text-align: left;
+  vertical-align: middle;
 
 }
 .undefined {
   background-color: #2e3192;
   color: white;
+  text-align: left;
+  vertical-align: middle;
 }
 .skipped {
   background-color: #ed1e79;
   color: white;
+  text-align: left;
+  vertical-align: middle;
 }
 
 .footer {
@@ -200,8 +229,8 @@ td.image_tag {
 }
 
 .error {
-  color: #C20000;
-  background-color: #FFFBD3;
+  color: black;
+  background-color: #f9e708;
   border-color: #eed3d7;
 }
 

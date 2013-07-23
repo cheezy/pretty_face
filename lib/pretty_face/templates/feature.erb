@@ -44,15 +44,16 @@
 
 	  <div style="clear: both;">
       <div>
-        <table cellspacing="0" cellpadding="7" width="100%">
+        <table class="StatTable">
          <tr>
           <th>Summary</th>
           <th>Executed</th>
-	        <th class="passed"><%= raw(feature.table_image_for('passed', feature.file)) %> Passed</th>
+          <th><%= raw(feature.table_image_for('passed', feature.file)) %></th>
+	        <th class="passed">Passed</th>
           <th class="failed"><%= raw(feature.table_image_for('failed', feature.file)) %>Failed</th>
           <th class="skipped"><%= raw(feature.table_image_for('skipped', feature.file)) %>Skipped</th>
           <th class="undefined"><%= raw(feature.table_image_for('undefined', feature.file)) %>Undefined</th>
-          <th class="pending"><%= raw(feature.table_image_for('pending', feature.file)) %>Pending</th>
+          <th class="pending" ><%= raw(feature.table_image_for('pending', feature.file)) %>Pending</th>
           <th>Average Duration</th>
         </tr>
 
@@ -85,7 +86,7 @@
 	    <div class="scenario_list">
 	      <% if feature.has_background? %>
 	      <br />
-	      <h2 class="failures">Background: <%= feature.background_title.name %></h2>
+	      <h2 class="scenarios">Background: <%= feature.background_title.name %></h2>
 	      <% end %>
 	      <table cellspacing="0" cellpadding="7" border="0" width="100%">
 	      <% feature.background_steps.each do |step| %>
@@ -98,7 +99,7 @@
 	      <% end %>
 	      </table>
 	      <br />
-	      <h2 class="failures">Scenarios:</h2>
+	      <h2 class="scenarios">Scenarios:</h2>
 	      <br />
 	      <% feature.scenarios.each do |scenario| %>
 	      <table cellspacing="0" cellpadding="7" class="scenario" width="100%">
@@ -121,6 +122,7 @@
 	      <br /><br />
 	      <% end %>
 	    </div>
+    </div>
 
     </div>
 

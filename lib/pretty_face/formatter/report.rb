@@ -1,4 +1,3 @@
-require 'erb'
 module PrettyFace
   module Formatter
 
@@ -15,12 +14,12 @@ module PrettyFace
 
       def image_tag_for(status, source=nil)
         dir = "#{directory_prefix_for(source)}images"
-        "<img src=\"#{dir}/#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+        "<img src=\"#{dir}/#{status}.png\" alt=\"#{status}\" title=\"#{status}\">"
       end
 
       def table_image_for(status, source=nil)
         dir = "#{directory_prefix_for(source)}images"
-        "<img src=\"#{dir}/table_#{status}.png\" alt=\"#{status}\" title=\"#{status}\" width=\"30\">"
+        "<img src=\"#{dir}/table_#{status}.png\" alt=\"#{status}\" title=\"#{status}\">"
 
       end
 
