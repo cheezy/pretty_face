@@ -11,16 +11,34 @@
 body {
   font-family: Verdana,Helvetica,sans-serif;
   font-size: 1em;
+  color: #1A1A1A; 
+
 }
+
+
 a, a:visited {
   color: #0071BC;
+  text-decoration:none;
 }
-div {
-  padding: 5px;
+
+
+a:hover {
+    text-decoration:underline;
 }
+
 h2 {
   margin: 0;
 }
+
+.header_logo {
+    float: left;
+    width: 200;
+}
+
+.header_description {
+    float: right;
+}
+
 
 div.feature_background {
   background-color:#f2f0f1;
@@ -32,11 +50,10 @@ div.scenario_list {
 	float: center;
 	background-color: white;
 }
+
 .summary_body {
-  width: 100%;
+
   margin-top: 15px;
-  float: left;
-  -moz-border-radius: 15px;
   border-radius: 15px;
 }
 .summary_row_header {
@@ -89,7 +106,8 @@ div.scenario_list {
   margin-top: 25px;
   font-family: Verdana;
   font-size: 1em;
-  color: white
+  color: white;
+  clear: both;
 }
 .failures {
   width: 100%;

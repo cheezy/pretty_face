@@ -13,5 +13,7 @@ guard 'cucumber', :notification => true, :all_after_pass => false, :cli => '--pr
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
   watch(%r{^lib/.+\.rb$})                   { "features" }
   watch(%r{^lib/.+\.erb$})                  { "features" }
+  watch(%r{^lib/.+\.css$})                  { "features" }
+
 end
 
