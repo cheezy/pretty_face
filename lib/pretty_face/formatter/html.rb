@@ -26,7 +26,7 @@ module PrettyFace
         @options = options
         @report = Report.new
         @img_id = 0
-        @logo = 'face.jpg'
+        @logo = 'face.png'
       end
 
       def embed(src, mime_type, label)
@@ -188,7 +188,7 @@ module PrettyFace
         copy_directory 'images', %w(failed passed pending undefined skipped table_failed table_passed table_pending table_undefined table_skipped), "png"
         logo = logo_file
         copy_file logo, "#{File.join(File.dirname(@path), 'images')}" if logo
-        copy_directory 'images', ['face'], 'jpg' unless logo
+        copy_directory 'images', ['face'], 'png' unless logo
       end
 
       def copy_stylesheets
