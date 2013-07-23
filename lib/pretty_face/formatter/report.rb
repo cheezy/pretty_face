@@ -1,10 +1,11 @@
+require 'erb'
 module PrettyFace
   module Formatter
 
     module Formatting
       def summary_percent(number, total)
         percent = (number.to_f / total) * 100
-        "#{number} (#{'%.1f' % percent}%)"
+        "#{number} <span class=\"percentage\">(#{'%.1f' % percent}%)</span>"
       end
 
       def formatted_duration(duration)

@@ -35,31 +35,31 @@ describe PrettyFace::Formatter::Html do
     it "should keep track of passing scenarios" do
       step_mother.should_receive(:scenarios).with(:passed).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
-      formatter.scenarios_summary_for(:passed).should == "2 (100.0%)"
+      formatter.scenarios_summary_for(:passed).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of failing scenarios" do
       step_mother.should_receive(:scenarios).with(:failed).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
-      formatter.scenarios_summary_for(:failed).should == "2 (100.0%)"
+      formatter.scenarios_summary_for(:failed).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of pending scenarios" do
       step_mother.should_receive(:scenarios).with(:pending).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
-      formatter.scenarios_summary_for(:pending).should == "2 (100.0%)"
+      formatter.scenarios_summary_for(:pending).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of undefined scenarios" do
       step_mother.should_receive(:scenarios).with(:undefined).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
-      formatter.scenarios_summary_for(:undefined).should == "2 (100.0%)"
+      formatter.scenarios_summary_for(:undefined).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of skipped scenarios" do
       step_mother.should_receive(:scenarios).with(:skipped).and_return([1,2])
       step_mother.should_receive(:scenarios).and_return([1,2])
-      formatter.scenarios_summary_for(:skipped).should == "2 (100.0%)"
+      formatter.scenarios_summary_for(:skipped).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
   end
 
@@ -72,31 +72,31 @@ describe PrettyFace::Formatter::Html do
     it "should keep track of passing steps" do
       step_mother.should_receive(:steps).with(:passed).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
-      formatter.steps_summary_for(:passed).should == "2 (100.0%)"
+      formatter.steps_summary_for(:passed).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of failing steps" do
       step_mother.should_receive(:steps).with(:failed).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
-      formatter.steps_summary_for(:failed).should == "2 (100.0%)"
+      formatter.steps_summary_for(:failed).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of skipped steps" do
       step_mother.should_receive(:steps).with(:skipped).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
-      formatter.steps_summary_for(:skipped).should == "2 (100.0%)"
+      formatter.steps_summary_for(:skipped).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of pending steps" do
       step_mother.should_receive(:steps).with(:pending).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
-      formatter.steps_summary_for(:pending).should == "2 (100.0%)"
+      formatter.steps_summary_for(:pending).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
 
     it "should keep track of undefined steps" do
       step_mother.should_receive(:steps).with(:undefined).and_return([1,2])
       step_mother.should_receive(:steps).and_return([1,2])
-      formatter.steps_summary_for(:undefined).should == "2 (100.0%)"
+      formatter.steps_summary_for(:undefined).should == "2 <span class=\"percentage\">(100.0%)</span>"
     end
   end
 

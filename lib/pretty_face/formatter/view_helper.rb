@@ -54,7 +54,7 @@ module PrettyFace
 
       def summary_percent(number, total)
         percent = (number.to_f / total) * 100
-        "#{number} (#{'%.1f' % percent}%)"
+        "#{number} <span class=\"percentage\">(#{'%.1f' % percent}%)</span>"
       end
     end
   end

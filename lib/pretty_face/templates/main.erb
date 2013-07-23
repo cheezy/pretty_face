@@ -38,21 +38,21 @@
         <tr>
           <td class="summary_row_header">Scenarios</td>
           <td><%= report.scenario_count %></td>
-          <td><%= report.scenarios_summary_for :passed %></td>
-          <td><%= report.scenarios_summary_for :failed %></td>
-          <td><%= report.scenarios_summary_for :skipped %></td>
-          <td><%= report.scenarios_summary_for :undefined %></td>
-          <td><%= report.scenarios_summary_for :pending %></td>
+          <td><%= raw(report.scenarios_summary_for :passed) %></td>
+          <td><%= raw(report.scenarios_summary_for :failed) %></td>
+          <td><%= raw(report.scenarios_summary_for :skipped) %></td>
+          <td><%= raw(report.scenarios_summary_for :undefined) %></td>
+          <td><%= raw(report.scenarios_summary_for :pending) %></td>
           <td><%= report.scenario_average_duration(report.features) %></td>
         </tr>
         <tr>
           <td class="summary_row_header">Steps</td>
           <td><%= report.step_count %></td>
-          <td><%= report.steps_summary_for :passed %></td>
-          <td><%= report.steps_summary_for :failed %></td>
-          <td><%= report.steps_summary_for :skipped %></td>
-          <td><%= report.steps_summary_for :undefined %></td>
-          <td><%= report.steps_summary_for :pending %></td>
+          <td><%= raw(report.steps_summary_for :passed) %></td>
+          <td><%= raw(report.steps_summary_for :failed) %></td>
+          <td><%= raw(report.steps_summary_for :skipped) %></td>
+          <td><%= raw(report.steps_summary_for :undefined) %></td>
+          <td><%= raw(report.steps_summary_for :pending) %></td>
           <td><%= report.step_average_duration(report.features) %></td>
         </tr>
       </table>
