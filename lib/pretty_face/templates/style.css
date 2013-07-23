@@ -39,6 +39,13 @@ h2 {
     float: right;
 }
 
+.run_stats{
+    font-size: 0.9em;
+}
+
+.run_stats td{
+    padding: 0 10px 0 10px;
+}
 
 div.feature_background {
   background-color:#f2f0f1;
@@ -163,11 +170,6 @@ td.image_tag {
   width: 30px;
 }
 .description {
-  border: 1px dotted #CCCCCC;
-  border-radius: 8px 8px 8px 8px;
-  box-shadow: 1px 1px 5px #DDDDDD;
-  line-height: 2em;
-  padding: 10px;
   width: 100%;
   font-family: inherit
 }
