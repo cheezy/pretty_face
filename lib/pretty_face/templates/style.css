@@ -60,7 +60,6 @@ vertical-align: middle;
 
 .StatTable th img {
     vertical-align: middle;
- background-color: #90c447;
 }
 
 div.feature_background {
@@ -84,9 +83,8 @@ div.scenario_list {
   border-radius: 15px;
 }
 .summary_row_header {
-  text-align: right;
+  text-align: center;
   font-size: 1em;
-  font-weight: bold;
 }
 .summary td {
   font-size: 1em;
@@ -99,7 +97,7 @@ div.scenario_list {
 }
 .percentage {
 	color: #808080;
-	font-size: 8;
+	font-size: .6em;
 }
 
 .failed {
