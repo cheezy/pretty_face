@@ -13,7 +13,6 @@ body {
   font-size: 1em;
   color: #1A1A1A; 
   max-width: 1500px;
-
 }
 
 
@@ -39,6 +38,7 @@ h2 {
 
 .header_description {
     float: right;
+    padding: 25px;
 }
 
 .run_stats{
@@ -46,25 +46,33 @@ h2 {
 }
 
 .run_stats td{
-    padding: 0 10px 0 10px;
+    padding: 0 25px 0 0px;
 }
 
 .StatTable{
 cellspacing:10px;
-cellpadding: 0;
+cellpadding: 10px;
 width: 100%;
 table-layout: fixed;
-background-color: #f9f9f9;
+background-color: #fff;
+border-collapse: separate;
+border-spacing: 6px;
 }
 
 .StatTable th {
 vertical-align: middle;
 background-color: #f7f0f0;
+padding: 6px;
+text-align: center;
 }
 
+.StatTable tr {background-color: #f9f9f9;}
 .StatTable th img {
     vertical-align: middle;
+padding-right: 10px;
 }
+
+.StatTable td {padding: 10px; margin:10px}
 
 div.feature_background {
   background-color:#f2f0f1;
@@ -105,36 +113,31 @@ div.scenario_list {
 th.failed {
   background-color: #FF1D25;
   color: white;
-  border-color: #333333;
-  vertical-align: middle;
-  text-align: left;
 }
+
 th.passed {
   background-color: #90c447;
   color: white;
-  text-align: left;
-  vertical-align: middle;
 }
+
 th.pending {
   background-color: #fbb03b;
   color: white;
-  text-align: left;
-  vertical-align: middle;
-
 }
+
 th.undefined {
   background-color: #2e3192;
   color: white;
-  text-align: left;
-  vertical-align: middle;
 }
+
 th.skipped {
   background-color: #ed1e79;
   color: white;
-  text-align: left;
-  vertical-align: middle;
 }
 
+.skipped_step{
+    background-color: #F9CFE1;
+}
 .footer {
   width: 100%;
   background-color: #4B7CAB;
@@ -244,8 +247,6 @@ td.image_tag {
   padding: 7px;
   font-weight: normal;
 }
-
-
 
 .ruby {
   font-size: 12px;

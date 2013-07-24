@@ -7,20 +7,29 @@
   </head>
 
   <body>
-    <div style="float: left;">
-      <img src='images/<%= logo %>' width="200" />
-    </div>
-    <div style="float: left;">
-      <% if report.custom_suite_header? %>
-        <%= render "suite_header" %>
-      <% else %>
-        <%= render "main_header" %>
-      <% end %>
-      <span>Tests started: <%= report.start_time %></span>
-      <br />
-      <span>Duration: <%= report.total_duration %></span>
-    </div>
+    <div style="float: left; clear:both;">
+      <div class="header_logo">
+        <img src='images/<%= logo %>' width="200" />
+      </div>
+      <div class="header_description">
+        <% if report.custom_suite_header? %>
+          <%= render "suite_header" %>
+        <% else %>
+          <%= render "main_header" %>
+        <% end %>
 
+        <table class="run_stats">
+          <tr>
+            <td>started:</td>
+            <td>duration: </td>
+          </tr>
+          <tr>
+            <td><%= report.start_time  %></td>            
+            <td><%= report.total_duration  %></td>
+          </tr>
+        </table> 
+      </div>
+     </div>
   <div class="summary_body">
       <table class="StatTable">
         <tr>
