@@ -12,6 +12,7 @@ body {
   font-family: Verdana,Helvetica,sans-serif;
   font-size: 1em;
   color: #1A1A1A; 
+  max-width: 1500px;
 
 }
 
@@ -52,10 +53,13 @@ h2 {
 cellspacing:10px;
 cellpadding: 0;
 width: 100%;
+table-layout: fixed;
+background-color: #f9f9f9;
 }
 
 .StatTable th {
 vertical-align: middle;
+background-color: #f7f0f0;
 }
 
 .StatTable th img {
@@ -78,9 +82,7 @@ div.scenario_list {
 }
 
 .summary_body {
-  float: left;
-  margin-top: 15px;
-  border-radius: 15px;
+  clear: both;
 }
 .summary_row_header {
   text-align: center;
@@ -100,33 +102,33 @@ div.scenario_list {
 	font-size: .6em;
 }
 
-.failed {
+th.failed {
   background-color: #FF1D25;
   color: white;
   border-color: #333333;
   vertical-align: middle;
   text-align: left;
 }
-.passed {
+th.passed {
   background-color: #90c447;
   color: white;
   text-align: left;
   vertical-align: middle;
 }
-.pending {
+th.pending {
   background-color: #fbb03b;
   color: white;
   text-align: left;
   vertical-align: middle;
 
 }
-.undefined {
+th.undefined {
   background-color: #2e3192;
   color: white;
   text-align: left;
   vertical-align: middle;
 }
-.skipped {
+th.skipped {
   background-color: #ed1e79;
   color: white;
   text-align: left;
