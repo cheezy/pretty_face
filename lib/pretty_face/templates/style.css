@@ -135,7 +135,7 @@ th.skipped {
   color: white;
 }
 
-.skipped_step{
+td.skipped_step{
     background-color: #F9CFE1;
 }
 .footer {

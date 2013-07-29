@@ -1,3 +1,7 @@
+=== Release 0.6.1 / 2013-7-29
+* Fixed issue with new icons not being displayed
+* Adjusted width inconsistencies
+
 === Release 0.6 / 2013-7-24
 * Changed icons
 * Changed styling of summary table
