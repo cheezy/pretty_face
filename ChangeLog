@@ -1,3 +1,7 @@
+=== Release 0.7 / 2013-7-29
+* Fixed formatting for error detail display
+* Creates directory if not present before saving results to html file
+
 === Release 0.6.1 / 2013-7-29
 * Fixed issue with new icons not being displayed
 * Adjusted width inconsistencies
