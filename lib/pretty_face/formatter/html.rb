@@ -20,7 +20,7 @@ module PrettyFace
 
       def initialize(step_mother, path_or_io, options)
         @path = path_or_io
-        @io = ensure_io(path_or_io, 'html')
+        set_path_and_file(path_or_io)
         @path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
         @step_mother = step_mother
         @options = options
@@ -29,6 +29,12 @@ module PrettyFace
         @logo = 'face.png'
       end
 
+      def set_path_and_file(path_or_io)
+        dir = File.dirname(path_or_io)
+        FileUtils.mkdir_p dir unless File.directory? dir
+        @io = ensure_io(path_or_io, 'html')
+      end
+      
       def embed(src, mime_type, label)
         case(mime_type)
         when /^image\/(png|gif|jpg|jpeg)/
