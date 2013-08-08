@@ -10,7 +10,7 @@ Then /^I should remove the logo file$/ do
 end
 
 When /^I have a suite header partial in the correct location$/ do
-  FileUtils.cp "features/support/_suite_header.erb", "features/support/pretty_face"
+  FileUtils.cp "features/support/_suite_header.erb", "features/support/pretty_face/"
 end
 
 Then /^I should remove the suite header partial file$/ do
@@ -18,7 +18,7 @@ Then /^I should remove the suite header partial file$/ do
 end
 
 When /^I have a feature header partial in the correct location$/ do
-  FileUtils.cp "features/support/_feature_header.erb", "features/support/pretty_face"
+  FileUtils.cp "features/support/_feature_header.erb", "features/support/pretty_face/"
 end
 
 Then /^I should remove the feature header partial file$/ do

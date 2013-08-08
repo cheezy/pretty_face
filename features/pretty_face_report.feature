@@ -16,7 +16,7 @@ Feature: pretty face report
 
   Scenario: Generating some basic stats from the erb
     Then the file "results/fixture.html" should contain "<th>Executed<"
-    And the file "results/fixture.html" should contain "<th>Average<br/>Duration"
+    And the file "results/fixture.html" should contain "<th>Average Duration"
     And the file "results/fixture.html" should contain "Scenarios"
     And the file "results/fixture.html" should contain "Steps"
 
@@ -36,8 +36,8 @@ Feature: pretty face report
     | results/images/face.jpg |
 
   Scenario: It should show start time and duration in the header
-    Then the file "results/fixture.html" should contain "Tests started:"
-    And the file "results/fixture.html" should contain "Duration:"
+    Then the file "results/fixture.html" should contain "started:"
+    And the file "results/fixture.html" should contain "duration:"
 
   Scenario: It should capture scenario and step statuses
     Then the file "results/fixture.html" should contain "Passed"

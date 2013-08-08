@@ -19,8 +19,8 @@ Feature: pages that show details for features
     Then the file "results/basic.html" should contain "<img src="
 
   Scenario: It should show start time and duration in the header
-    Then the file "results/basic.html" should contain "Feature started:"
-    And the file "results/basic.html" should contain "Duration:"
+    Then the file "results/basic.html" should contain "started:"
+    And the file "results/basic.html" should contain "duration:"
 
   Scenario: Generating some basic stats from the erb
     Then the file "results/basic.html" should contain "<th>Executed<"
@@ -74,8 +74,8 @@ Feature: pages that show details for features
 
   Scenario: It should display error message with a yellow background and red text
     Then the file "results/basic.html" should contain "RSpec::Expectations::ExpectationNotMetError"
-    And the background of the error message row should be "255, 251, 211"
-    And the text of the of the error message row should be "194, 0, 0"
+    And the background of the error message row should be "rgba(249, 231, 8, 1)"
+    And the text of the of the error message row should be "rgba(0, 0, 0, 1)"
 
   Scenario: Embedding an image into the page
     Then the file "results/basic.html" should contain "<img id='img_0' style='display: none' src='images/autotrader.png'/>"
@@ -98,5 +98,5 @@ Feature: pages that show details for features
     When I have a feature header partial in the correct location
     And I run `cucumber fixtures --profile fixture`
     Then the file "results/basic.html" should contain "The Code Monkeys"
-    And the file "results/basic.html" should contain "Test Results"
+    And the file "results/basic.html" should contain "Feature Results"
     And I should remove the feature header partial file
