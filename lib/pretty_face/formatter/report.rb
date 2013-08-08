@@ -145,6 +145,10 @@ module PrettyFace
       def has_background?
         background.length > 0
       end
+
+      def file
+        @file.split('features/').last
+      end
     end
 
     class ReportScenario
