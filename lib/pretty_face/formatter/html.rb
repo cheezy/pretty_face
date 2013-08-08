@@ -30,6 +30,7 @@ module PrettyFace
       end
 
       def set_path_and_file(path_or_io)
+        return if path_or_io.nil?
         dir = File.dirname(path_or_io)
         FileUtils.mkdir_p dir unless File.directory? dir
         @io = ensure_io(path_or_io, 'html')
