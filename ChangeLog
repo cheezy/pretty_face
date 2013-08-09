@@ -1,5 +1,5 @@
 === Release 0.8 / 2013-8-8
-* Fixed pathing error when running within RiubyMine
+* Fixed pathing error when running within RubyMine
 
 === Release 0.7 / 2013-7-29
 * Fixed formatting for error detail display
