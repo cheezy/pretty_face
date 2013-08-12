@@ -33,7 +33,7 @@ Feature: pretty face report
 
   Scenario: It should copy the logo image to the images directory
     Then the following files should exist:
-    | results/images/face.jpg |
+    | results/images/face.png |
 
   Scenario: It should show start time and duration in the header
     Then the file "results/fixture.html" should contain "started:"
