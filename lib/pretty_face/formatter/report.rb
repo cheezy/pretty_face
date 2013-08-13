@@ -27,9 +27,13 @@ module PrettyFace
         dir = ''
         back_dir = source.count('/') if source
         back_dir.times do
-          dir += "..#{File::SEPARATOR}"
+          dir += "..#{separator}"
         end
         dir
+      end
+
+      def separator
+        File::ALT_SEPARATOR || File::SEPARATOR
       end
     end
 
@@ -91,8 +95,8 @@ module PrettyFace
         @title = feature.title
         @duration = Time.now - start_time
         a_file = feature.file.sub(/\.feature/, '.html')
-        to_cut = a_file.split(File::SEPARATOR).first
-        @file = a_file.sub("#{to_cut}/", '')
+        to_cut = a_file.split(separator).first
+        @file = a_file.sub("#{to_cut}#{separator}", '')
       end
 
       def steps
@@ -147,7 +151,7 @@ module PrettyFace
       end
 
       def file
-        @file.split("features#{File::SEPARATOR}").last
+        @file.split("features#{separator}").last
       end
     end
 

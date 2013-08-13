@@ -44,12 +44,11 @@ module PrettyFace
       end
 
       def embed_image(src, label)
-        @report.current_scenario.image = src.split(File::SEPARATOR).last
+        @report.current_scenario.image = src.split(separator).last
         @report.current_scenario.image_label = label
         @report.current_scenario.image_id = "img_#{@img_id}"
         @img_id += 1
-        filename = "#{File.dirname(@path)}#{File::SEPARATOR}images"
-        puts filename
+        filename = "#{File.dirname(@path)}#{separator}images"
         FileUtils.cp src, filename
       end
 
@@ -59,7 +58,7 @@ module PrettyFace
       end
 
       def features_summary_file
-        parts = @io.path.split(File::SEPARATOR)
+        parts = @io.path.split(separator)
         parts[parts.length - 1]
       end
 
@@ -162,9 +161,9 @@ module PrettyFace
         paths = [@path_to_erb, customization_directory.to_s]
         renderer = ActionView::Base.new(paths)
         filename = File.join(@path_to_erb, 'feature')
-        output_file = "#{File.dirname(@path)}/#{feature.file}"
-        to_cut = output_file.split('/').last
-        directory = output_file.sub("/#{to_cut}", '')
+        output_file = "#{File.dirname(@path)}#{separator}#{feature.file}"
+        to_cut = output_file.split(separator).last
+        directory = output_file.sub("#{separator}#{to_cut}", '')
         FileUtils.mkdir directory unless File.directory? directory
         file = File.new(output_file, Cucumber.file_mode('w'))
         file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo, :customize => custom_feature_header?})
@@ -178,12 +177,12 @@ module PrettyFace
       end
 
       def make_directory(dir)
-        path = "#{File.dirname(@path)}/#{dir}"
+        path = "#{File.dirname(@path)}#{separator}#{dir}"
         FileUtils.mkdir path unless File.directory? path
       end
 
       def copy_directory(dir, file_names, file_extension)
-        path = "#{File.dirname(@path)}/#{dir}"
+        path = "#{File.dirname(@path)}#{separator}#{dir}"
         file_names.each do |file|
           copy_file File.join(File.dirname(__FILE__), '..', 'templates', "#{file}.#{file_extension}"), path
         end
@@ -270,6 +269,10 @@ module PrettyFace
           values << cell.value
         end
         @cells << values
+      end
+
+      def separator
+        File::ALT_SEPARATOR || File::SEPARATOR
       end
     end
   end
