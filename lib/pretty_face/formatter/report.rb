@@ -25,7 +25,7 @@ module PrettyFace
 
       def directory_prefix_for(source=nil)
         dir = ''
-        back_dir = source.count('/') if source
+        back_dir = source.count(separator) if source
         back_dir.times do
           dir += "..#{separator}"
         end
@@ -152,6 +152,10 @@ module PrettyFace
 
       def file
         @file.split("features#{separator}").last
+      end
+
+      def parent_filename
+        @parent_filename.split(separator).last
       end
     end
 
