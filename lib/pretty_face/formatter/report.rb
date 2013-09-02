@@ -10,6 +10,8 @@ module PrettyFace
       def formatted_duration(duration)
         m, s = duration.divmod(60)
         "#{m}m#{'%.3f' % s}s"
+      rescue
+        "N m Ns"
       end
 
       def image_tag_for(status, source=nil)
