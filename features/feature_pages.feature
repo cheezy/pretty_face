@@ -94,6 +94,11 @@ Feature: pages that show details for features
     Then the following files should exist:
     | results/more/more.html |
 
+  Scenario: Should create a directory for each directory under features
+    Then the following files should exist:
+    | results/onemore/more.html |
+    | results/onemore/deep/more.html |
+
   Scenario: It should replace the header for the feature pages
     When I have a feature header partial in the correct location
     And I run `cucumber fixtures --profile fixture`

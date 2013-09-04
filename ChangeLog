@@ -1,3 +1,7 @@
+=== Release 0.9
+* Support for utf-8 (Thanks Eugene Batogov)
+* Fixed error when multiple nested directories
+
 === Release 0.8.2
 * More issues fixed with Windows
 

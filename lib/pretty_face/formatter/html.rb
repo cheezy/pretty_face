@@ -164,7 +164,7 @@ module PrettyFace
         output_file = "#{File.dirname(@path)}#{separator}#{feature.file}"
         to_cut = output_file.split(separator).last
         directory = output_file.sub("#{separator}#{to_cut}", '')
-        FileUtils.mkdir directory unless File.directory? directory
+        FileUtils.mkdir_p directory unless File.directory? directory
         file = File.new(output_file, Cucumber.file_mode('w'))
         file.puts renderer.render(:file => filename, :locals => {:feature => feature, :logo => @logo, :customize => custom_feature_header?})
         file.flush
@@ -178,7 +178,7 @@ module PrettyFace
 
       def make_directory(dir)
         path = "#{File.dirname(@path)}#{separator}#{dir}"
-        FileUtils.mkdir path unless File.directory? path
+        FileUtils.mkdir_p path unless File.directory? path
       end
 
       def copy_directory(dir, file_names, file_extension)
