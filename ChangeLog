@@ -1,3 +1,6 @@
+=== Release 0.9.1 / 2013-9-9
+* Updated CSS for embbeded image resizing
+
 === Release 0.9 / 2013-9-4
 * Support for utf-8 (Thanks Eugene Batogov)
 * Fixed error when multiple nested directories
