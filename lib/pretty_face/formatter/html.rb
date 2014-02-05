@@ -24,6 +24,9 @@ module PrettyFace
         @path_to_erb = File.join(File.dirname(__FILE__), '..', 'templates')
         @step_mother = step_mother
         @options = options
+        # The expand option is set to true by RubyMine and cannot be turned off using the IDE. This option causes
+        # a test run while using this gem to terminate.
+        @options[:expand] = false
         @report = Report.new
         @img_id = 0
         @logo = 'face.png'
