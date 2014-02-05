@@ -38,7 +38,10 @@ To replace the header that appears on all of the pages with details about featur
 
 ## Known Issues
 
-See [http://github.com/cheezy/pretty_face/issues](http://github.com/cheezy/pretty_face/issues)
+Using this gem's formatter from within RubyMine causes the result tree not to expand Scenario Outlines when running in RubyMine.
+
+For additional issues see:
+[http://github.com/cheezy/pretty_face/issues](http://github.com/cheezy/pretty_face/issues)
 
 ## Contribute
  
