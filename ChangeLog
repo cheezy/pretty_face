@@ -1,3 +1,7 @@
+=== Release 0.10.1 / 2014-4-7
+*  Included handling for unknown files
+*  Removed unused code
+
 === Release 0.10 / 2014-2-4
 * Overrode cucumber option to expand set by RubyMine
 

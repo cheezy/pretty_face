@@ -234,9 +234,7 @@ module PrettyFace
 
         def file_name_and_line(error_line)
           if error_line =~ /(.*):(\d+)/
-            file = $1
-            line = $2.to_i
-            [file, line]
+            [$1, $2.to_i]
           end
         end
 
@@ -252,7 +250,7 @@ module PrettyFace
           if file
             [lines_around(file, line), line, file]
           else
-            ["# Couldn't get snippet for #{error_line}", 1]
+            ["# Couldn't get snippet for #{error_line}", 1, 'File Unknown']
           end
         end
 
@@ -261,8 +259,6 @@ module PrettyFace
             lines = File.open(file).read.split("\n")
             min = [0, line-3].max
             max = [line+1, lines.length-1].min
-            selected_lines = []
-            selected_lines.join("\n")
             lines[min..max].join("\n")
           else
             "# Couldn't get snippet for #{file}"

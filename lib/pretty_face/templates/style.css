@@ -226,11 +226,17 @@ td.image_tag {
 .failures tr:last-child td:last-child {
   border-radius: 0px 0px 18px 0px;
 }
+
+table.param_table {
+    border-collapse: collapse;
+    text-align: center;
+}
 .param_table th,.param_table td {
-  border: 3px solid #E0E0E0;
+  border: 1px solid #E0E0E0;
   padding-left: 10px;
   padding-right: 10px;
 }
+
 .multiline_arg {
   padding-left: 15px;
   padding-right: 15px;
