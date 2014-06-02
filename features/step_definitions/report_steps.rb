@@ -1,6 +1,5 @@
 require 'fileutils'
 
-
 When /^I have a logo file in the correct location$/ do
   FileUtils.cp "features/support/logo.png", "features/support/pretty_face/"
 end

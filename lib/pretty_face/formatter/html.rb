@@ -8,6 +8,10 @@ require 'cucumber/ast/outline_table'
 require File.join(File.dirname(__FILE__), 'view_helper')
 require File.join(File.dirname(__FILE__), 'report')
 
+# Starting with ActionPack 4.1.1, the module Mime doesn't get initialized before it's needed by PrettyFace and so
+# it would blow up with errors about uninitialized constants. We need to explicitly load it to prevent this problem.
+require 'action_dispatch/http/mime_type'
+
 module PrettyFace
   module Formatter
 
