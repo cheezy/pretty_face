@@ -166,6 +166,9 @@ module PrettyFace
 
       def initialize(scenario)
         @steps = []
+        @image = []
+        @image_label = []
+        @image_id = []
         @start = Time.now
       end
 
