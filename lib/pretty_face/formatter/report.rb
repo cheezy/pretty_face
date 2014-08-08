@@ -263,7 +263,8 @@ module PrettyFace
             lines = File.readlines(file)
             min = [0, line-3].max
             max = [line+1, lines.length-1].min
-            lines[min..max].join("\n")
+            # lines[min..max].join("\n")
+            lines[min..max].join
           else
             "# Couldn't get snippet for #{file}"
           end
