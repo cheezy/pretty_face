@@ -51,9 +51,9 @@ module PrettyFace
       end
 
       def embed_image(src, label)
-        @report.current_scenario.image = src.split(separator).last
-        @report.current_scenario.image_label = label
-        @report.current_scenario.image_id = "img_#{@img_id}"
+        @report.current_scenario.image << src.split(separator).last
+        @report.current_scenario.image_label << label
+        @report.current_scenario.image_id << "img_#{@img_id}"
         @img_id += 1
         filename = "#{File.dirname(@path)}#{separator}images"
         FileUtils.cp src, filename

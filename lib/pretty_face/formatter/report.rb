@@ -166,6 +166,9 @@ module PrettyFace
 
       def initialize(scenario)
         @steps = []
+        @image = []
+        @image_label = []
+        @image_id = []
         @start = Time.now
       end
 
@@ -256,10 +259,12 @@ module PrettyFace
 
         def lines_around(file, line)
           if File.file?(file)
-            lines = File.open(file).read.split("\n")
+            # lines = File.open(file).read.split("\n")
+            lines = File.readlines(file)
             min = [0, line-3].max
             max = [line+1, lines.length-1].min
-            lines[min..max].join("\n")
+            # lines[min..max].join("\n")
+            lines[min..max].join
           else
             "# Couldn't get snippet for #{file}"
           end
