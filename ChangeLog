@@ -1,3 +1,6 @@
+=== Release 0.10.3
+* Fixed issue where two screenshots could not be inserted after a scenario (Thanks Tomas Mudrak)
+
 === Release 0.10.2 / 2014-6-2
 *  Included explicit require of module Mime due to dependency load changes in ActionPack 4.1.1
 
