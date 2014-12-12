@@ -13,9 +13,9 @@ describe PrettyFace::Formatter::Html do
 
   context "when not customizing the report" do
     it "indicates that there are no custom components" do
-      formatter.custom_suite_header?.should be_false
-      formatter.custom_feature_header?.should be_false
-      formatter.send(:logo_file).should be_nil
+      expect(formatter.custom_suite_header?).to be false
+      expect(formatter.custom_feature_header?).to be false
+      expect(formatter.send(:logo_file)).to be nil
     end
 
   end
