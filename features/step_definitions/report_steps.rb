@@ -27,10 +27,10 @@ end
 Then(/^the background of the error message row should be "(.*?)"$/) do |background|
   @browser = Watir::Browser.new :firefox
   visit ErrorDisplay do |page|
-    page.error_background.should include background
+    expect(page.error_background).to include background
   end
 end
 
 Then(/^the text of the of the error message row should be "(.*?)"$/) do |color|
-  on(ErrorDisplay).error_text_color.should include color
+  expect(on(ErrorDisplay).error_text_color).to include color
 end
