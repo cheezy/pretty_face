@@ -2,9 +2,9 @@ require 'action_view'
 require 'fileutils'
 require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
-require 'cucumber/ast/scenario'
-require 'cucumber/ast/table'
-require 'cucumber/ast/outline_table'
+require 'cucumber/core/ast/scenario'
+require 'cucumber/multiline_argument/data_table'
+
 require File.join(File.dirname(__FILE__), 'view_helper')
 require File.join(File.dirname(__FILE__), 'report')
 

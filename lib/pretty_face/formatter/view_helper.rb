@@ -1,4 +1,4 @@
-require 'cucumber/ast/scenario_outline'
+require 'cucumber/core/ast/scenario_outline'
 
 module PrettyFace
   module Formatter
