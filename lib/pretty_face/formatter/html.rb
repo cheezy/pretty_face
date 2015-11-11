@@ -70,51 +70,61 @@ module PrettyFace
       end
 
       def before_feature(feature)
+        puts "*** before_feature"
         @report.add_feature ReportFeature.new(feature, features_summary_file)
       end
 
       def after_feature(feature)
+        puts "*** after_feature"
         @report.current_feature.close(feature)
       end
 
       def before_background(background)
+        puts "*** before_background"
         @report.begin_background
       end
 
       def after_background(background)
+        puts "*** after_background"
         @report.end_background
         @report.current_feature.background << ReportStep.new(background)
       end
 
       def before_feature_element(feature_element)
-        unless scenario_outline? feature_element
+        puts "*** before_feature_element"
+#        unless scenario_outline? feature_element
           @report.add_scenario  ReportScenario.new(feature_element)
-        end
+#        end
       end
 
       def after_feature_element(feature_element)
-        unless scenario_outline?(feature_element)
+        puts "*** after_feature_element"
+#        unless scenario_outline?(feature_element)
           process_scenario(feature_element)
-        end
+#        end
       end
 
       def before_table_row(example_row)
+        @before_example_row = example_row
         @report.add_scenario ReportScenario.new(example_row) unless info_row?(example_row)
       end
 
       def after_table_row(example_row)
+        puts "*** after_table_row"
         unless info_row?(example_row)
           @report.current_scenario.populate(example_row)
           build_scenario_outline_steps(example_row)
         end
-        populate_cells(example_row) if example_row.instance_of? Cucumber::Ast::Table::Cells
+        populate_cells(example_row) if example_row.instance_of? Cucumber::Core::Ast::DataTable
       end
 
       def before_step(step)
+        puts "*** before_step"
         @step_timer = Time.now
       end
 
       def after_step(step)
+        puts "*** after_step"
         step = process_step(step) unless step_belongs_to_outline? step
         if @cells
           step.table = @cells
@@ -123,6 +133,7 @@ module PrettyFace
       end
 
       def after_features(features)
+        puts "*** after_features"
         @features = features
         @duration = format_duration(Time.now - @tests_started)
         copy_images
@@ -234,7 +245,7 @@ module PrettyFace
         report_step = ReportStep.new(step)
         report_step.duration = duration
         report_step.status = status unless status.nil?
-        if step.background?
+        if step.background
           @report.current_feature.background << report_step if @report.processing_background_steps?
         else
           @report.add_step report_step
@@ -243,12 +254,12 @@ module PrettyFace
       end
 
       def scenario_outline?(feature_element)
-        feature_element.is_a? Cucumber::Ast::ScenarioOutline
+        feature_element.is_a? Cucumber::Core::Ast::ScenarioOutline
       end
 
       def info_row?(example_row)
         return example_row.scenario_outline.nil? if example_row.respond_to? :scenario_outline
-        return true if example_row.instance_of? Cucumber::Ast::Table::Cells
+        return true if example_row.instance_of? Cucumber::Formatter::LegacyApi::Ast::DataTableRow
         false
       end
 
@@ -258,9 +269,13 @@ module PrettyFace
       end
 
       def build_scenario_outline_steps(example_row)
-        si = example_row.instance_variable_get :@step_invocations
+        si = example_row.cells
         si.each do |row|
-          process_step(row, row.status)
+          duration =  Time.now - @step_timer
+          report_step = ReportStep.new(@before_example_row, example_row)
+          report_step.duration = duration
+          @report.add_step report_step
+#          process_step(row, row.status)
         end
       end
 

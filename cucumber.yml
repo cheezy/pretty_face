@@ -1,3 +1,4 @@
 default: --color --no-source --format pretty 
 fixture: --color --no-source --require fixtures/step_definitions --format PrettyFace::Formatter::Html --out results/fixture.html
 focus: --color --no-source --format pretty --tags @focus
+

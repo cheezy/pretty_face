@@ -7,6 +7,10 @@ require 'watir-webdriver'
 
 World PageObject::PageFactory
 
+Aruba.configure do |config|
+  config.working_directory = "."
+end
+
 Before do
   @dirs = [File.join(File.dirname(__FILE__), '..', '..')]
 end

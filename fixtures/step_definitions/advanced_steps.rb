@@ -7,7 +7,7 @@ When /^I use (.*?)$/ do |value|
 end
 
 When /^I fail with (.*?)$/ do |value|
-  true.should == false
+  expect(true).to be_false
 end
 
 
@@ -30,5 +30,5 @@ When /^Cucumber puts$/ do |some_string|
 end
 
 Then /^it should say$/ do |some_string|
-  @last_string.should == some_string
+  expect(@last_string).to eql some_string
 end

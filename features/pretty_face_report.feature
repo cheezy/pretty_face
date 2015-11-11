@@ -1,3 +1,4 @@
+@no-clobber
 Feature: pretty face report
   
   Background:

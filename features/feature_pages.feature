@@ -1,8 +1,11 @@
+@no-clobber
 Feature: pages that show details for features
 
   Background:
-    When I run `cucumber fixtures --profile fixture`
+    When I run `cucumber fixtures --require fixtures/step_definitions --format PrettyFace::Formatter::Html --out results/fixture.html`
 
+@announce
+@focus
   Scenario: Generate the pages
     Then the following files should exist:
     | results/basic.html    |
