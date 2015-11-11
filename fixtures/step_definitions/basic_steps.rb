@@ -13,7 +13,7 @@ Then /^it should say hello$/ do
 end
 
 When /^the first step fails$/ do
-  expect(true).to be_false
+  expect(true).to be false
 end
 
 Then /^the second step should not execute$/ do

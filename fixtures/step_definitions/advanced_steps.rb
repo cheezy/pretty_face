@@ -7,7 +7,7 @@ When /^I use (.*?)$/ do |value|
 end
 
 When /^I fail with (.*?)$/ do |value|
-  expect(true).to be_false
+  expect(true).to be false
 end
 
 
