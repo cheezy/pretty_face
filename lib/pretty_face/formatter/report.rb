@@ -206,7 +206,7 @@ module PrettyFace
           unless step.instance_of? Cucumber::Formatter::LegacyApi::Ast::Background
             @keyword = step.keyword
             @status = step.status
-            @multiline_arg = step.multiline_arg
+            @multiline_arg = step.multiline_arg unless step.multiline_arg.instance_of? Cucumber::Core::Ast::EmptyMultilineArgument
             @error = step.exception
           end
         end
