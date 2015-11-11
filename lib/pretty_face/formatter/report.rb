@@ -175,7 +175,6 @@ module PrettyFace
       end
       
       def populate(scenario)
-        puts "The scenario is actually #{scenario.class}"
         @duration = Time.now - @start
         @status = scenario.status
         if scenario.instance_of? Cucumber::Formatter::LegacyApi::Ast::Scenario
