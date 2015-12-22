@@ -40,7 +40,7 @@ module PrettyFace
         return if path_or_io.nil?
         dir = File.dirname(path_or_io)
         FileUtils.mkdir_p dir unless File.directory? dir
-        @io = ensure_io(path_or_io, 'html')
+        @io = ensure_io(path_or_io)
       end
       
       def embed(src, mime_type, label)
@@ -87,15 +87,11 @@ module PrettyFace
       end
 
       def before_feature_element(feature_element)
-#        unless scenario_outline? feature_element
-          @report.add_scenario  ReportScenario.new(feature_element)
-#        end
+        @report.add_scenario  ReportScenario.new(feature_element)
       end
 
       def after_feature_element(feature_element)
-#        unless scenario_outline?(feature_element)
-          process_scenario(feature_element)
-#        end
+        process_scenario(feature_element)
       end
 
       def before_table_row(example_row)
