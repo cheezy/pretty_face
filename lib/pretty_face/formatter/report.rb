@@ -94,7 +94,7 @@ module PrettyFace
       end
 
       def close(feature)
-        @title = feature.title
+        @title = feature.name
         @duration = Time.now - start_time
         a_file = feature.file.sub(/\.feature/, '.html')
         to_cut = a_file.split(separator).first
